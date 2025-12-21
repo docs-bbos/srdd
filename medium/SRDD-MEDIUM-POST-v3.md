@@ -24,11 +24,16 @@ As a developer, you should still care about how something is written, but the in
 
 Like any developer new to AI coding, I started with the "vibe coding" approach. I understood the context window limitations and happily churned out utilities for my environment. I rapidly produced fully-functional, fully-documented, and fully-tested scripts — solutions I'd previously dismissed as too much work to fit into spare time. With me, if I don't complete a project quickly, I never get back to it. I get bored or consumed by other projects. So the rapid development cycle was gold.
 
-This also solved my other persistent problem: returning to a previous codebase. As carefully as I'd written my code with headers, comments, and documentation, once a script involved multiple classes and files, reasoning about it became harder. I was amazed how quickly my understanding of a codebase shrivelled after stepping away. But now, AI code analysis is almost instantaneous and highly accurate. Point it at a codebase and ask "what does this do?" — within seconds you have a comprehensive explanation that would have taken hours to piece together manually.
+This also solved another persistent problem: returning to an old codebase. No matter how carefully I wrote my code — with headers, comments, and documentation — once a project spanned multiple classes and files, reasoning about it became difficult. I was consistently surprised by how quickly my understanding of a system degraded after even a short break.
+
+That, in part, is a product of how busy our lives have become. I strongly disagree that the world *needs* to be this busy — there are no imminent meteorites heading toward Earth, no expected alien invasions. And yet, as a species, we rush to deliver outcomes as if everything is an emergency. This constant urgency is driven less by necessity than by a growth-at-all-costs and endless competition mindset under modern capitalism. I’ll leave that broader critique to my essays, for those interested.
+
+Back to the point: AI code analysis fundamentally changes this dynamic. It is fast, accurate, and relentlessly patient. Point it at a codebase and ask, “What does this do?” and within seconds you receive a coherent, high-level explanation — something that would otherwise take hours of manual reading, context rebuilding, and cognitive warm-up.
+
 
 ## The Wall
 
-Once I started to expand my goals and write larger solutions with multiple services, I properly understood the limitations of a context window. Actually, I learnt this earlier when writing multi-chapter essays. I had this expectation that the AI would magically maintain persistence of the content. I was crushed when I asked it to print out a chapter only to find, after a quick read, that it had changed most of what we'd previously written.
+Once I started to expand my goals and write larger solutions with multiple services, I properly understood the limitations of a context window. Actually, I learnt this earlier when writing those multi-chapter essays mentioned before. I had this expectation that the AI would magically maintain persistence of the content. I was crushed when I asked it to print out a chapter only to find, after a quick read, that it had changed most of what we'd previously written.
 
 To solve this problem, I wrote one of my first multi-service applications — Catalyst — to manage context across multiple chapters and even build an Astro website to display the content.
 
@@ -62,19 +67,27 @@ If Context Engineering is about the meticulous curation of information, then Spe
 
 The promise is seductive: specs become the source of truth, you can regenerate code from updated specs, and you get consistency that vibe coding can't provide.
 
-But SDD is a masochist's dream. It's Big Design Up Front (BDUF) wearing new clothes. What system is simple enough to fully describe before building it? You'll spend endless time looping on spec refinement before writing a single line of code. And when you discover requirements through actual usage — as you inevitably will — you're stuck updating specs to match reality rather than the other way around.
+But SDD is a masochist’s dream. It is Big Design Up Front (BDUF) in modern dress — the same old Waterfall assumption that a complex system can be fully specified before it is built. What real system is simple enough for that to be true?
+
+This is precisely why Agile emerged in the first place: because BDUF consistently failed in practice, especially on large, complex projects. The further a system grows, the harder it becomes to predict interactions, edge cases, and real user behaviour from a document alone.
+
+In reality, teams end up trapped in endless loops of specification refinement before writing a single line of code. Then, when real requirements emerge through actual use — as they inevitably do — the process breaks down. Instead of the design guiding reality, you are forced to continually retrofit the specification to match what the system has already become. The document lags behind the truth, and everyone pretends otherwise.
 
 "Gowd, I just need to make that button blue." But first you update the UI spec, then the component spec, then regenerate, then verify the output matches. For a one-line CSS change. It's a nightmare. Managers love it — I used to have to maintain UML artifacts so I know the pain. But developers need to actually ship things.
 
-There's another problem nobody talks about: **AI doesn't dream.** LLMs are interpolation machines, not imagination machines. They find the statistical centre of their training data. If you rely entirely on AI to implement from spec, your architecture will be whatever pattern appears most frequently in training data. A human developer "feels" when something isn't quite right. AI can only do what it's seen before. Pure SDD produces generic products — they ship faster, but they ship bland.
+There’s another problem nobody talks about: **AI doesn’t dream.** LLMs are interpolation machines, not imagination machines. They gravitate toward the statistical centre of their training data. If you rely entirely on AI to implement directly from specification, your architecture — and your interfaces — will tend to mirror whatever patterns appear most frequently in that data.
+
+A human developer *feels* when something isn’t right: when a screen is doing too much, when a flow feels awkward, when a user is being asked to think too hard, or when an interaction technically “works” but emotionally misses the mark. These are not things you specify cleanly in advance. They emerge through use, discomfort, and iteration.
+
+AI can only recombine what it has already seen. In that mode, pure SDD optimises for speed, not distinctiveness: products ship faster, but they increasingly converge on the same visual language, the same interaction patterns, and the same bland experience.
 
 ## Finding My Own Way
 
 I liked aspects of both approaches, but as an independent developer working unpaid on this in my spare time, I didn't have the gumption to believe I could stick to either.
 
-So I set about using my 25+ years of experience as a software engineer — working with waterfall, spiral models, UML artifacts, then teaching myself and my team Agile, and more recently learning SAFe that spans multiple projects — to come up with something that worked for me. What I developed is a good alternative for medium single-project to multi-project systems.
+So I set about drawing on more than 25 years of experience as a software engineer — from early work in Waterfall and spiral models, through heavy use of UML artefacts, to later adopting and teaching Agile practices within teams, and more recently working within SAFe across multi-project programs — to develop an approach that actually works for me. What emerged is a practical alternative suited to medium-sized single projects through to coordinated multi-project systems.
 
-I call it **Spec-Roundtrip Driven Development (SRDD)**.
+I call it **Spec-Roundtrip Driven Development (SRDD)**. For larger, multi-project environments, the same principles scale into **Scaled Spec-Roundtrip Driven Development (SSRDD)** (I love symmetry).
 
 It starts with building a spec — though one more closely aligned to a development plan — working with AI assistance and, in a smaller capacity, as a vibe-coder to build the design. It requires the developer to be hands-on: helping create requirements, architecture, and design; approving each pull request with code review and UAT; and working strategically through the issues. It keeps the developer's hands on the steering wheel, but with an AI assistant to keep it within the lane.
 
@@ -96,7 +109,7 @@ The AI synthesises fresh specs from:
 
 The output is a new dated plan directory:
 ```
-docs/plans/2025-06-10_v3_regeneration-post-spaghetti/
+docs/plans/2025-12-10_v3_regeneration-post-spaghetti/
   00-PLANNING.md   ← Synthesised from code + v1 + v2 + issues + PRs
   ...
 ```

@@ -1,5 +1,98 @@
 # Spec-Roundtrip Driven Development: A Third Way for AI-Assisted Coding
 
+I started AI-assisted coding in January 2025 and joined a community of like-minded professionals at [New Society](https://www.skool.com/new-society) where the latest AI news, tools, trends, and members' projects are discussed daily.
+
+## Finding My Footing
+
+I immersed myself in Cursor IDE and found the tight integration of AI assistant and editor to be a welcome combination. The experience was seamless: easy AI-assisted development, instant insight into unfamiliar code, an integrated terminal, and one-click interpretation of errors for debugging. Recent versions have pushed this further with Background Agents that run autonomously in isolated cloud environments, up to eight parallel agents working simultaneously via git worktrees, an integrated browser for testing and debugging without leaving the IDE, BugBot for automated PR code reviews, voice control, and their new Composer model that completes most tasks in under 30 seconds.
+
+But to me, the downside is the same as any GUI. Pretty and functional, but real power lies in the command line if you know what you're doing. So when Claude Code and OpenAI's Codex emerged, I was truly in my element. Run the coding assistant — including agents — from the terminal and prompt it naturally. Maintain configuration and rules in markdown files (true in Cursor too), and view changes through your favourite text editor or IDE. You can even double-dip on AI coding abilities by using Cursor as your viewer. I prefer full-screen terminal sessions with AI prompts filling the buffer, then a simple Ctrl-Tab to the IDE to review code changes.
+
+## The Honeymoon Phase
+
+Like any developer new to AI coding, I started with the "vibe coding" approach. I understood the context window limitations and happily churned out utilities for my environment. I rapidly produced fully-functional, fully-documented, and fully-tested scripts — solutions I'd previously dismissed as too much work to fit into spare time. With me, if I don't complete a project quickly, I never get back to it. I get bored or consumed by other projects. So the rapid development cycle was gold.
+
+This also solved my other persistent problem: returning to a previous codebase. As carefully as I'd written my code with headers, comments, and documentation, once a script involved multiple classes and files, reasoning about it became harder. I was amazed how quickly my understanding of a codebase shrivelled after stepping away.
+
+## The Wall
+
+Once I started to expand my goals and write larger solutions with multiple services, I properly understood the limitations of a context window. Actually, I learnt this earlier when writing multi-chapter essays. I had this expectation that the AI would magically maintain persistence of the content. I was crushed when I asked it to print out a chapter only to find, after a quick read, that it had changed most of what we'd previously written.
+
+To solve this problem, I wrote one of my first multi-service applications — Catalyst — to manage context across multiple chapters and even build an Astro website to display the content.
+
+But then I ran into my next tranche of problems with AI-assisted coding:
+
+- **Scope creep**: Features expanding beyond original intent, one "quick addition" at a time
+- **Inconsistent implementations**: The same functional service (logging, error handling, configuration) implemented three different ways across three different files
+- **Architectural drift**: Multiple solutions to the same problem, each locally reasonable but globally incoherent
+- **Code regression**: Fixes in one area causing failures in unrelated areas — the whack-a-mole pattern
+- **God classes emerging**: Modules accumulating responsibilities until they became unmaintainable
+- **Velocity decay**: Simple features taking longer and longer as the codebase grew
+- **AI uncertainty**: The assistant hedging with "I'm not sure if this will break something"
+
+Catalyst development steamed along rapidly until these issues hit. I'd spend days pouring over the same problem. Then a little later it would break again, so I'd return to write more fixes and tests. I've been coding long enough to know that I had an architectural problem.
+
+## Searching for Solutions
+
+So I did some research and spoke to people at New Society and developed a better plan. I looked at the current AI assistant coding trends beyond vibe coding — mainly Context Engineering and Spec-Driven Development (SDD).
+
+### Context Engineering
+
+Context Engineering is the emerging middle ground that Thoughtworks and others are championing. The insight is that it's not about prompts or specs — it's about *what information you feed the AI and when*.
+
+This includes techniques like anchoring agents to reference applications, using Model Context Protocol (MCP) to give agents access to tools and data, and curating the smallest possible set of high-signal context for each task. Practitioners found something counterintuitive: AI is often more effective when it's further abstracted from the underlying system. Remove the specifics of legacy code, and the solution space becomes wider.
+
+I found Context Engineering too finicky — too "anally retentive," though they prefer to call it "disciplined precision." I agree that economisation is valuable and there's plenty to learn from this approach. But the overhead of constant curation felt unsustainable for a solo developer.
+
+### Spec-Driven Development
+
+If Context Engineering is about the meticulous curation of information, then Spec-Driven Development (SDD) is the high-church ritual of that world. Write detailed specifications in markdown, let AI generate code, iterate on the specs rather than the code. GitHub's Spec Kit has made this approach accessible.
+
+The promise is seductive: specs become the source of truth, you can regenerate code from updated specs, and you get consistency that vibe coding can't provide.
+
+But SDD is a masochist's dream. It's Big Design Up Front (BDUF) wearing new clothes. What system is simple enough to fully describe before building it? You'll spend endless time looping on spec refinement before writing a single line of code. And when you discover requirements through actual usage — as you inevitably will — you're stuck updating specs to match reality rather than the other way around.
+
+There's another problem nobody talks about: **AI doesn't dream.** LLMs are interpolation machines, not imagination machines. They find the statistical centre of their training data. If you rely entirely on AI to implement from spec, your architecture will be whatever pattern appears most frequently in training data. A human developer "feels" when something isn't quite right. AI can only do what it's seen before. Pure SDD produces generic products — they ship faster, but they ship bland.
+
+## Finding My Own Way
+
+I liked aspects of both approaches, but as an independent developer working unpaid on this in my spare time, I didn't have the gumption to believe I could stick to either.
+
+So I set about using my 25+ years of experience as a software engineer — working with waterfall, spiral models, UML artifacts, then teaching myself and my team Agile, and more recently learning SAFe that spans multiple projects — to come up with something that worked for me. What I developed is a good alternative for medium single-project to multi-project systems.
+
+I call it **Spec-Roundtrip Driven Development (SRDD)**.
+
+It starts with building a spec — though one more closely aligned to a development plan — working with AI assistance and, in a smaller capacity, as a vibe-coder to build the design. It requires the developer to be hands-on: helping create requirements, architecture, and design; approving each pull request with code review and UAT; and working strategically through the issues. It keeps the developer's hands on the steering wheel, but with an AI assistant to keep it within the lane.
+
+The core insight: **specs are snapshots, not contracts**. They compress your understanding at a point in time. But the code becomes the real source of truth as you iterate — and periodically, you extract new specs from evolved code.
+
+The AI keeps track of the project and looks for signs of "spaghettification," then advises when to regenerate the application.
+
+### The Regeneration Cycle
+
+This is the "roundtrip" in Spec-Roundtrip Driven Development.
+
+The AI synthesises fresh specs from:
+
+- Current codebase (what exists)
+- All previous planning docs (original intent)
+- Git history — PRs, commits (decisions made)
+- Issues — open and closed (what was learned)
+- Test suite (what behaviours are locked in)
+
+The output is a new dated plan directory:
+```
+docs/plans/2025-06-10_v3_regeneration-post-spaghetti/
+  00-PLANNING.md   ← Synthesised from code + v1 + v2 + issues + PRs
+  ...
+```
+
+Then restart Phase 1 with clean architecture. Tests that still apply carry forward. History is preserved. Understanding compounds.
+
+It's a closed loop, not a one-way street.
+
+---
+
 2025 has been the year of AI coding methodologies. We've watched Andrej Karpathy coin "vibe coding" in February, GitHub release Spec Kit, Thoughtworks declare the shift to "context engineering," and everyone argue about whether we're entering a golden age or a technical debt apocalypse.
 
 After extensive work with Claude Code, Bolt.new, and Cursor, I've landed on a hybrid approach that I'm calling **Spec-Roundtrip Driven Development (SRDD)**. But before I explain it, we need to map the territory — because the discourse has moved beyond a simple binary.
@@ -16,7 +109,25 @@ The problems are well-documented now. Context window limitations mean the AI los
 
 Worse, vibe coding gives developers a false sense of security. The AI will do whatever the current context statistically suggests — which means the same functional service (say, logging) can end up implemented in three different ways across three different files. The AI doesn't notice the inconsistency because it's not in context.
 
-**Where vibe coding works:** Small projects where the entire codebase fits in the context window. Command-line tools, simple GUIs, utilities. I use it regularly for tools that live in my `~/bin` — rich CLIs with full documentation, knocked out in a single session.
+**Where vibe coding works:**
+
+- Small projects where the entire codebase fits in the context window
+- Command-line tools, simple GUIs, utilities
+- Tools that live in `~/bin` — rich CLIs with full documentation, knocked out in a single session
+
+**Advantages:**
+
+- Fastest time to first output — no planning overhead
+- Interactive, iterative, feels like magic when it works
+- Perfect for small, context-window-sized projects
+- Great for utilities, CLIs, simple GUIs, one-session tools
+
+**Limitations:**
+
+- Context window limits mean AI loses track of purpose and past decisions
+- Same functionality implemented inconsistently across files
+- False sense of security — AI does whatever current context suggests
+- Doesn't scale beyond what fits in context
 
 ### 2. Agentic Coding
 
@@ -26,6 +137,20 @@ Experiments show it works — one study had an AI team with 30% fewer engineers 
 
 But agentic coding is still fundamentally code-first. The agent explores the codebase, makes changes, and iterates. There's no external source of truth about what the system *should* be — only what it currently is.
 
+**Advantages:**
+
+- Structured goal-based approach with AI planning
+- Studies show 30% fewer engineers delivering in half the time
+- Handles multi-step tasks autonomously
+- Good for medium complexity, program-of-projects work
+
+**Limitations:**
+
+- Still fundamentally code-first — no external source of truth
+- Only knows what currently exists, not original intent
+- Can drift from requirements without formal checkpoints
+- No mechanism to capture decisions for future reference
+
 ### 3. Context Engineering
 
 The emerging middle ground that Thoughtworks and others are championing. The insight: it's not about prompts or specs, it's about *what information you feed the AI and when*.
@@ -34,7 +159,19 @@ This includes techniques like anchoring agents to reference applications, using 
 
 Interestingly, practitioners found something counterintuitive: AI is often more effective when it's further abstracted from the underlying system. Remove the specifics of legacy code, and the solution space becomes wider. This aligns with keeping specifications implementation-agnostic.
 
-**The limitation:** Context engineering is still reactive and one-directional. You're curating context for the AI to consume, but there's no formal mechanism to extract updated understanding back out. The context gets stale.
+**Advantages:**
+
+- Focuses on high-signal context curation
+- AI more effective when abstracted from legacy specifics
+- MCP enables tool and data access
+- Works well for complex brownfield and legacy systems
+
+**Limitations:**
+
+- Reactive and one-directional
+- No formal mechanism to extract updated understanding back out
+- Context gets stale over time
+- Requires constant manual curation
 
 ### 4. Spec-Driven Development (SDD)
 
@@ -50,6 +187,20 @@ LLMs are interpolation machines, not imagination machines. They find the statist
 
 A human developer "feels" when a button needs to be 2 pixels larger, or when an interaction is slightly wrong. AI can only do what it's seen before. Pure SDD produces generic products — they ship faster, but they ship bland.
 
+**Advantages:**
+
+- Specs become the source of truth
+- Can regenerate code from updated specs
+- Consistency that vibe coding can't provide
+- Good for greenfield with stable, well-understood requirements
+
+**Limitations:**
+
+- Big Design Up Front (BDUF) in disguise
+- Endless spec refinement loops before writing code
+- Requirements discovered through usage force awkward spec updates
+- AI doesn't dream — produces generic, statistically average outputs
+
 ### 5. SRDD: The Roundtrip Approach
 
 This is the hybrid I've developed. It keeps what works about SDD (structure, documentation, architectural intentionality) while acknowledging that the best specifications emerge from building, not before it.
@@ -57,6 +208,21 @@ This is the hybrid I've developed. It keeps what works about SDD (structure, doc
 The core insight: **specs are snapshots, not contracts**. They compress your understanding at a point in time. But the code becomes the real source of truth as you iterate — and periodically, you extract new specs from evolved code.
 
 It's a closed loop, not a one-way street.
+
+**Advantages:**
+
+- Bidirectional spec-code loop captures emergent understanding
+- Prevents specification drift through regeneration cycles
+- Manages AI-generated technical debt at design level
+- Preserves product wisdom through structured Q&A
+- Makes room for human judgment — the "feel" AI can't replicate
+
+**Limitations:**
+
+- More overhead than vibe/agentic for simple projects
+- Requires discipline to recognise and trigger regeneration
+- Learning curve for the full workflow
+- Overkill for utilities and small tools
 
 ## Comparing the Approaches
 
@@ -258,6 +424,20 @@ Systems/ecommerce/
 ```
 
 MCP servers can provide tools for contract management, dependency checking, and cross-domain coordination. But that's a topic for another post.
+
+**Advantages:**
+
+- Each domain maintains its own SRDD cycle independently
+- System constitution ensures integration consistency
+- API Guardian pattern coordinates cross-domain contract evolution
+- Scales to large multi-bounded-context systems
+
+**Limitations:**
+
+- Significant coordination overhead between domains
+- Requires cross-team buy-in on standards
+- Contract management adds complexity
+- Tooling (MCP servers, guardians) still maturing
 
 ## The Career Angle
 

@@ -1,4 +1,6 @@
-# Spec-Roundtrip Driven Development: A Third Way for AI-Assisted Coding
+# SRDD Is the Best AI Coding Methodology
+
+**Spec-Roundtrip Driven Development** - Keeping developers in control while building better systems with aligned AI
 
 I started AI-assisted coding in January 2025 and joined a community of like-minded professionals at [New Society](https://www.skool.com/new-society), where AI tools, methods, and real-world projects are discussed daily.
 
@@ -26,15 +28,25 @@ That’s why tools like Claude Code and OpenAI’s Codex clicked for me. Command
 
 Businesses don’t care which sorting algorithm you chose. They care that the system solves their problem. As developers, our job is to care *just enough* — and to name things well enough that intent stays visible. I’d much rather see `sortRedBlackTree()` than `sort()` and retain that understanding without spelunking through every line.
 
-This approach to small well named functions / methods is one of the principals in Uncle Bob's "Clean Code" - see [summary of this](https://gist.github.com/wojteklu/73c6914cc446146b8b533c0988cf8d29#functions-rules), [general video](https://youtu.be/7EmboKQH8lM) and [book](https://www.goodreads.com/book/show/3735293-clean-code).
+This approach to small well named functions / methods is one of the principals in Uncle Bob's "Clean Code" - see [summary of this](https://gist.github.com/wojteklu/73c6914cc446146b8b533c0988cf8d29#functions-rules), [video of Uncle Bob on stage](https://youtu.be/7EmboKQH8lM) and [book](https://www.goodreads.com/book/show/3735293-clean-code).
 
 ## The Honeymoon Phase
 
-Like everyone new to AI coding, I started with “vibe coding”. I churned out utilities I’d previously written off as not worth the effort. Fully tested, documented tools appeared in hours instead of weekends.
+Like everyone new to AI coding, I started with “vibe coding”. I churned out utilities I’d previously written off as not worth the effort. Fully tested, well-documented tools appeared in hours instead of weekends.
 
 It also solved another persistent problem: returning to old codebases. Even with good documentation, once a project spanned multiple files and services, understanding decayed quickly. AI code analysis changed that. Point it at a repository and ask, “What does this do?” — and within seconds you get a coherent, high-level explanation that would normally take hours of context rebuilding.
 
-That patience is transformative.
+That kind of patience changes how you work.
+
+At the same time, I should be clear about something: I don’t buy the modern obsession with speed for its own sake. Not everything needs to be solved *immediately*, as if a meteorite were on a collision course with Earth, or some alien civilisation had scheduled our planet for demolition so they could build an intergalactic super-highway. Most of the urgency we live under isn’t existential at all — it’s a capitalistic drive built around eternal competition with everyone else. We must ship first. We must make more money. Before them. What a load of codswallop.  This is the act that is killing the planet and the people.
+
+I’ve written — and continue to write — about these topics at length elsewhere, in essays, for anyone interested.
+
+The reason I *do* embrace AI coding is different. It removes the mundane and the laborious. Writing boilerplate. Churning out test scaffolding. Re-implementing solutions that have already been solved a thousand times, in a dozen languages. Few developers genuinely enjoy that work, and fewer would argue it’s where human creativity is best spent.
+
+What *is* fulfilling is building architecturally coherent systems, writing novel code where novelty matters, and shaping systems with a sense of intent — even a kind of poetry or artistry. AI coding makes room for that. By offloading the repetitive and the already-solved, it gives developers the space to focus on structure, meaning, and design.
+
+And that shift — from exhaustion to intention — is quietly transformative.
 
 ## Hitting the Wall
 
@@ -52,13 +64,15 @@ When that continuity breaks, the AI doesn’t fail loudly — it degrades subtly
 * velocity slowing as complexity rose
 * the AI hedging: “I’m not sure if this will break something”
 
-I’d been coding long enough to recognise the pattern. This wasn’t a tooling problem. It was an architectural one.
+I’d been coding long enough to recognise the pattern. This wasn’t just a tooling problem. It was a deeper failure of software-engineering fundamentals — violated design principles, eroded architectural patterns, and the slow decay of clean, comprehensible code. These are issues that only emerge clearly with professional experience. They don’t announce themselves immediately, and they’re easy to miss if you haven’t had to maintain, extend, and live with systems over time. But once you have, the signs are unmistakable.
 
 ## Surveying the Landscape
 
-By mid-2025, the industry had names for what I was experiencing.
+By mid-2025, it was clear that I wasn’t alone in hitting this wall. As AI-assisted coding moved beyond small tools and demos into longer-lived systems, the same failure modes were appearing everywhere: loss of coherence, architectural drift, and teams no longer fully understanding the systems they were shipping.
 
-We’d watched Andrej Karpathy coin *vibe coding*. GitHub released Spec Kit. Thoughtworks declared the shift toward *context engineering*. Others leaned into increasingly agentic approaches.
+In response, the industry began to fragment into distinct AI coding methodologies. Some approaches effectively ignored the problem altogether — because they were never intended to operate at that scale. Others attempted to address it directly, each in their own way, with different assumptions about control, structure, and responsibility.
+
+We watched Andrej Karpathy coin *vibe coding*. GitHub released Spec Kit. Thoughtworks declared the shift toward *context engineering*. Others leaned into increasingly agentic approaches.
 
 What became clear is that this wasn’t a binary debate. Five distinct approaches were emerging:
 
@@ -74,15 +88,17 @@ SDD in particular troubled me. It promises order, but assumes you can fully spec
 
 LLMs interpolate. They gravitate toward the statistical centre of their training data. If you rely entirely on AI to implement from specification, your architecture — and your interfaces — converge on the same patterns everyone else ships.
 
-A human developer feels when a screen is doing too much, when a flow is awkward, when something technically works but emotionally misses. Those judgments emerge through use and discomfort. They don’t live cleanly in specs.
+A human developer feels when a screen is doing too much, when a flow is awkward, when something technically works but emotionally misses. Those judgments emerge through use, friction, and lived interaction. They do not reside cleanly in specifications.
 
-Pure SDD optimises for speed, not distinctiveness.
+Pure SDD doesn’t optimise for speed. At scale, it is often painfully slow. What it optimises for instead is **consistency, formal declaration, and auditability**: clearly defined artefacts, traceable decisions, and boxes that can be ticked with confidence. The result is systems that are internally coherent on paper, defensible in process, and deeply constrained in expression.
 
 ## Finding a Third Way
 
-As a solo developer working unpaid in spare time, I knew I wouldn’t sustain either extreme. So I drew on 25 years of experience — from Waterfall and spiral models, through UML-heavy enterprise systems, to Agile teams and SAFe programs — and built something that worked for me.
+As a solo developer working unpaid in my spare time, I knew I wouldn’t sustain any of these for my bigger projects. So I drew on my 25+ years of experience — from Waterfall and spiral models, through UML-heavy enterprise systems, to Agile teams and SAFe programs — to build something that worked for me.
 
-I call it **Spec-Roundtrip Driven Development (SRDD)**. For larger environments, it scales to **Scaled SRDD (SSRDD)**.
+That professional background isn’t the point. It simply informed my analysis and helped me recognise the patterns early. The result itself is deliberately simple.
+
+I call it **Spec-Roundtrip Driven Development (SRDD)**. For larger environments, it scales through **Scaled SRDD (SSRDD)**.
 
 The core insight is simple:
 
@@ -92,20 +108,19 @@ They capture understanding at a moment in time. Code evolves. Periodically, you 
 
 Specs guide code. Code informs regenerated specs. It’s a closed loop.
 
-The developer stays hands-on — shaping requirements, reviewing PRs, validating behaviour — while AI handles execution, analysis, and discipline. The human dreams. The AI keeps the lane.
+The developer stays hands-on — shaping requirements, reviewing PRs, and validating behaviour — with their hands firmly on the steering wheel. The AI handles execution, analysis, and discipline, keeping the system within its lane and keeping that baby on the road. The human dreams and chooses the destination; the AI helps get there.
 
 That roundtrip is what keeps understanding compounding instead of decaying.
 
----
+## Where This Goes Next
 
-### Where to take this next
+Spec-Roundtrip Driven Development is about aligning AI-assisted coding with the realities of professional systems development and the outcomes we actually care about: coherent architecture, maintainable systems, and products that feel intentional rather than accidental — **with the potential to operate effectively at scale**.
 
-* **Part 2** can stay as the deep dive: workflows, regeneration cycles, scaling patterns.
-* This Part 1 now stands alone as a **conceptual positioning piece**.
-* Medium readers get the *why* before the *how*.
+SRDD builds on what AI is genuinely good at, recognises its limits, and restores the developer’s role as the system’s steward — hands on the steering wheel — rather than a passive passenger.
 
-If you want, next I can:
+In **Part 2**, I go deeper into the mechanics: the SRDD workflow, regeneration cycles, how specifications are synthesised back out of living systems, and how the approach scales to multi-project environments using **Scaled SRDD (SSRDD)**. I also map SRDD explicitly against vibe coding, agentic coding, context engineering, and spec-driven development, showing where each approach works — and where it predictably breaks.
 
-* tighten this further for Medium’s scroll behaviour,
-* split it into a short + long read,
-* or rewrite the opening to be more provocative for distribution.
+You can read Part 2 here:
+👉 **[https://brooke.medium.com/ssrd-part2](https://brooke.medium.com/ssrd-part2)**
+
+If Part 1 was about *why* SRDD exists, Part 2 is about *how* it works.

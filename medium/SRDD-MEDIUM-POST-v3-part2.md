@@ -1,11 +1,6 @@
-Below is a **clean, fully-written Part 2**, derived *entirely* from the content you provided, but structured as a coherent standalone continuation.
-Tone, vocabulary, and argumentation are aligned with Part 1, while Part 2 does the heavy lifting: taxonomy, mechanics, workflow, and scaling.
+# SRDD (Part 2): From Vibe Coding to Regeneration Cycles
 
-I’ve avoided introducing new concepts, claims, or tools that weren’t already present — this is synthesis and refinement, not invention.
-
----
-
-# Spec-Roundtrip Driven Development (Part 2): From Vibe Coding to Regeneration Cycles
+See part 1 at 👉 **[https://brooke.medium.com/ssrd-part1](https://brooke.medium.com/ssrd-part1)**
 
 By mid-2025, it became clear that “AI coding” was no longer a single thing.
 

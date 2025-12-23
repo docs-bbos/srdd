@@ -12,9 +12,9 @@ That framing misses what’s actually happening.
 
 What we’re seeing instead is a spectrum of approaches, each with its own strengths and failure modes.
 
-### 1. Vibe Coding
+## 1. Vibe Coding
 
-#### 1) What’s Been Written (Refined)
+### What it is
 
 Vibe coding is the casual extreme of AI-assisted development. You prompt the AI conversationally:
 
@@ -22,7 +22,9 @@ Vibe coding is the casual extreme of AI-assisted development. You prompt the AI 
 > “Fix that bug.”
 > “Refactor this file.”
 
-It feels magical when it works — and for small projects, it often does. But the moment architectural memory matters, it starts to unravel. Context windows are finite. As systems grow, the AI forgets earlier decisions, repeats mistakes, and implements the same concern three different ways across three different files. Worse, it creates a false sense of confidence: everything appears to work, until it suddenly doesn’t.
+It feels magical when it works — and for small projects, it often does. But the moment architectural memory matters, it starts to unravel. Context windows are finite. As systems grow, the AI forgets earlier decisions, repeats mistakes, and implements the same concern three different ways across three different files.
+
+Worse, it creates a false sense of confidence: everything appears to work, until it suddenly doesn’t.
 
 Vibe coding shines for:
 
@@ -32,307 +34,168 @@ Vibe coding shines for:
 
 It breaks the moment continuity and system-level understanding are required.
 
-#### 2) What Is the Process?
+### The process
 
 Vibe coding is intentionally fluid and conversational. There is no formal specification, no curated context, and minimal concern for internal structure.
 
 The loop usually looks like this:
 
-1. **Describe the intent**, not the implementation (“Make this feel slick”, “This UI should pop”).
-2. **Accept large AI-generated changes wholesale**, often without reviewing the code.
-3. **React to outcomes**, not internals — if something feels off, you prompt again.
-4. **Pivot instead of debugging** — swap libraries, rewrite modules, or change direction rather than tracing root causes.
+1. Describe the intent, not the implementation (“Make this feel slick”).
+2. Accept large AI-generated changes wholesale.
+3. React to outcomes rather than internals.
+4. Pivot instead of debugging.
 
-You are trading *structural integrity* for *momentum*. The code is treated as an opaque byproduct, not an artifact to be understood.
+You are trading *structural integrity* for *momentum*. The code is treated as an opaque byproduct, not an artefact to be understood.
 
-#### 3) What Are the Pros?
+### The pros
 
-**Extreme velocity.**
-Vibe coding collapses idea → code → output into a single step. Syntax, plumbing, and boilerplate vanish. You can build in minutes what once took days.
-
-**Low friction creativity.**
-Because you’re not fighting tooling, you stay in a high-level flow. This makes it ideal for UI exploration, rapid prototyping, and divergent thinking.
-
-**Drudgery elimination.**
-Standard tasks — CRUD, scaffolding, setup — are well represented in training data. AI handles the boring 80%, freeing humans to focus on novelty, design, and intent.
-
-**Democratisation.**
-Designers, founders, and product managers can produce high-fidelity, living prototypes without deep technical knowledge — often improving communication and alignment.
+* Extreme velocity
+* Low-friction creativity
+* Drudgery elimination
+* Democratized prototyping
 
 Vibe coding is unbeatable for **0 → 1**.
 
-#### 4) What Are the Cons?
+### The cons
 
-**The complexity ceiling.**
-At a certain size (often shockingly small), the AI loses coherence. Fixes introduce regressions elsewhere. You enter a “whack-a-mole” loop.
-
-**Invisible technical debt.**
-Because the code isn’t read or shaped deliberately, problems accumulate silently until they become unavoidable — and expensive.
-
-**Security and correctness risks.**
-AI optimises for plausibility, not safety. Without explicit constraints, vibe-coded systems frequently contain insecure defaults and subtle logic flaws.
-
-**Auditor fatigue.**
-Reviewing large volumes of AI-generated code is cognitively harder than writing smaller amounts yourself. Developers become exhausted auditors rather than builders.
-
-**Non-reproducibility.**
-With no spec or engineered context, results are non-deterministic. Re-running the same prompts later often yields a different architecture — making team collaboration fragile.
+* A very low complexity ceiling
+* Invisible technical debt
+* Security and correctness risks
+* Auditor fatigue
+* Non-reproducibility
 
 Vibe coding is exhilarating — until you have to live with what you shipped.
 
-#### Bottom Line
+### Bottom line
 
-Vibe coding is the **ultimate 0 → 1 tool**. It is spectacular for prototypes, experiments, and disposable software. It becomes dangerous the moment a system needs to be maintained, reasoned about, or trusted.
-
-Most experienced developers now use it *selectively*: to explore ideas quickly — and then transition to something more disciplined once the idea is worth keeping.
-
-Here’s a tightened, **essay-ready** version of **Agentic Coding**, aligned to the same structure and tone as *Vibe Coding*, and explicitly anchored to **context loss, architectural drift, and professional SE judgment**. I’ve kept your core ideas, removed marketing language, and sharpened the failure analysis.
-
-You can paste this directly as **Section 2**.
+Vibe coding is the ultimate **0 → 1 tool**. It becomes dangerous the moment a system needs to be maintained, reasoned about, or trusted.
 
 ---
 
-### 2. Agentic Coding
+## 2. Agentic Coding
 
-#### What it is (in practice)
+### What it is
 
-Agentic coding introduces structure and autonomy. Instead of responding to a single prompt, the AI is given a **goal** and allowed to plan, act, verify, and correct itself using tools. The interaction shifts from *chat* to *task*.
+Agentic coding introduces structure and autonomy. Instead of responding to a single prompt, the AI is given a goal and allowed to plan, act, verify, and correct itself using tools.
 
-In practice, this means the AI operates like a junior engineer with shell access. It explores the repository, edits multiple files, runs builds and tests, installs dependencies, and iterates until its internal success criteria are met. Tools such as Claude Code and Cursor operate in this mode when given multi-step instructions.
+The interaction shifts from *chat* to *task*.
 
-Agentic coding feels like leverage. One person can move faster, touch more surface area, and complete work that would normally require multiple engineers. It is widely perceived as a step toward “AI teammates.”
+In practice, the AI behaves like a junior engineer with shell access: exploring the repository, editing files, running builds, fixing errors, and iterating until its own success criteria are met.
 
-But despite the autonomy, it remains fundamentally **code-first**. The agent reasons over the current state of the repository, not over a durable representation of system intent. Understanding emerges implicitly, if at all.
+It feels like leverage.
 
-#### Typical process
+But it remains fundamentally **code-first**. The agent reasons over the current repository state, not over a durable representation of intent. Understanding emerges implicitly, if at all.
 
-Agentic workflows follow a loop rather than a single response:
+### The process
 
-1. **Goal definition**
-   The human provides a task framed as a definition of done, not a conversational prompt.
+Agentic workflows follow a loop:
 
-2. **Autonomous discovery**
-   The agent scans the repository, reads files, greps for relevant symbols, and maps dependencies.
+1. Goal definition
+2. Autonomous discovery
+3. Planning
+4. Execution
+5. Verification
+6. Handoff
 
-3. **Planning**
-   The agent generates a step-by-step plan and may request approval before proceeding.
+Persistence is the defining feature.
 
-4. **Execution**
-   The agent edits files, runs commands, fixes errors, installs dependencies, and retries.
+### Where it shines
 
-5. **Verification**
-   Tests are run; failures trigger replanning and further action.
+Agentic coding excels at operational throughput:
 
-6. **Handoff**
-   The agent stops when tests pass, a blocker is reached, or human intervention is required.
+* Mechanical refactors
+* Dependency upgrades
+* Test fixes
+* Repetitive implementation work
 
-The defining feature is persistence: the agent keeps going until something external forces it to stop.
+Used well, it offloads drudgery. Used casually, it accelerates entropy.
 
-#### Where it genuinely shines
+### Failure modes at scale
 
-Agentic coding excels at **operational throughput**.
+* Context loss becomes probabilistic
+* Architectural drift accelerates
+* Professional judgment erodes
+* Autonomy creates security and cost risks
 
-It is particularly effective for:
+### Verdict
 
-* Mechanical refactors across many files
-* Dependency upgrades and API migrations
-* Test fixing and lint cleanups
-* Repetitive implementation work with clear end states
+Agentic coding is **delegated execution**, not delegated responsibility.
 
-When guardrails are present, it can offload large volumes of “engineering drudgery” and compress delivery timelines dramatically. Used well, it allows experienced engineers to focus on higher-order concerns while the agent handles execution.
-
-#### Failure modes at scale
-
-Agentic coding fails differently from vibe coding—but just as predictably.
-
-**Context loss becomes probabilistic rather than immediate:**
-Each step may succeed locally, but longer chains compound error. A task with ten steps and a 95% per-step success rate only succeeds end-to-end about 60% of the time. At enterprise scale, agentic workflows become coin flips.
-
-**Architectural drift accelerates:**
-Because the agent optimises for task completion, not system coherence, it introduces local fixes that subtly diverge from architectural intent. Without a stabilising specification, the agent reshapes the system opportunistically. Over time, the codebase becomes a sedimentary record of agent decisions no one fully owns.
-
-**Professional judgment erodes through delegation:**
-Reviewing agent output is cognitively expensive. Fifteen-file changesets across multiple modules are harder to audit than human-authored code. Teams adapt by reviewing less rigorously. “Accept All” becomes normal. Understanding decays.
-
-**Autonomy without accountability introduces new risks:**
-Agents require broad access—to terminals, file systems, secrets, and cloud resources. This creates a large attack surface. Prompt injection, runaway loops, and cost explosions are not edge cases; they are emergent properties of autonomy.
-
-The net result is speed without stability. Agentic coding delivers output faster than teams can assimilate meaningfully.
-
-#### Verdict
-
-Agentic coding is best understood as **delegated execution**, not delegated responsibility.
-
-It can dramatically accelerate delivery, but it does not preserve intent, prevent drift, or accumulate understanding. Without external anchors, the agent’s loop optimises for *completion*, not *coherence*.
-
-If vibe coding is improvisation and context engineering is discipline, agentic coding is industrialisation—powerful, efficient, and dangerous without brakes.
-
-Used carefully, it is leverage. Used casually, it is entropy at machine speed.
+It delivers speed without stability.
 
 ---
 
-### 3. Context Engineering
+## 3. Context Engineering
 
-#### What it is
+### What it is
 
-Context Engineering reframes the AI-coding problem entirely. Success isn’t about better prompts or more detailed specifications; it’s about **controlling what information the model sees, when it sees it, and in what form**.
+Context Engineering focuses on controlling *what* the AI sees, *when*, and *in what form*. The goal is not more context, but better abstraction.
 
-In the 2025 Thoughtworks Technology Radar, Context Engineering is positioned as a necessary evolution beyond vibe coding — a move from luck and conversational nudging toward a disciplined, production-grade engineering practice. Thoughtworks defines it as the *systematic design and optimisation of the information provided to an LLM during inference*.
+It treats the context window as a scarce resource.
 
-The motivation is simple: large language models have finite attention. Dumping entire repositories or long histories into a context window leads to “lost in the middle” effects, higher costs, and worse outputs. More context often makes models *less* reliable, not more.
+### The process
+
+* Context curation (skeletons, exemplars, rules)
+* Context management (summaries, scratchpads)
+* Dynamic retrieval (MCP, tools, on-demand access)
+
+### The pros
+
+* Fewer hallucinations
+* Lower cost and better performance
+* Architectural enforcement
+* Determinism for contract-driven systems
+
+### The cons
+
+* High cognitive overhead
+* Fragility across model changes
+* Context bloat
+* Slower feedback loops
+* One-directional knowledge flow
+
+### Takeaway
+
+Context Engineering improves inputs, but does not extract updated understanding. Knowledge still rots unless humans intervene.
+
+That gap is where SRDD emerges.
 
 ---
 
-#### The process
+## 4. Spec-Driven Development (SDD)
 
-Context Engineering typically involves three layers of work:
+### What it is
 
-1. **Context setup (curation)**
-   Developers aggressively prune noise and supply only high-signal inputs:
-
-   * *Skeleton trimming* (method signatures, interfaces, API contracts instead of full implementations)
-   * *Knowledge priming* using reference architectures or “gold standard” examples
-   * Small sets of canonical few-shot examples rather than broad dumps of mediocre code
-
-2. **Context management (long-horizon tasks)**
-   Because tasks exceed a single context window, teams introduce structure:
-
-   * AI-maintained scratchpads or `memory.md` files
-   * Sub-agent architectures where each agent sees only what it needs
-   * Periodic summarisation of prior conversations and decisions
-
-3. **Dynamic retrieval (just-in-time context)**
-   Instead of pushing everything upfront, agents pull context only when required:
-
-   * Model Context Protocol (MCP) to access files, logs, APIs, and databases
-   * Tools like Context7 to provide version-accurate documentation
-   * Repository-level files (`agents.md`, `context.md`) that define architectural ground rules
-
-The guiding idea is abstraction: counterintuitively, removing legacy detail often *improves* AI performance by widening the solution space.
-
-#### The pros
-
-Used well, Context Engineering delivers real benefits:
-
-* **Fewer hallucinations and less context rot**
-  By grounding the model in curated constraints, the AI is less likely to invent libraries, APIs, or patterns that don’t exist in your environment — particularly valuable in legacy refactors and complex bug fixing.
-
-* **Lower cost and better performance**
-  Skeleton trimming allows large systems to fit into manageable windows, reducing token usage and latency while improving response quality.
-
-* **Architectural enforcement**
-  It turns vibe coding into guardrail coding. Standards live in shared context files, so AI-generated code automatically reflects senior-level conventions, reducing PR churn.
-
-* **Determinism for spec-driven workflows**
-  In API-first or contract-driven systems, a carefully engineered spec can reliably generate servers, clients, and tests with minimal variance.
-
-This is why Thoughtworks frames Context Engineering as the “adult in the room” — the point where AI stops being a toy and starts resembling an engineering tool.
-
-#### The cons
-
-The criticism is not that Context Engineering *doesn’t work*, but that it comes with a heavy tax.
-
-* **High cognitive and maintenance overhead**
-  Developers can end up spending more time managing the AI’s “brain” than building features. For solo developers or small teams, this discipline quickly becomes brittle.
-
-* **Fragility across model changes**
-  A carefully tuned context can break when underlying models change. What worked perfectly with GPT-4 may degrade with GPT-4.5, turning context setup into a maintenance liability.
-
-* **Context bloat and instruction fatigue**
-  As rules accumulate (`.cursorrules`, architecture docs, agent instructions), they consume the very attention budget they’re meant to optimise, creating new blind spots.
-
-* **Slower feedback loops**
-  What could have been a five-second experiment becomes a multi-minute process. For prototyping and early exploration, this often feels like ceremonial masochism.
-
-* **One-directional knowledge flow**
-  Context flows *into* the AI, but there’s no built-in mechanism to extract updated understanding back out. Specs and documents still rot unless humans intervene.
-
-#### The takeaway
-
-Context Engineering is powerful, disciplined, and increasingly necessary in large or constrained environments. But it is also **procedural, brittle, and expensive in attention**. It solves the context window problem by force of ceremony, not by closing the loop.
-
-And that gap — between feeding understanding in and getting understanding back out — is precisely where SRDD emerges.
-
-### 4. Spec-Driven Development (SDD)
-
-#### What it is (in practice)
-
-Spec-Driven Development formalises AI-assisted coding around written intent. The developer produces detailed specifications—typically in markdown—describing behaviour, constraints, and acceptance criteria. The AI then generates code *from the spec*, and iteration happens primarily by refining the document rather than editing the implementation directly.
-
-In its modern form, SDD has been revived by tools such as GitHub’s Spec Kit, which make spec-to-code workflows practical at scale. The promise is compelling: consistency, regenerable code, and documentation that never drifts because it *is* the source of truth.
+SDD formalises development around written specifications. The AI generates code *from* the spec. Iteration happens by editing documents rather than implementations.
 
 In practice, SDD treats the AI as a compiler for natural language.
 
-#### Typical process
+### Where it shines
 
-The SDD workflow is deliberate and front-loaded:
+* Stable core logic
+* Regulated domains
+* Regenerable systems
+* High audit requirements
 
-1. **Specification authoring**
-   The human writes a detailed description of behaviour, data structures, invariants, and edge cases.
+### Failure modes
 
-2. **Code generation**
-   The AI translates the spec into implementation code.
-
-3. **Validation**
-   The generated system is tested against the spec.
-
-4. **Iteration via spec changes**
-   When requirements change, the spec is updated and the code is regenerated or patched to match.
-
-The emphasis is not on evolving code, but on perfecting the description that precedes it.
-
-#### Where it genuinely shines
-
-SDD performs best where **determinism and auditability** matter more than exploration.
-
-It is genuinely effective for:
-
-* Core business logic with stable requirements
-* Regulated domains (finance, healthcare, safety-critical systems)
-* Teams that need consistent output across contributors
-* Scenarios where regeneration is cheaper than refactoring
-
-As an externalised memory, the spec provides a stable anchor. The AI does not “forget” requirements buried in chat history. Intent, once written, persists.
-
-#### Failure modes at scale
-
-SDD’s weaknesses are not technical. They are philosophical—and historical.
-
-**It reintroduces Big Design Up Front.**
-SDD assumes that complex systems can be fully described *before they exist*. This is the same assumption that powered Waterfall, and the same one Agile emerged to correct. Reality inevitably intrudes. Edge cases appear. Constraints shift. The spec lags behind lived behaviour.
-
-**Context loss is deferred, not solved.**
-When change happens in code first—as it often must—the spec becomes an artefact to be updated *after the fact*. Teams begin documenting what the system does rather than guiding what it should do. The “source of truth” quietly flips.
-
-**Architectural drift is disguised as compliance.**
-Because the AI optimises for adherence to the spec, not system coherence, architectural problems can persist indefinitely—as long as they are consistent with the document. The system may be formally correct and practically wrong.
-
-**Professional judgment has no natural entry point.**
-Most critically, SDD has no place for taste, discomfort, or intuition. LLMs interpolate; they do not imagine. If architecture and UI emerge solely from spec-to-code generation, systems converge toward statistically common patterns. Innovation collapses into average.
+* Reintroduces Big Design Up Front
+* Defers rather than solves drift
+* Masks architectural problems as compliance
+* Excludes human taste and intuition
 
 AI doesn’t dream.
-And SDD gives it nothing else to work with.
+SDD gives it nothing else to work with.
 
-#### Verdict
-
-Spec-Driven Development trades improvisational chaos for procedural certainty. It ships faster—and blander.
-
-As a control mechanism, it is powerful. As a creative or adaptive methodology, it is brittle. The more faithfully teams adhere to it, the more they risk mistaking formal correctness for real understanding.
-
-SDD does not fail because it is too strict.
-It fails because it assumes that understanding can be fully captured *before* experience.
-
-And complex systems simply do not work that way.
+---
 
 ## SRDD: The Missing Loop
 
-Spec-Roundtrip Driven Development (SRDD) emerged as a response to all of this.
+Spec-Roundtrip Driven Development (SRDD) keeps:
 
-It keeps:
-
-* the structure and intentionality of specs
-* the speed and assistance of AI
-* the adaptability of iterative development
+* the structure of specs
+* the speed of AI
+* the adaptability of iteration
 
 But it rejects the idea that specs are contracts.
 
@@ -342,24 +205,13 @@ They compress understanding at a moment in time. Code evolves. Decisions accumul
 
 That roundtrip is the core innovation.
 
-## The SRDD Workflow
+---
 
-SRDD operates as a closed loop with explicit phases.
+## The SRDD Workflow
 
 ### Phase 1: Design
 
-Everything starts with structured discovery.
-
-I use a questionnaire-driven approach that captures:
-
-* the problem and who has it
-* actors and goals
-* functional and non-functional requirements
-* user journeys and edge cases
-* data lifecycles
-* constraints and success criteria
-
-These are synthesised — with AI assistance — into a set of planning documents:
+Structured discovery produces a small set of planning documents:
 
 ```
 docs/plans/2025-01-15_v1_initial-design/
@@ -374,11 +226,11 @@ docs/plans/2025-01-15_v1_initial-design/
 
 The AI asks questions. Misunderstandings are corrected. Understanding deepens.
 
-At the end of this phase, only a small number of high-level issues are created. The backlog stays lean.
+The backlog stays intentionally lean.
 
 ### Phase 2: Implementation
 
-Each issue follows a strict TDD cycle:
+Each issue follows TDD:
 
 ```
 failing test ↔ implement → pass
@@ -390,98 +242,94 @@ Tests are layered:
 * integration
 * functional
 
-Local UAT happens continuously.
+**Crucial clarification:**
 
-A critical role emerges here: **the AI as scope guardian**.
+In SRDD, **contracts are the authority** — APIs, UI behaviours, events, and invariants that must remain stable unless explicitly versioned.
+**Tests are their executable witnesses**: the proof of what must not change.
 
-When the developer inevitably thinks, “While I’m here, I should also add…”, the AI pushes back:
+Internal structure is free to evolve as long as these contracts hold.
 
-> “That’s outside the scope of this issue. Want me to create a new one?”
-
-The human dreams. The AI disciplines.
+The AI acts as **scope guardian**, preventing opportunistic expansion.
 
 ### Phase 3: Review
 
-Once tests pass, the AI prepares a PR linked to the issue. The developer reviews, requests changes, and merges.
-
-Decisions are captured implicitly in PRs and commits — material that will matter later.
+PRs capture decisions implicitly. This history matters later.
 
 ### Phase 4: Production
 
-Deploy. Perform UAT on real data. Any issues discovered become new issues and re-enter the loop.
+Deploy. Perform UAT on real data. Issues become new issues — never reopen old ones.
 
 ### Phase 5: Iterate or Regenerate
 
-Most of the time, you iterate.
+Most work is iterative.
 
-But SRDD explicitly recognises when iteration becomes counterproductive.
-
-The AI watches for signs of architectural decay:
+But the AI actively watches for spaghettification:
 
 * duplicated logic
-* fixes causing unrelated failures
-* god classes emerging
-* simple changes requiring edits across many files
-* velocity slowing
-* hedging language: “I’m not sure if this will break something”
+* circular dependencies
+* whack-a-mole regressions
+* god modules
+* slowing velocity
+* hedging language
 
-When detected, the AI advises triggering regeneration.
+When detected, it advises regeneration.
+
+---
 
 ## The Regeneration Cycle
 
-This is the “roundtrip”.
+This is the roundtrip.
 
-The AI synthesises new specs from:
+The AI re-synthesises understanding from:
 
-* the current codebase
-* all prior planning documents
-* git history (PRs and commits)
-* issues (open and closed)
+* current code
+* prior planning docs
+* git history
+* issues
 * the test suite
 
-The result is a new, dated planning directory:
+A new plan directory is produced.
 
-```
-docs/plans/2025-06-10_v3_regeneration-post-spaghetti/
-  00-PLANNING.md
-  ...
-```
+**Key refinement:**
 
-You then restart Phase 1 — with clearer understanding, cleaner architecture, and preserved history.
+Regeneration is **holistic in diagnosis, selective in intervention**.
 
-Code informed the spec. The spec will now guide the next generation of code.
+The system is re-understood end-to-end, but only subsystems showing drift are redesigned. Healthy components are explicitly left alone.
 
 Understanding compounds instead of decaying.
 
+---
+
 ## Scaling SRDD (SSRDD)
 
-For multi-project or multi-domain systems, SRDD scales into **Scaled SRDD (SSRDD)**.
+For multi-domain systems, SRDD scales into **Scaled SRDD (SSRDD)**.
 
-Each domain runs its own SRDD cycle:
+Each domain runs its own SRDD loop.
 
-* independent planning docs
-* independent backlogs
-* independent regeneration triggers
+At the system level, SSRDD coordinates:
 
-At the system level, you maintain:
+* shared constitutions
+* explicit contracts
+* dependency visibility
+* boundary drift
 
-* a shared constitution (standards, conventions)
-* explicit dependency declarations
-* optional API guardians to coordinate contract evolution
+SSRDD scales **understanding**, not bureaucracy.
 
-This resembles SAFe structurally — but with AI-assisted regeneration as the organising principle.
+---
 
 ## Why SRDD Works
 
-* It acknowledges discovery instead of denying it
+* It acknowledges discovery
 * It prevents specs from becoming fiction
-* It manages AI-generated technical debt at the design level
+* It manages AI-induced technical debt at the design level
 * It preserves tacit product wisdom
-* It creates space for human judgment — the “feel” AI cannot replicate
+* It restores human judgment where it belongs
 
 SRDD is not the fastest way to write code.
 
-It *is* the fastest way to keep understanding intact over time.
+It *is* the fastest way to keep understanding intact.
+
+---
 
 ## Closing
 
@@ -494,6 +342,6 @@ Spec-driven development fails because reality intrudes.
 
 SRDD accepts both — and closes the loop between them.
 
-Specs deserve a return ticket.
+**Specs deserve a return ticket.**
 
 Give them one.

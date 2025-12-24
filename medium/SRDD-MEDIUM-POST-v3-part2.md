@@ -883,18 +883,39 @@ That is the roundtrip — and it is why SRDD scales not just across codebases, b
 
 ---
 
-## Scaling SRDD (SSRDD)
+## Scaled SRDD (SSRDD)
 
-For multi-domain systems, SRDD scales into **Scaled SRDD (SSRDD)**.
+For systems that extend beyond a single bounded context, SRDD scales into **Scaled SRDD (SSRDD)**.
 
-Each domain runs its own SRDD loop.
+SSRDD is not a new methodology layered on top of SRDD. It is a coordination wrapper that allows **multiple independent SRDD loops** to coexist without collapsing into chaos or bureaucracy.
 
-At the system level, SSRDD coordinates:
+Each domain, service, or subsystem:
+* owns its own planning artefacts
+* runs its own SRDD cycles
+* evolves at its own pace
+* regenerates when its local signals demand it
 
-* shared constitutions
-* explicit contracts
-* dependency visibility
-* boundary drift
+No central plan attempts to predict how the whole system should evolve.
+
+Instead, SSRDD introduces just enough structure at the **system boundary** to allow independent evolution without accidental entanglement.
+
+### System-Level Coordination
+
+At the system level, SSRDD coordinates only what *must* be shared:
+
+* **Shared constitutions**  
+  Agreed integration standards that define how domains present themselves to one another — API conventions, event schemas, versioning rules, and compatibility expectations. These govern interaction, not internal design.
+
+* **Explicit contracts**  
+  Public-facing APIs, events, and invariants are declared and versioned. Domains are free to change internally as long as these contracts hold or are deliberately evolved.
+
+* **Dependency visibility**  
+  What each domain consumes and produces is visible by design. Hidden couplings are surfaced early, before they calcify into architectural traps.
+
+* **Boundary drift detection**  
+  SSRDD watches for signs that domain boundaries are eroding — duplicated responsibilities, circular dependencies, creeping knowledge of internals — and flags these as candidates for regeneration or boundary renegotiation.
+
+Crucially, SSRDD does **not** synchronise development cadence, force shared tooling, or impose uniform internal practices. It coordinates *interfaces and intent*, not implementation.
 
 SSRDD scales **understanding**, not bureaucracy.
 
@@ -902,32 +923,126 @@ SSRDD scales **understanding**, not bureaucracy.
 
 ## Why SRDD Works
 
-* It acknowledges discovery
-* It prevents specs from becoming fiction
-* It manages AI-induced technical debt at the design level
-* It preserves tacit product wisdom
-* It restores human judgment where it belongs
+SRDD succeeds because it aligns with how complex systems *actually* evolve — not how we wish they would.
+
+* **It acknowledges discovery**  
+  SRDD assumes that important knowledge arrives late. Instead of treating this as failure, it builds discovery into the process and gives it a disciplined place to land.
+
+* **It prevents specs from becoming fiction**  
+  Specs are continuously regenerated from reality, not left to rot as idealised narratives disconnected from the system that ships.
+
+* **It manages AI-induced technical debt at the design level**  
+  AI accelerates both construction and decay. SRDD counters this not by slowing AI down, but by periodically reasserting architectural intent before debt becomes destiny.
+
+* **It preserves tacit product wisdom**  
+  Decisions that would otherwise live only in heads or pull requests are captured, externalised, and made legible to both humans and machines.
+
+* **It restores human judgment where it belongs**  
+  AI executes, analyses, and enforces. Humans choose direction, recognise discomfort, and decide when a system needs to change course.
 
 SRDD is not the fastest way to write code.
 
-It *is* the fastest way to keep understanding intact.
+It *is* the fastest way to keep understanding intact — as systems grow, teams change, and years pass.
+
+### Boundary Enforcement via Dependency Permissions (SSRDD)
+
+SSRDD does more than coordinate domains. It can **enforce architectural boundaries**.
+
+The core rule is explicit:
+
+> **If a domain does not declare that it consumes another domain, it cannot see it.**
+
+This model is closely analogous to **Project Jigsaw (Java 9+)**.
+
+Like Jigsaw, SSRDD treats boundaries as **design-time and compile-time constraints**, not as informal conventions. Domains must explicitly declare what they depend on and what they expose. Everything else is inaccessible by default.
+
+#### Explicit dependency declarations
+
+Each domain declares its dependencies in `contracts/consumes.yaml`:
+
+```yaml
+consumes:
+  - identity-management/api-users
+  - inventory/api-stock
+```
+
+#### Controlled evolution of dependencies
+
+In practice, dependency permissions in SSRDD are not universally mutable.
+
+Domain developers typically **do not have direct write access** to the system-level SSRDD artefacts that define cross-domain dependencies — such as the shared constitution or dependency registry. Their focus remains local: implementing behaviour within declared boundaries.
+
+Changes to domain dependencies are instead mediated at the system level, typically by architects or designated system stewards.
+
+This mirrors the intent of Project Jigsaw: module boundaries are not something individual classes casually rewrite. They are **structural decisions**, owned at a higher level of abstraction.
+
+#### Why this separation matters
+
+Without this separation, boundaries decay quietly:
+
+- A developer “just imports” another domain to save time
+- A quick integration bypasses the contract layer
+- A dependency is added for convenience and never removed
+- Architectural coupling becomes invisible until it is irreversible
+
+AI-assisted development amplifies this failure mode. When generation is cheap and fast, the path of least resistance is always cross-boundary access.
+
+SSRDD deliberately resists this by making dependency changes **explicit, reviewable, and intentional**.
+
+Developers still move quickly within their domain.
+They simply cannot *accidentally* change the shape of the system.
+
+#### Architectural control without architectural bottlenecks
+
+This is not about slowing teams down.
+
+By centralising dependency authority:
+- Domains remain autonomous within their scope
+- Integration decisions are made with system-level visibility
+- Boundary changes become conscious design moments
+- Regeneration remains feasible because coupling stays controlled
+
+The result is not bureaucracy — it is **preserved optionality**.
+
+Architects are not approving code.
+They are curating the *shape* in which code is allowed to grow.
+
+SSRDD enforces boundaries the same way strong type systems enforce correctness:
+not by trust, but by making the wrong thing impossible.
 
 ---
 
 ## Closing
 
-The debate has been framed as chaos versus rigidity.
+The industry keeps framing AI-assisted development as a choice between chaos and rigidity.
 
-That’s the wrong frame.
+That is the wrong frame.
 
-Vibe coding fails because AI forgets.
-Spec-driven development fails because reality intrudes.
+Vibe coding fails because memory collapses and boundaries dissolve.
+Spec-driven development fails because reality refuses to stay still.
 
-SRDD accepts both — and closes the loop between them.
+SRDD accepts both truths — and closes the loop between them.
 
-**Specs deserve a return ticket.**
+It treats specifications as tools for thinking, not laws for the future.
+It treats code as evidence, not the final word.
+It allows systems to grow, drift, and learn — without surrendering coherence.
 
-Give them one.
+At scale, SSRDD extends this discipline outward.
+Boundaries become explicit.
+Dependencies become intentional.
+Domains evolve independently without silently entangling each other.
+Understanding scales — not bureaucracy.
+
+AI accelerates everything.
+Including mistakes.
+
+SRDD exists to make learning faster than decay.
+
+**Specs deserve a return ticket.  
+Boundaries deserve enforcement.  
+Understanding deserves to survive.**
+
+Give them all three.
 
 ---
 

@@ -52,28 +52,38 @@ You are trading *structural integrity* for *momentum*. The code is treated as an
 ### The pros
 
 * **Extreme velocity.**
-Vibe coding collapses idea → code → output into a single step. Syntax, plumbing, and boilerplate vanish. You can build in minutes what once took days.
-* **Low friction creativity.**
-Because you’re not fighting tooling, you stay in a high-level flow. This makes it ideal for UI exploration, rapid prototyping, and divergent thinking.
+  Vibe coding collapses idea → code → output into a single conversational loop. Syntax, plumbing, and boilerplate effectively disappear. Feedback becomes immediate, enabling you to explore functionality in minutes rather than days. For small, self-contained problems, this speed is genuinely transformative.
+
+* **Low-friction creativity.**
+  Because you’re not fighting tooling, frameworks, or process, you remain in a high-level creative flow. This makes vibe coding especially effective for UI exploration, proof-of-concepts, demos, and early-stage experimentation — situations where discovering *what* to build matters more than how it is structured.
+
 * **Drudgery elimination.**
-Standard tasks — CRUD, scaffolding, setup — are well represented in training data. AI handles the boring 80%, freeing humans to focus on novelty, design, and intent.
+  Routine engineering work is overrepresented in model training data. CRUD endpoints, form handling, configuration scaffolding, and common integrations are produced quickly and competently. The AI absorbs the repetitive cognitive load, allowing humans to spend time on differentiation, design intent, and problem framing.
+
 * **Democratisation.**
-Designers, founders, and product managers can produce high-fidelity, living prototypes without deep technical knowledge — often improving communication and alignment.
+  Vibe coding lowers the barrier to creation. Designers, founders, and product managers can produce working artefacts without deep technical fluency. When used responsibly, this improves cross-disciplinary communication, reduces translation loss, and allows ideas to be tested in code rather than debated in abstraction.
 
 Vibe coding is unbeatable for **0 → 1**.
 
 ### The cons
 
-* **The complexity ceiling.**
-At a certain size (often shockingly small), the AI loses coherence. Fixes introduce regressions elsewhere. You enter a “whack-a-mole” loop.
-* **Invisible technical debt.**
-Because the code isn’t read or shaped deliberately, problems accumulate silently until they become unavoidable — and expensive.
-* **Security and correctness risks.**
-AI optimises for plausibility, not safety. Without explicit constraints, vibe-coded systems frequently contain insecure defaults and subtle logic flaws.
-* **Auditor fatigue.**
-Reviewing large volumes of AI-generated code is cognitively harder than writing smaller amounts yourself. Developers become exhausted auditors rather than builders.
-* **Non-reproducibility.**
-With no spec or engineered context, results are non-deterministic. Re-running the same prompts later often yields a different architecture — making team collaboration fragile.
+* **The complexity ceiling**
+Vibe coding eventually hits a coherence ceiling. This is partly driven by context window limits, but the failure is neither visible nor well-signalled. LLMs do not warn when earlier assumptions fall out of scope — they simply stop conditioning on them. Larger context windows delay the collapse, but do not prevent it; they often extend the illusion of coherence, pushing regressions further from their cause and making failures harder to reason about. The result is the familiar whack-a-mole loop — not because the model is “bad,” but because architectural memory was never externalised in the first place.
+Here’s an expanded, essay-grade treatment of each con that deepens the argument without bloating it or repeating earlier sections. You can drop this straight under the Vibe Coding cons.
+
+* **Invisible technical debt**
+  In vibe coding, debt does not accumulate because developers are careless — it accumulates because *no one is looking*. Code is generated in fragments, accepted opportunistically, and rarely revisited with architectural intent. Because there is no externalised model of the system, duplication, leaky abstractions, and accidental coupling emerge gradually and silently. The system appears to move quickly right up until it doesn’t — at which point the cost is no longer incremental. Refactors become risky, fixes cascade unpredictably, and the only visible option is wholesale rewrite. Debt was always present; it was simply never surfaced early enough to be managed deliberately.
+
+* **Security and correctness risks**
+  Large language models optimise for plausibility, not for adversarial safety, invariants, or edge-case integrity. In a vibe-coding loop, there is rarely a formal declaration of what *must not* happen — only an informal sense of what “seems right.” This leads to insecure defaults (over-permissive access, missing validation, unsafe deserialisation), fragile assumptions (happy-path logic treated as universal), and correctness gaps that surface only under load or abuse.
+
+  Critically, recognising these failures requires professional experience. Security flaws are often invisible to non-specialists, and correctness bugs frequently masquerade as acceptable behaviour until they are exploited or stressed. Vibe coding lowers the barrier to entry so far that individuals with little or no background in security, systems design, or failure analysis can ship applications used by millions — without understanding the risks they have encoded. The danger is not malice; it is invisibility. Problems are present from day one, but only become obvious to those trained to look for them.
+
+* **Auditor fatigue**
+  Reviewing AI-generated code is not equivalent to reviewing human-written code. Humans compress intent when they write; AI expands it. The result is large volumes of syntactically correct but semantically diffuse output. Developers are forced to read more code, hold more state in their heads, and infer intent that was never explicitly declared. Over time, this leads to a subtle but dangerous shift: reviews become superficial, approvals become habitual, and “looks fine” replaces understanding. Teams stop building systems and start rubber-stamping artefacts they did not truly author.
+
+* **Non-reproducibility**
+  Without specifications, structured context, or stable contracts, vibe coding is inherently non-deterministic. The same prompt, run days or weeks apart, may yield different abstractions, naming schemes, or architectural decisions — not because requirements changed, but because the statistical path through the model did. This fragility undermines collaboration: teammates cannot reliably reproduce or extend work, onboarding becomes archaeology, and long-term maintenance turns into guesswork. The system’s shape becomes an accident of timing rather than a consequence of intent.
 
 Vibe coding is exhilarating — until you have to live with what you shipped.
 
@@ -220,7 +230,7 @@ Used well, Context Engineering delivers genuine improvements over ad-hoc prompti
 By grounding the model in curated constraints, the AI is far less likely to invent APIs, libraries, or patterns that don’t exist. This is especially valuable in legacy systems or regulated environments where correctness matters more than creativity.
 
 **Lower cost and better performance**
-Skeletons and selective retrieval dramatically reduce token usage. Smaller, higher-signal contexts not only cost less, they often produce *more accurate* outputs by avoiding “lost in the middle” failures.
+Skeletons and selective retrieval dramatically reduce token usage. Smaller, higher-signal contexts not only cost less, they often produce *more accurate* outputs by avoiding “lost in the middle” failures, where LLMs weight the beginning and the most recent end of the context window more heavily, causing architectural decisions and constraints in between to be silently dropped as conversations grow — without warning or explicit failure signals.
 
 **Architectural enforcement**
 Context files act as soft guardrails. AI-generated code naturally conforms to senior-level conventions, reducing stylistic drift and PR churn. This is one of the few ways to reliably encode architectural intent without constant human intervention.
@@ -382,8 +392,7 @@ But SRDD draws a hard line at one assumption.
 
 Specs are not promises to be enforced against the future. They are snapshots of current understanding, taken so that the next step can be chosen deliberately. When reality diverges — as it inevitably does — SRDD does not force the system back into compliance with an outdated document. Instead, the spec is regenerated from the living system, *then actively edited* to reflect what the system **should become next**.
 
-Regeneration is not acceptance of the system as it is.  
-It is not a rationalisation of accumulated **technical debt**, nor a quiet agreement to live with architectural drift because it has become inconvenient to confront.
+Regeneration is not acceptance of the system as it is.  It is not a rationalisation of accumulated **technical debt**, nor a quiet agreement to live with architectural drift because it has become inconvenient to confront.
 
 It is re-orientation.
 
@@ -397,8 +406,7 @@ What emerges is not a justification of the present system, but a clarified found
 
 The regenerated spec becomes a renewed point of control — a place where technical debt is made visible, tribal knowledge is externalised, and direction is chosen consciously rather than inherited accidentally. Structure is preserved. Direction is reasserted. Progress continues with better footing than before.
 
-SRDD does not eliminate structure.  
-It makes structure responsive.
+SRDD does not eliminate structure.  It makes structure responsive.
 
 **That roundtrip is the core innovation.**
 
@@ -419,46 +427,165 @@ It is traceable in **how it became right over time**.
 
 This distinction matters. SRDD trades absolute guarantees for adaptability, but it does not abandon accountability. It replaces compliance-driven certainty with historically grounded transparency — sufficient for most software systems, even if it falls short of SDD’s strongest claims.
 
----
-
 ## The SRDD Workflow
 
 ### Phase 1: Design
 
-```
+Phase 1 establishes *intent*. It is where understanding is shaped, clarified, and made explicit **before** implementation hardens around it.
+
+In an initial build, Phase 1 starts from a blank slate.
+In subsequent iterations or regeneration cycles, it is informed by everything learned since the last design — including production evidence captured in `07-NextCycle.md`.
+
+
+```text
 docs/plans/2025-12-15_v1_initial-design/
-  00-PLANNING.md      ← Initial brain dump from requirements questionnaire
-  01-REQUIREMENTS.md  ← Refined functional and non-functional requirements
-  02-USECASES.md      ← User stories with acceptance criteria
-  03-QA-SESSION.md    ← Q&A transcript clarifying ambiguities
-  04-ARCHITECTURE.md  ← Technical design, components, data model
-  05-IMPLEMENTATION.md← Phased plan: what gets built in what order
-  06-TESTPLAN.md      ← Test strategy and test data requirements
+  00-PLANNING.md       ← Initial brain dump from requirements questionnaire
+  01-REQUIREMENTS.md   ← Refined functional and non-functional requirements
+  02-USECASES.md       ← User stories with acceptance criteria
+  03-QA-SESSION.md     ← Q&A transcript clarifying ambiguities
+  04-ARCHITECTURE.md   ← Technical design, components, data model
+  05-IMPLEMENTATION.md ← Phased plan: what gets built in what order
+  06-TESTPLAN.md       ← Test strategy and test data requirements
+  07-NextCycle.md      ← Placeholder for production discoveries and future intent
 ```
 
-**00-PLANNING.md** captures the initial brain dump. Using a structured questionnaire, the developer and AI work through the problem space: what's being solved, who has this problem, why now, what constraints exist. It's deliberately rough — the goal is to get everything on the table before refining.
 
-**01-REQUIREMENTS.md** distils the planning doc into formal requirements. Functional requirements describe what the system does. Non-functional requirements cover performance, security, scalability, and other qualities. This is where MoSCoW prioritisation happens: must have, should have, could have, won't have.
+When Phase 1 is entered as part of a **regeneration cycle**, the `07-NextCycle.md` artefact is treated as an explicit input:
 
-**02-USECASES.md** translates requirements into user stories with clear acceptance criteria. Each story follows a consistent format: as a [role], I want [capability], so that [benefit]. Acceptance criteria define what "done" looks like — these become the basis for tests.
-
-**03-QA-SESSION.md** preserves the conversation. As the AI generates the preceding documents, questions arise: edge cases, ambiguities, unstated assumptions. This transcript captures the back-and-forth, preserving decisions and rationale that would otherwise be lost.
-
-**04-ARCHITECTURE.md** defines the technical approach. Component diagrams, data models, API boundaries, technology choices, integration patterns. This is where the developer's architectural understanding matters most — ensuring the AI doesn't default to generic patterns.
-
-**05-IMPLEMENTATION.md** breaks the work into phases. What gets built first? What depends on what? This becomes the basis for issue creation — though only a few high-level issues are created initially. The backlog stays lean; more issues emerge organically.
-
-**06-TESTPLAN.md** defines the testing strategy across all three layers: unit, integration, and functional. It also specifies test data requirements — what data is needed to exercise the system, and how it will be generated or sourced.
-
-The AI asks questions. Misunderstandings are corrected. Understanding deepens.
-
-The backlog stays intentionally lean.
-
-Absolutely — this is a *core* SRDD distinction and it deserves to be explicit, concrete, and unambiguous. Below is a **much more detailed, essay-grade expansion** that clarifies authority, contracts, tests, and the AI’s role without drifting into generic TDD explanations.
-
-You can drop this directly under **Phase 2: Implementation**.
+This document captures production discoveries, unresolved tensions, candidate contracts, and signals of architectural drift. It does not prescribe solutions — it informs what must be reconsidered.
 
 ---
+
+### 00-PLANNING.md
+
+`00-PLANNING.md` captures the initial brain dump.
+
+Using a structured questionnaire, the developer and AI work through the problem space: what is being solved, who has the problem, why now, and what constraints exist. In regeneration cycles, this document also reflects on what the system has become — including shortcuts taken, assumptions invalidated, and lessons learned.
+
+This document is deliberately rough. Its purpose is **breadth, not precision**. Everything goes on the table before refinement begins.
+
+---
+
+### 01-REQUIREMENTS.md
+
+`01-REQUIREMENTS.md` distils the planning document into formal requirements.
+
+Functional requirements describe what the system must do. Non-functional requirements capture performance, security, reliability, scalability, and operational constraints. MoSCoW prioritisation happens here: must have, should have, could have, won’t have.
+
+In regeneration cycles, requirements may be:
+
+* reaffirmed
+* modified
+* retired
+* or newly introduced based on production evidence
+
+This makes change explicit rather than accidental.
+
+---
+
+### 02-USECASES.md
+
+`02-USECASES.md` translates requirements into concrete user stories with acceptance criteria.
+
+Each use case follows a consistent structure:
+
+* *As a* [role]
+* *I want* [capability]
+* *So that* [benefit]
+
+Acceptance criteria define what “done” means in observable terms. These criteria become the authoritative source for functional and integration tests in later phases.
+
+Importantly, **use cases are not written during production**. They are derived deliberately here — often directly from discoveries captured in `07-NextCycle.md`.
+
+---
+
+### 03-QA-SESSION.md
+
+`03-QA-SESSION.md` preserves the conversation.
+
+As the AI generates and refines the preceding documents, questions naturally arise: edge cases, ambiguities, unstated assumptions, conflicting goals. This transcript captures the back-and-forth — including corrections, disagreements, and rationale.
+
+This document exists to preserve **decision context**, not to enforce outcomes. It becomes invaluable during regeneration, when past intent must be re-understood rather than re-imagined.
+
+---
+
+### 04-ARCHITECTURE.md
+
+`04-ARCHITECTURE.md` defines the technical approach.
+
+It documents:
+
+* component boundaries
+* data models
+* API surfaces
+* integration patterns
+* technology choices and constraints
+
+This is where professional architectural judgment matters most. The goal is not novelty, but coherence — ensuring the AI does not default to generic or statistically common patterns that are misaligned with the system’s actual needs.
+
+---
+
+### 05-IMPLEMENTATION.md
+
+`05-IMPLEMENTATION.md` breaks the work into phases.
+
+What is built first? What depends on what? What can safely be deferred?
+
+This document informs issue creation, but the backlog remains intentionally lean. Only a small number of high-level issues are created initially. Additional issues emerge organically as understanding deepens.
+
+Momentum is preserved by keeping the queue short.
+
+---
+
+### 06-TESTPLAN.md
+
+`06-TESTPLAN.md` defines the testing strategy across all layers:
+
+* unit
+* integration
+* functional
+
+It clarifies what each layer is responsible for, what constitutes a contract, and what data is required to exercise the system meaningfully. It also specifies how test data will be generated or sourced.
+
+Tests are not written here — but the **authority and scope of tests** is.
+
+
+---
+
+### Where `07-NextCycle.md` fits conceptually
+
+You can add this short subsection after `06-TESTPLAN.md`:
+
+---
+
+### 07-NextCycle.md
+
+`07-NextCycle.md` is created during Phase 1 but **intentionally left empty**.
+
+It exists to establish a forward-looking capture point for discoveries that cannot be known at design time. This document is populated **only after a production release**, when real usage surfaces new expectations, implicit contracts, and architectural tensions.
+
+During **Phase 4 (Production)**, findings from UAT are recorded here:
+
+* newly discovered behaviours users rely on
+* candidate contracts not previously specified
+* rejected expectations (explicitly documented)
+* signals of architectural strain or drift
+* inputs that may justify iteration or regeneration
+
+No implementation occurs at this stage.
+`07-NextCycle.md` records evidence and intent — not solutions.
+
+During the next SRDD cycle, this document becomes a **primary input to Phase 1**, informing updates to requirements, use cases, and architecture. In regeneration cycles, it plays a critical role in re-establishing direction without losing historical context.
+
+This ensures that production learning is preserved deliberately rather than absorbed accidentally.
+
+`07-NextCycle.md` does not answer questions.
+It creates the conditions for better ones.
+
+When the next SRDD cycle begins, the AI and developer return to Phase 1 with sharper evidence, clearer tensions, and fewer assumptions carried forward by habit alone. Misunderstandings are corrected earlier. Trade-offs are re-examined explicitly. Intent is reasserted before code is touched again.
+
+The backlog stays intentionally lean.
+Understanding compounds instead of drifting.
 
 ### Phase 2: Implementation
 

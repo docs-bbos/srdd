@@ -435,8 +435,6 @@ Phase 1 establishes *intent*. It is where understanding is shaped, clarified, an
 
 In an initial build, Phase 1 starts from a blank slate.
 In subsequent iterations or regeneration cycles, it is informed by everything learned since the last design — including production evidence captured in `07-NextCycle.md`.
-
-
 ```text
 docs/plans/2025-12-15_v1_initial-design/
   00-PLANNING.md       ← Initial brain dump from requirements questionnaire
@@ -470,7 +468,7 @@ This document is deliberately rough. Its purpose is **breadth, not precision**. 
 
 `01-REQUIREMENTS.md` distils the planning document into formal requirements.
 
-Functional requirements describe what the system must do. Non-functional requirements capture performance, security, reliability, scalability, and operational constraints. MoSCoW prioritisation happens here: must have, should have, could have, won’t have.
+Functional requirements describe what the system must do. Non-functional requirements capture performance, security, reliability, scalability, and operational constraints. MoSCoW prioritisation happens here: must have, should have, could have, won't have.
 
 In regeneration cycles, requirements may be:
 
@@ -493,7 +491,7 @@ Each use case follows a consistent structure:
 * *I want* [capability]
 * *So that* [benefit]
 
-Acceptance criteria define what “done” means in observable terms. These criteria become the authoritative source for functional and integration tests in later phases.
+Acceptance criteria define what "done" means in observable terms. These criteria become the authoritative source for functional and integration tests in later phases.
 
 Importantly, **use cases are not written during production**. They are derived deliberately here — often directly from discoveries captured in `07-NextCycle.md`.
 
@@ -521,7 +519,11 @@ It documents:
 * integration patterns
 * technology choices and constraints
 
-This is where professional architectural judgment matters most. The goal is not novelty, but coherence — ensuring the AI does not default to generic or statistically common patterns that are misaligned with the system’s actual needs.
+This is where professional architectural judgment matters most. The goal is not novelty, but coherence — ensuring the AI does not default to generic or statistically common patterns that are misaligned with the system's actual needs.
+
+**Canonical patterns are established here.** Decisions about how the system handles logging, error handling, configuration, and other cross-cutting concerns should be explicit. These patterns become what the AI will replicate throughout implementation. Contradictions introduced later are harder to correct than conventions established early.
+
+See: *Principles → Designing for AI Comprehension*
 
 ---
 
@@ -548,13 +550,6 @@ Momentum is preserved by keeping the queue short.
 It clarifies what each layer is responsible for, what constitutes a contract, and what data is required to exercise the system meaningfully. It also specifies how test data will be generated or sourced.
 
 Tests are not written here — but the **authority and scope of tests** is.
-
-
----
-
-### Where `07-NextCycle.md` fits conceptually
-
-You can add this short subsection after `06-TESTPLAN.md`:
 
 ---
 
@@ -590,7 +585,6 @@ Understanding compounds instead of drifting.
 ### Phase 2: Implementation
 
 Each issue in SRDD is implemented through a strict test-first loop:
-
 ```
 failing test ↔ implement → pass
 ```
@@ -601,10 +595,9 @@ SRDD does not use tests to maximise coverage or satisfy process doctrine. Tests 
 
 TDD here is not about proving correctness in isolation. It is about **protecting intent under change**. Writing tests first forces an explicit declaration of what is being guaranteed before implementation choices harden around it. Accidental commitments are prevented; deliberate ones are made visible.
 
-When a test fails, the question is never “How do we fix the test?”  
-It is “Did we violate a boundary, or did we intentionally choose to move it?”
+When a test fails, the question is never "How do we fix the test?"  It is "Did we violate a boundary, or did we intentionally choose to move it?"
 
-This reframes testing from verification to governance. The test suite becomes a living record of the system’s contractual surface, enforcing discipline at the edges while leaving the interior free to evolve.
+This reframes testing from verification to governance. The test suite becomes a living record of the system's contractual surface, enforcing discipline at the edges while leaving the interior free to evolve.
 
 #### Contracts as the Source of Authority
 
@@ -690,13 +683,13 @@ Its responsibilities include:
 * Preventing feature creep within an issue
 * Detecting when a proposed change alters a contract
 * Asking explicit questions when a boundary is crossed:
-  > “This change affects a public API. Should this be versioned?”
+  > "This change affects a public API. Should this be versioned?"
 * Offering to create new issues for out-of-scope ideas
-* Refusing to silently “just add one more thing”
+* Refusing to silently "just add one more thing"
 
 This matters because AI-assisted development **amplifies opportunism**.
 
-When implementation becomes cheap, fast, and frictionless, the cost of *just adding one more thing* collapses. Ideas that would normally be deferred — “while we’re here”, “it’s only a small change”, “we can tidy this up later” — are acted on immediately. The AI does not push back. It does not feel scope creep. It executes.
+When implementation becomes cheap, fast, and frictionless, the cost of *just adding one more thing* collapses. Ideas that would normally be deferred — "while we're here", "it's only a small change", "we can tidy this up later" — are acted on immediately. The AI does not push back. It does not feel scope creep. It executes.
 
 Developers recognise this instinct instantly. A feature almost works, so you extend it slightly. A function is already open, so you add a parameter. A test is failing nearby, so you broaden its responsibility. None of these decisions are irrational in isolation. In aggregate, they erode boundaries.
 
@@ -704,11 +697,35 @@ AI accelerates this dynamic. What used to take minutes now takes seconds. What o
 
 SRDD treats this not as a moral failing, but as a structural risk.
 
-By enforcing issue boundaries and making the AI explicitly responsible for guarding scope, SRDD introduces friction *where it matters most*. The AI is required to ask: “Is this still the same commitment?” If not, it offers to create a new issue, defer the change, or force an explicit decision.
+By enforcing issue boundaries and making the AI explicitly responsible for guarding scope, SRDD introduces friction *where it matters most*. The AI is required to ask: "Is this still the same commitment?" If not, it offers to create a new issue, defer the change, or force an explicit decision.
 
 This restores a discipline that velocity quietly erodes: the habit of choosing what *not* to do next.
 
 SRDD deliberately counters that by enforcing discipline at the issue boundary.
+
+#### The AI as Pattern Follower
+
+The AI has a second responsibility during implementation: **following established patterns**.
+
+Canonical patterns — for logging, error handling, configuration, naming, and other cross-cutting concerns — are defined in `04-ARCHITECTURE.md`. The AI must replicate these patterns, not invent alternatives.
+
+When the AI deviates from an established pattern, **correct it immediately**. Deviations that slip through become examples the AI will repeat. The codebase teaches by demonstration; every inconsistency introduced is an inconsistency that will propagate.
+
+This means:
+
+* If the project uses a specific logging approach, the AI uses that approach
+* If error handling follows a defined structure, new errors follow the same structure
+* If naming conventions exist, new code matches them
+
+Prefer explicit, well-named abstractions. `logAuditEvent()` is better than `log()`. `fetchUserById()` is better than `getUser()`. Names that reveal intent help both humans and AI understand what "right" looks like.
+
+Pattern deviation is not a moral failing — it is a signal. It may indicate:
+
+* The AI lacks sufficient context (add to rules or provide examples)
+* The established pattern is unclear (clarify in ARCHITECTURE.md)
+* The pattern itself needs revision (make this explicit, not accidental)
+
+See: *Principles → Designing for AI Comprehension*
 
 #### Why This Matters
 
@@ -716,11 +733,11 @@ Left unchecked, opportunistic change does not fail loudly. It succeeds quietly �
 
 At that point, regeneration becomes guesswork. Understanding has decayed faster than the code itself.
 
-With SRDD’s structure in place, the opposite occurs. Behavioural guarantees are made explicit and defended deliberately. Change is forced to declare itself. Regeneration starts from evidence rather than intuition, and each cycle compounds understanding instead of eroding it.
+With SRDD's structure in place, the opposite occurs. Behavioural guarantees are made explicit and defended deliberately. Change is forced to declare itself. Regeneration starts from evidence rather than intuition, and each cycle compounds understanding instead of eroding it.
 
 This is what makes SRDD scalable — not just across codebases, but across time.
 
-The developer dreams.  The AI disciplines.
+The developer dreams. The AI disciplines.
 
 ### Phase 3: Review
 
@@ -733,6 +750,7 @@ In other cases, the PR is far more explicit. It may be the moment where a contra
 Whether implicit or explicit, the PR marks the point at which uncertainty becomes commitment.
 
 PRs preserve this context implicitly:
+
 - Why a boundary was moved or reinforced
 - Why a shortcut was accepted — or explicitly rejected
 - Why an interface took its current shape
@@ -740,14 +758,32 @@ PRs preserve this context implicitly:
 
 The review conversation, commit history, and diff together form a lightweight narrative of how the system actually evolved — not how it was originally imagined.
 
-This history becomes critical during regeneration. When the AI synthesises a new spec from the living system, PRs provide the missing “why” that code alone cannot explain. They surface intent that was never formalised, constraints that were discovered late, and decisions that lived temporarily in human judgment.
+This history becomes critical during regeneration. When the AI synthesises a new spec from the living system, PRs provide the missing "why" that code alone cannot explain. They surface intent that was never formalised, constraints that were discovered late, and decisions that lived temporarily in human judgment.
 
 Without this trail, regeneration risks erasing hard-won knowledge. With it, SRDD can distinguish between accidental drift and deliberate adaptation.
 
 PRs do not just close issues.
 They preserve reasoning.
-
 That preservation is what allows understanding to compound rather than reset between cycles.
+
+#### Review for Coherence, Not Just Correctness
+
+The AI can determine whether code works. That is not the reviewer's primary job.
+
+The reviewer's responsibility is to assess whether the code **fits** — whether it coheres with the system's architecture, follows established patterns, and avoids introducing long-term complexity.
+
+Review for:
+
+* **Architectural coherence** — Does this change respect existing boundaries? Does it introduce new dependencies that weren't discussed?
+* **Pattern conformance** — Does the implementation follow the canonical patterns defined in ARCHITECTURE.md? Or has the AI introduced a variation?
+* **Naming and abstraction** — Are new functions, classes, and modules named in ways that reveal intent? Will the AI (and future developers) understand what "right" looks like from these examples?
+* **Contractual impact** — Does this change affect a public API, event, or guarantee? If so, is that change explicit and versioned?
+
+Correctness is necessary but insufficient. A PR can pass all tests and still degrade the system's coherence. The reviewer is the last line of defence against pattern drift.
+
+If the AI has deviated from an established pattern, this is the moment to catch it. Every deviation that merges becomes an example the AI will follow next time.
+
+See: *Principles → Designing for AI Comprehension*
 
 ### Phase 4: Production
 
@@ -755,7 +791,7 @@ Production is where SRDD validates intent against reality.
 
 Deployment is not treated as the end of development, but as the moment when assumptions are finally exposed to real conditions. The system is exercised using **real data, real permissions, real workflows, and real constraints** — not sanitised environments optimised to pass automated checks.
 
-Automated tests have already established correctness.  Production exists to establish *fitness*.
+Automated tests have already established correctness. Production exists to establish *fitness*.
 
 #### User Acceptance Testing (UAT)
 
@@ -770,6 +806,7 @@ This is where qualitative judgment enters the loop. Performance may meet metrics
 SRDD treats this feedback as first-class evidence.
 
 When UAT surfaces an issue:
+
 - It is never patched opportunistically
 - It is never folded back into a closed issue
 - It always becomes a **new issue**, with its own scope, intent, and lifecycle
@@ -779,6 +816,7 @@ Old issues are never reopened.
 This is a deliberate rule. Reopening an issue implies that the original work was incomplete or incorrect. In SRDD, production findings are understood as discoveries that could not have been known earlier. They represent new learning, not execution failure.
 
 Each new issue:
+
 - Captures production context explicitly
 - Enters the standard SRDD cycle
 - Receives its own tests and review
@@ -791,18 +829,21 @@ Crucially, UAT often reveals **implicit contracts** — behaviours users depend 
 The trigger is almost always human.
 
 A user, product owner, or developer notices a behaviour and says some version of:
-- “Oh — actually, I expect this to do *that*.”
-- “If this ever changed, it would break how I use it.”
-- “We rely on this, even though it isn’t documented.”
+
+- "Oh — actually, I expect this to do *that*."
+- "If this ever changed, it would break how I use it."
+- "We rely on this, even though it isn't documented."
 
 SRDD treats these moments as signals, not interruptions.
 
-At that point, the AI’s role is not to infer intent, but to **force clarification**. It prompts an explicit decision:
+At that point, the AI's role is not to infer intent, but to **force clarification**. It prompts an explicit decision:
+
 - Is this behaviour something we want to guarantee going forward?
 - Is it context-specific, or system-wide?
 - Should it remain stable, or be versioned or constrained?
 
 If the answer is yes, the behaviour is promoted from expectation to contract by:
+
 1. Creating a new issue that describes the behaviour in user or system terms
 2. Encoding it as a failing functional or integration test
 3. Updating documentation or specs to reflect the newly recognised guarantee
@@ -814,6 +855,27 @@ If the answer is no, the rejection is captured just as deliberately. The behavio
 
 In both cases, ambiguity is resolved consciously.  
 Nothing remains implicit by accident.
+
+#### Production Discoveries as AI Curriculum
+
+When implicit contracts become explicit, they also become **examples the AI will learn from**.
+
+The test you write to encode a guarantee becomes a pattern for future tests. The implementation you create becomes a reference the AI will follow. The naming you choose — for functions, events, error types — shapes what the AI considers "right" in similar contexts.
+
+This means production discoveries do more than stabilise the system. They **teach** the system.
+
+Sloppy formalisation creates sloppy precedents. A hastily-named function or inconsistent error structure will propagate. Careful formalisation creates clarity that compounds: future AI-generated code will pattern-match on well-structured examples.
+
+When making implicit contracts explicit:
+
+- Follow established patterns from ARCHITECTURE.md
+- Use names that reveal intent, not just function
+- Structure tests consistently with existing contract tests
+- Treat this as curation, not just correction
+
+See: *Principles → Designing for AI Comprehension*
+
+#### Production as Evidence
 
 Production is therefore not a destination.  
 It is a **source of evidence**.
@@ -831,7 +893,7 @@ It is the exception.
 
 #### Watching for Spaghettification
 
-As development proceeds, the AI actively monitors for signs that the system’s structure is beginning to degrade — not because of negligence, but because accumulated change has outpaced architectural clarity.
+As development proceeds, the AI actively monitors for signs that the system's structure is beginning to degrade — not because of negligence, but because accumulated change has outpaced architectural clarity.
 
 These signals are collectively referred to as **spaghettification**, and they tend to surface gradually:
 
@@ -840,10 +902,13 @@ These signals are collectively referred to as **spaghettification**, and they te
 - **Whack-a-mole regressions:** Fixes in one area repeatedly break others
 - **God modules:** Classes or services that accumulate disproportionate responsibility
 - **Velocity decay:** Simple changes take longer than expected
-- **Hedging language:** Phrases like “this might break something” or “I’m not entirely sure”
+- **Hedging language:** Phrases like "this might break something" or "I'm not entirely sure"
+- **Pattern inconsistency:** The same concern (logging, error handling, configuration) implemented multiple ways across the codebase
 
 None of these indicate failure.  
 They indicate **misalignment between intent and structure**.
+
+Pattern inconsistency deserves particular attention. When the AI encounters contradictory examples, it cannot determine which is "right." It pattern-matches on whatever is in context — which may not be the canonical approach. This creates a feedback loop: inconsistency breeds inconsistency, accelerating drift.
 
 #### Advising Regeneration
 
@@ -876,7 +941,7 @@ SRDD treats that investment as a normal, planned phase in the life of a system �
 
 The alternative is familiar.
 
-In large, long-lived systems — especially those built by many developers over time — architectural drift is rarely confronted head-on. Instead, it is managed defensively. Code becomes brittle. Knowledge fragments. Boundaries blur. Entire areas of the system acquire reputations: *“Don’t touch that,”* *“No one really knows how this works,”* *“It breaks if you look at it wrong.”*
+In large, long-lived systems — especially those built by many developers over time — architectural drift is rarely confronted head-on. Instead, it is managed defensively. Code becomes brittle. Knowledge fragments. Boundaries blur. Entire areas of the system acquire reputations: *"Don't touch that,"* *"No one really knows how this works,"* *"It breaks if you look at it wrong."*
 
 Organisations attempt to compensate through process.
 
@@ -904,6 +969,7 @@ It promises the ability to **recover it**, intentionally and repeatedly, before 
 Regeneration is a deliberate return to Phase 1 — informed by everything that has been learned, and undertaken with full awareness of its cost.
 
 The analytical phase is fast. The AI synthesises a new set of planning artefacts by analysing:
+
 - The current codebase (what exists)
 - The existing test suite (what is guaranteed)
 - Issue history (what was discovered through use)
@@ -918,11 +984,35 @@ The result is not a rollback.
 It is a reset of *understanding* — and a re-assertion of direction.
 
 A new dated plan is produced, explicitly capturing:
+
 - What the system actually is
 - Which contracts and behaviours remain valid
 - What has accumulated as technical debt
 - Which assumptions must be corrected
 - What should be built next
+
+#### Pattern Hygiene During Regeneration
+
+Regeneration is also the moment to **clean the curriculum**.
+
+Before the next development cycle begins, contradictory patterns must be consolidated. If logging is done three different ways, regeneration decides which is canonical — and eliminates the others. If error handling has drifted, it is realigned. If naming conventions have eroded, they are restored.
+
+This is not cosmetic tidying. It directly affects future velocity.
+
+The AI will pattern-match on whatever exists in the regenerated codebase. Clean, consistent examples produce clean, consistent output. Contradictions left in place will propagate again.
+
+Regeneration therefore includes:
+
+- Identifying cross-cutting concerns with multiple implementations
+- Selecting or defining the canonical pattern for each
+- Refactoring to consolidate (not just documenting the preference)
+- Updating ARCHITECTURE.md to reflect current decisions
+
+The codebase that emerges from regeneration should teach the AI what "right" looks like — unambiguously.
+
+See: *Principles → Designing for AI Comprehension*
+
+#### Resuming Development
 
 From there, development resumes with clearer boundaries, cleaner structure, and restored confidence. Feature parity may take days to recover, but velocity afterwards increases sharply. The system becomes easier to reason about, safer to change, and more satisfying to work on.
 
@@ -1139,37 +1229,233 @@ not by trust, but by making the wrong thing impossible.
 
 ---
 
+## Principles
+
+*The principles that follow were crystallised in part through reflection on Craig Adam's article "[Agile is Out, Architecture is Back](https://medium.com/@craig_32726/agile-is-out-architecture-is-back-7586910ab810)" — a clear articulation of why architecture matters more, not less, in the age of AI-assisted development. His framing of the codebase as curriculum and the developer's evolving role helped sharpen what SRDD was already reaching toward. Thank you.*
+
+The five phases describe *what* happens in SRDD. This section describes *why* certain patterns recur across all of them.
+
+These principles are not rules to be enforced. They are orientations — ways of thinking that make AI-assisted development more effective, more sustainable, and more aligned with human intent.
+
+### Designing for AI Comprehension
+
+> Your codebase is a curriculum. Every pattern teaches the AI what to repeat. Contradictions create confusion. Consistency creates velocity.
+
+The AI learns your project not from training, but from context. It reads your existing code and generates more code that looks like it. This has profound implications.
+
+**Rules files instruct. Code demonstrates.**
+
+Your CLAUDE.md, cursor rules, and similar files tell the AI what to do. Your codebase *shows* what "right" looks like. Both matter — but when they conflict, the AI often follows what it sees over what it's told.
+
+If your codebase contains:
+
+- Multiple logging implementations → AI picks one randomly or invents another
+- Inconsistent error handling → AI generates inconsistent error handling
+- Mixed naming conventions → AI outputs mixed naming
+- God classes alongside clean modules → AI might follow either pattern
+
+The AI does not judge which pattern is correct. It pattern-matches on what exists.
+
+**This principle is LLM-agnostic.** Every AI coding tool — Claude Code, Cursor, Copilot, Windsurf, and tools not yet built — reads your codebase into context. Keep your codebase clean and consistent because the AI will copy what it sees.
+
+**Applying this across SRDD:**
+
+| Phase | Purpose | Application |
+|-------|---------|-------------|
+| Phase 1 | Establish intent | Define canonical patterns in ARCHITECTURE.md before implementation begins |
+| Phase 2 | Build it | Correct deviations immediately; uncorrected deviations become new patterns |
+| Phase 3 | Check fit | Review for pattern conformance, not just correctness |
+| Phase 4 | Validate reality | Formalise production discoveries carefully; they become future examples |
+| Phase 5 | Realign or continue | Consolidate contradictory patterns during regeneration |
+
+### Guardrails Beyond Tests
+
+> Use types, linters, schemas, and structure not just to enforce correctness — but to communicate intent.
+
+Tests verify behaviour after the fact. Guardrails prevent bad patterns from entering in the first place. They operate earlier in the feedback loop, and they constrain what the AI can produce.
+
+**Types as documentation:**
+Strong typing (TypeScript, Zod schemas, Pydantic models) constrains AI output at generation time. A well-typed function signature tells the AI what shapes are valid before it writes a line of implementation.
+
+**Linters as guardrails:**
+ESLint rules, Prettier configurations, and architectural linters (like eslint-plugin-boundaries) reject code that violates conventions automatically. The AI learns quickly that certain patterns don't survive.
+
+**Schemas as contracts:**
+OpenAPI specs, JSON Schema, and similar declarations make contracts machine-readable. The AI can validate its output against them — and tools can reject non-conforming code before review.
+
+**Folder structure as architecture:**
+Where code lives communicates what it is. A clear directory structure — with boundaries that match domain concepts — helps the AI place new code appropriately. Ambiguous structure produces ambiguous placement.
+
+**These guardrails are not bureaucracy.** They are force multipliers. Every constraint that prevents a bad pattern from entering is a constraint that doesn't need to be caught in review, fixed in testing, or cleaned up during regeneration.
+
+Guardrails encode judgment structurally — not just in documentation.
+
+### Encode Judgment, Don't Just Document It
+
+> Structure that enforces decisions is stronger than documentation that describes them.
+
+Documentation can be ignored. Structure cannot.
+
+When a decision matters — when violating it would cause drift, inconsistency, or architectural decay — encode it in a way that makes violation difficult or impossible:
+
+- **Use folder boundaries** to enforce module separation, not just naming conventions
+- **Use types** to make invalid states unrepresentable, not just documented as "don't do this"
+- **Use linter rules** to reject patterns automatically, not just style guides that request compliance
+- **Use CI checks** to fail builds on violations, not just code review comments
+
+The AI reads structure more reliably than prose. A linter rule that rejects a pattern is more effective than a CLAUDE.md instruction that discourages it.
+
+This does not mean documentation is worthless. It means documentation is for *explanation*, not *enforcement*. Explain the "why" in docs. Enforce the "what" in structure.
+
+**The test:** If the AI could violate a decision and still produce code that passes all checks, the decision is not yet encoded. It is merely suggested.
+
+### Coherence Over Correctness
+
+> Correct code that doesn't fit is worse than imperfect code that coheres.
+
+The AI can produce code that works. That is table stakes. The harder problem is producing code that *fits* — that respects existing boundaries, follows established patterns, and doesn't introduce architectural debt.
+
+A function can pass all tests and still:
+
+- Use a different logging approach than the rest of the system
+- Handle errors in a novel way that won't be replicated
+- Introduce a dependency that violates layering
+- Name things inconsistently with surrounding code
+
+These are not test failures. They are coherence failures. They make the system harder to understand, harder to maintain, and harder for the AI to pattern-match correctly in future.
+
+**The reviewer's job is coherence.** The AI handles correctness. The human ensures fit.
+
+This requires architectural awareness — understanding not just whether the code works, but whether it belongs. That awareness is precisely what distinguishes a developer from a code generator.
+
+### The Developer Dreams, The AI Disciplines
+
+> Humans are for invention, imagination, and direction. Machines are for execution, analysis, and consistency.
+
+SRDD deliberately assigns roles:
+
+**The developer:**
+- Decides what to build and why
+- Makes architectural judgments
+- Recognises when something feels wrong
+- Chooses direction when trade-offs arise
+- Dreams futures the AI cannot imagine
+
+**The AI:**
+- Executes implementation within constraints
+- Guards scope and flags deviations
+- Detects spaghettification signals
+- Maintains consistency with established patterns
+- Synthesises understanding during regeneration
+
+The AI does not dream. It interpolates. It gravitates toward the statistical centre of its training data. Novel architectures, distinctive designs, and opinionated choices must come from humans.
+
+But humans are fallible. They get bored. They take shortcuts. They expand scope opportunistically. The AI provides discipline: holding boundaries, asking clarifying questions, refusing to silently drift.
+
+Neither is sufficient alone.
+Together, they compound.
+
+### Specs Are Snapshots, Not Contracts
+
+> Specifications capture understanding at a moment in time. Code becomes the source of truth. Periodically, understanding must be extracted back out.
+
+This is the foundational insight of SRDD.
+
+Traditional spec-driven development treats specifications as authoritative: write the spec, generate the code, update the spec when requirements change. In practice, this breaks down. Code evolves faster than documentation. Implicit behaviours emerge. The spec becomes fiction.
+
+SRDD inverts the relationship. Specs are *inputs* to a cycle, not *outputs* of a process. They capture intent at the start. But as implementation proceeds, the code becomes the real source of truth — informed by production discoveries, implicit contracts, and decisions made under pressure.
+
+The roundtrip is what makes SRDD sustainable:
+
+1. Specs guide initial implementation
+2. Implementation reveals what specs missed
+3. Production surfaces implicit contracts
+4. Regeneration extracts new specs from living code
+5. The cycle repeats with compounded understanding
+
+Without the roundtrip, specs drift into irrelevance. With it, understanding compounds instead of decaying.
+
+### Velocity Follows Clarity
+
+> Fast development is not the cause of good systems. It is the consequence of clear ones.
+
+Teams do not ship slowly because they lack skill. They ship slowly because they lack confidence. Confidence erodes when:
+
+- No one is sure what a change might break
+- Boundaries have blurred beyond recognition
+- Patterns contradict each other
+- Tests defend structure rather than contracts
+- Tribal knowledge has replaced explicit understanding
+
+SRDD addresses velocity by addressing clarity. Regeneration restores architectural coherence. Contracts make guarantees explicit. Pattern hygiene ensures the AI produces consistent output. Guardrails prevent drift from entering.
+
+The result is not just a cleaner codebase. It is a faster one — because developers (and AI) can act with confidence instead of caution.
+
+Speed is earned, not demanded.
+
+### Summary
+
+| Principle | Core Insight |
+|-----------|--------------|
+| Designing for AI Comprehension | The codebase teaches the AI what to repeat |
+| Guardrails Beyond Tests | Prevent bad patterns earlier than review |
+| Encode Judgment, Don't Just Document It | Structure enforces; documentation explains |
+| Coherence Over Correctness | Fit matters more than function |
+| The Developer Dreams, The AI Disciplines | Humans choose direction; machines maintain consistency |
+| Specs Are Snapshots, Not Contracts | Understanding must roundtrip back from code |
+| Velocity Follows Clarity | Confidence enables speed |
+
+These principles are not optional.
+
+SRDD's phases, guardrails, and regeneration cycles exist to enforce them — or surface it clearly when they're being violated.
+
+---
+
 ## Closing
 
-The industry keeps framing AI-assisted development as a choice between chaos and rigidity.
+The industry frames AI-assisted development as a choice between chaos and rigidity. That framing is wrong.
 
-That is the wrong frame.
+Vibe coding fails because memory collapses and boundaries dissolve. Spec-driven development fails because reality refuses to stay still. SRDD accepts both truths and closes the loop between them.
 
-Vibe coding fails because memory collapses and boundaries dissolve.
-Spec-driven development fails because reality refuses to stay still.
+### What SRDD Enforces
 
-SRDD accepts both truths — and closes the loop between them.
+**Specs are snapshots, not contracts.**
+Specifications capture understanding at a point in time. Code becomes the source of truth. Periodically, understanding is extracted back out through regeneration.
 
-It treats specifications as tools for thinking, not laws for the future.
-It treats code as evidence, not the final word.
-It allows systems to grow, drift, and learn — without surrendering coherence.
+**The codebase is a curriculum.**
+The AI learns from your existing code. Every pattern teaches it what to repeat. Contradictions breed confusion; consistency compounds velocity.
 
-At scale, SSRDD extends this discipline outward.
-Boundaries become explicit.
-Dependencies become intentional.
-Domains evolve independently without silently entangling each other.
-Understanding scales — not bureaucracy.
+**Guardrails encode judgment structurally.**
+Types, linters, schemas, and folder boundaries prevent bad patterns before review. Documentation explains; structure enforces.
 
-AI accelerates everything.
-Including mistakes.
+**Coherence matters more than correctness.**
+The AI determines whether code works. The reviewer determines whether it fits. Correct code that violates patterns degrades the system.
 
-SRDD exists to make learning faster than decay.
+**The developer dreams; the AI disciplines.**
+Humans choose direction, make architectural judgments, and recognise when something feels wrong. The AI executes, guards scope, and maintains consistency.
 
-**Specs deserve a return ticket.  
-Boundaries deserve enforcement.  
-Understanding deserves to survive.**
+**Velocity follows clarity.**
+Fast development is not the cause of good systems. It is the consequence of clear ones. Confidence enables speed.
 
-Give them all three.
+### At Scale
+
+SSRDD extends these principles across domains:
+
+- Boundaries become explicit
+- Dependencies become intentional
+- Domains evolve independently without silent entanglement
+- Understanding scales — not bureaucracy
+
+### The Core Commitment
+
+AI accelerates everything, including mistakes. SRDD exists to make learning faster than decay.
+
+- Specs deserve a return ticket
+- Boundaries deserve enforcement
+- Judgment deserves to be structural
+- Understanding deserves to survive
+
+SRDD provides all four.
 
 ---
 

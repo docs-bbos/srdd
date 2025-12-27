@@ -2,17 +2,50 @@
 
 See part 1 at 👉 **[https://brooke.medium.com/ssrd-part1](https://brooke.medium.com/ssrd-part1)**
 
-By mid-2025, it became clear that “AI coding” was no longer a single thing.
+By mid-2025, it became clear that "AI coding" was no longer a single thing.
 
-What began as playful experimentation had hardened into recognisable methodologies, each optimising for different trade-offs: speed versus coherence, autonomy versus understanding, structure versus adaptability. At the extreme ends of this spectrum sit **Vibe Coding** and **Spec-Driven Development** — one maximising immediacy and flexibility, the other maximising formality and control.
+What began as playful experimentation had hardened into recognisable methodologies, each optimising for different trade-offs: speed versus coherence, autonomy versus understanding, structure versus adaptability.
 
-Much of the industry conversation, however, collapses this spectrum into a false binary: vibe coding versus spec-driven development — as though these were the only two positions worth considering.
+There are now multiple serious approaches to AI-assisted development. In this article, I break down the most widely adopted ones — vibe coding, agentic coding, context engineering, and spec-driven development — then propose an alternative I call **Spec-Roundtrip Driven Development (SRDD)**, along with its multi-domain extension, **Scaled SRDD (SSRDD)**, for larger systems composed of independently developed subsystems that must integrate into a coherent whole.
 
-Most debate stops there.
+### Why SRDD
 
-That framing misses what’s actually happening.
+SRDD draws from the strengths of each approach while addressing their predictable failure modes:
 
-What we’re seeing instead is a broader landscape of AI-assisted coding approaches, each with genuine strengths and predictable failure modes as systems grow. To understand why SRDD exists, we need to examine that landscape in full.
+- From **vibe coding**: rapid iteration, low ceremony, fast feedback
+- From **agentic coding**: goal-driven autonomy, multi-step task execution
+- From **context engineering**: disciplined curation of what the AI sees
+- From **spec-driven development**: architectural intentionality, explicit contracts, structured documentation
+
+What distinguishes SRDD from all of these is the **roundtrip**: planned regeneration cycles that synthesise fresh specs from living code. Specifications are treated as snapshots, not contracts. Code evolves. Understanding must be periodically extracted back out — not as a rescue operation, but as a normal phase in the system's lifecycle.
+
+This is what every senior developer has quietly wished for. They watch codebases grow over time — clean architecture slowly compromised, elegant patterns eroded by expedient fixes, boundaries blurred by "just this once" shortcuts. The industry calls it technical debt, but that term sanitises what it actually feels like: the slow death of coherence. Every experienced developer has stared at a system they once understood and thought, "If only I could burn this down and rebuild it properly — keeping everything we learned, but losing the accumulated mess." SRDD makes that possible. Regeneration is not fantasy; it is methodology.
+
+Our time has come. The tooling finally exists. The AI can analyse, synthesise, and rebuild at speeds that make regeneration practical rather than aspirational. What was once a daydream — "start fresh, but keep the wisdom" — is now a workflow. We call it Spec-Roundtrip Driven Development.
+
+For larger systems composed of independently developed subsystems, **SSRDD** wraps multiple SRDD instances with a coordination layer. Each subsystem runs its own SRDD cycle — its own planning docs, its own backlog, its own regeneration rhythm. SSRDD governs the boundaries between them: system-wide integration standards (CONSTITUTION.md), explicit API contracts, and dependency declarations that make cross-system coupling visible and intentional. The subsystems evolve independently; SSRDD ensures they integrate coherently.
+
+### When to Use SRDD / SSRDD
+
+SRDD is a generalist approach. It suits most projects that:
+
+- Outlive a single coding session
+- Involve multiple services, files, or contributors
+- Need to remain maintainable over time
+- Require production validation and iterative refinement
+
+SSRDD is appropriate when:
+
+- Multiple domains or bounded contexts must integrate
+- Teams need to evolve APIs without breaking consumers
+- Cross-domain dependencies must be explicit and versioned
+- System-wide standards (authentication, error formats, events) must be enforced
+
+I argue SRDD produces better outcomes than the alternatives for the majority of real-world development — with a few exceptions. Vibe coding remains superior for throwaway scripts and utilities that fit in a single context window. Spec-driven development may suit highly regulated environments where formal traceability is mandated. Context engineering offers value in brownfield systems where you're not trying to improve the architecture — just survive it. Surgical fixes, minimal blast radius, brownfield in, brownfield out.
+
+For everything else — single projects through to multi-domain systems — SRDD and SSRDD provide the better balance.
+
+What follows is a breakdown of each approach — its strengths, its limitations, and where it predictably breaks down — followed by a detailed walkthrough of SRDD and SSRDD themselves.
 
 ## 1. Vibe Coding
 

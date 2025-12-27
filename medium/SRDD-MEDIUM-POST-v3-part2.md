@@ -126,6 +126,17 @@ Vibe coding is the ultimate **0 → 1 tool**. It becomes dangerous the moment a 
 
 Most experienced developers now use it *selectively*: to explore ideas quickly — and then transition to something more disciplined once the idea is worth keeping.
 
+### SRDD Comparison
+
+**Where SRDD meets vibe coding:**
+SRDD preserves the rapid iteration that makes vibe coding effective. Within an issue, the developer and AI move quickly — TDD loops are tight, feedback is immediate, and the AI handles boilerplate, tests, and routine implementation. The conversational fluidity isn't lost; it's bounded.
+
+**Where SRDD goes beyond:**
+SRDD externalises what vibe coding keeps implicit. Architectural intent is captured in planning docs. Contracts make guarantees explicit. The scope guardian prevents the opportunistic drift that accumulates into chaos. Most critically, regeneration cycles mean the complexity ceiling isn't a dead end — it's a trigger for deliberate realignment. Understanding compounds instead of decaying.
+
+**Where vibe coding wins:**
+For throwaway scripts and single-session utilities, SRDD is overhead you don't need. But the bottom line above points to the real relationship: vibe coding excels at exploration; SRDD is what you transition to once the idea is worth keeping. They are sequential, not competing.
+
 ## 2. Agentic Coding
 
 ### What it is
@@ -212,7 +223,16 @@ Agentic coding is **delegated execution**, not delegated responsibility.
 
 It delivers speed without stability.
 
----
+### SRDD Comparison
+
+**Where SRDD meets agentic coding:**
+SRDD doesn't reject agentic execution — it harnesses it. Within Phase 2, the AI operates agentically: planning steps, editing files, running tests, fixing errors, iterating until done. The TDD loop is an agentic loop. The difference is that SRDD bounds what "done" means and guards what the agent is allowed to touch.
+
+**Where SRDD goes beyond:**
+Agentic coding optimises for task completion. SRDD optimises for *coherent* task completion — with the developer kept deliberately in the loop. The scope guardian prevents the echo effect: the AI cannot silently expand scope or reinforce bad patterns unchecked. PRs are mandatory, and review focuses on coherence, not just "tests pass." Contracts provide a durable representation of intent that survives beyond the current repository state. When the AI advises regeneration, the human decides whether to act. SRDD treats agentic execution as a tool to be supervised, not a strategy to be delegated to.
+
+**Where agentic coding wins:**
+For pure mechanical transformations — bulk renames, dependency upgrades, migration scripts — where architectural coherence is irrelevant and the only goal is "make it compile again," raw agentic execution is faster. SRDD's guardrails add friction that isn't needed when you genuinely don't care about the system's future. But those cases are rarer than they appear. Most systems need to be maintained, and "tests pass" is not the same as "understanding survives."
 
 ## 3. Context Engineering
 
@@ -293,6 +313,104 @@ What could have been a five-second experiment becomes a multi-minute ritual: cur
 Most critically, Context Engineering only controls what flows *into* the model. There is no native mechanism to extract updated understanding back out. When the system evolves, humans must manually reconcile reality with the curated context — or accept drift.
 
 ---
+
+### The takeaway
+
+Context Engineering is powerful, disciplined, and increasingly necessary for large or constrained systems. But it solves the context window problem through **curation and ceremony**, not through feedback.
+
+It improves inputs.
+It does not regenerate understanding.
+
+And that unclosed loop is precisely why SRDD exists.
+
+## 3. Context Engineering
+
+### What it is
+
+Context Engineering focuses on controlling *what* the AI sees, *when*, and *in what form*. The goal is not more context, but better abstraction.
+
+It treats the context window as a scarce resource.
+
+### The process
+
+Context Engineering is less about “adding information” and more about **actively sculpting what the model is allowed to know at any moment**.
+
+**Context curation (skeletons, exemplars, rules)**
+Instead of feeding the AI full source trees, developers aggressively abstract:
+
+* *Skeletons* replace implementations with method signatures, interfaces, and type definitions — enough to communicate shape without drowning the model in detail.
+* *Exemplars* provide a small number of “gold standard” patterns that demonstrate how the team wants problems solved.
+* *Rules* encode architectural constraints, banned libraries, naming conventions, and stylistic expectations.
+
+The intent is to reduce variance by narrowing the solution space. Ironically, *less* code often produces *better* results.
+
+**Context management (summaries, scratchpads)**
+Because real tasks exceed a single context window, teams introduce mechanisms to preserve continuity:
+
+* AI-maintained summaries that periodically compress prior conversations and decisions
+* Scratchpad files (`memory.md`, `notes.md`) where the model records intermediate reasoning or assumptions
+* Explicit handoff points where context is refreshed or reset
+
+This turns long interactions into staged engagements rather than unbounded chats.
+
+**Dynamic retrieval (MCP, tools, on-demand access)**
+Rather than front-loading everything, agents pull information *only when needed*:
+
+* Model Context Protocol (MCP) calls to inspect files, logs, schemas, or APIs
+* On-demand documentation lookup for version-accurate library behaviour
+* Tool-mediated access to repositories, databases, and build systems
+
+The model becomes less of a “reader” and more of an *investigator*, requesting context just in time.
+
+---
+
+### The pros
+
+Used well, Context Engineering delivers genuine improvements over ad-hoc prompting.
+
+**Fewer hallucinations**
+By grounding the model in curated constraints, the AI is far less likely to invent APIs, libraries, or patterns that don’t exist. This is especially valuable in legacy systems or regulated environments where correctness matters more than creativity.
+
+**Lower cost and better performance**
+Skeletons and selective retrieval dramatically reduce token usage. Smaller, higher-signal contexts not only cost less, they often produce *more accurate* outputs by avoiding “lost in the middle” failures, where LLMs weight the beginning and the most recent end of the context window more heavily, causing architectural decisions and constraints in between to be silently dropped as conversations grow — without warning or explicit failure signals.
+
+**Architectural enforcement**
+Context files act as soft guardrails. AI-generated code naturally conforms to senior-level conventions, reducing stylistic drift and PR churn. This is one of the few ways to reliably encode architectural intent without constant human intervention.
+
+**Determinism for contract-driven systems**
+In API-first or schema-driven environments, well-engineered context can make AI output surprisingly consistent. Given the same spec and constraints, regeneration becomes predictable — a prerequisite for CI/CD and automated codegen workflows.
+
+---
+
+### The cons
+
+The problems with Context Engineering are not subtle — they emerge directly from its strengths.
+
+**High cognitive overhead**
+Designing, maintaining, and evolving the AI’s “mental environment” is work. Developers can spend more time tuning context than building features. For small teams or solo developers, this overhead quickly becomes unsustainable.
+
+**Fragility across model changes**
+Context strategies are tightly coupled to model behaviour. A carefully tuned setup for one model version can degrade when the model changes, forcing teams into continuous recalibration.
+
+**Context bloat**
+Rules, examples, and summaries accumulate. Over time, the very files meant to improve signal begin consuming the attention budget themselves, recreating the same “lost in the middle” problem they were designed to solve.
+
+**Slower feedback loops**
+What could have been a five-second experiment becomes a multi-minute ritual: curate context, verify rules, run the agent, review output. For exploratory work, this feels like procedural friction masquerading as discipline.
+
+**One-directional knowledge flow**
+Most critically, Context Engineering only controls what flows *into* the model. There is no native mechanism to extract updated understanding back out. When the system evolves, humans must manually reconcile reality with the curated context — or accept drift.
+
+### SRDD Comparison
+
+**Where SRDD meets context engineering:**
+SRDD shares context engineering's recognition that *what the AI knows matters*. Rules files (CLAUDE.md), canonical patterns (ARCHITECTURE.md), and planning docs all shape how the AI reasons about the system. But the flow differs fundamentally. Context engineering focuses on preparing inputs — curating skeletons, examples, and abstraction layers before the AI begins work. Whether humans or AI assist with that curation, the knowledge flows one direction: into the coding session. SRDD closes the loop. The AI sees reality in full, synthesises understanding during regeneration, and produces planning docs for human approval. What the AI extracts — and the human approves — becomes the authoritative input for the next cycle. Context engineering curates *before*. SRDD extracts *after* — and feeds it forward.
+
+**Where SRDD goes beyond:**
+Context engineering is one-directional: carefully curated inputs, no mechanism to extract updated understanding back out. SRDD closes that loop. Regeneration cycles synthesise fresh specs from living code, ensuring that context files reflect reality rather than gradually drifting into fiction. The planning docs aren't static artefacts maintained by ceremony — they're regenerated from evidence. This is the fundamental difference: context engineering improves inputs; SRDD also regenerates understanding.
+
+**Where context engineering wins:**
+For brownfield systems where the goal is surgical fixes — not architectural transformation — context engineering's discipline is exactly right. When you don't own the architecture, can't regenerate, and just need to thread a needle without breaking anything, meticulous curation is the entire game. Brownfield in, brownfield out. SRDD assumes you can reshape the system over time; context engineering is designed for when you can't or won't.
 
 ### The takeaway
 
@@ -394,6 +512,19 @@ The danger is not incorrectness.
 It is homogenisation.
 
 Over time, SDD does not merely prevent surprise — it systematically removes the conditions under which genuinely new structure, interaction, or architecture can emerge.
+
+### SRDD Comparison
+
+**Where SRDD meets SDD:**
+Both methodologies reject the chaos of undocumented, ad-hoc development. Both produce planning artefacts. Both recognise that specifications matter. And both establish a relationship between spec and code that goes beyond one-way generation. The superficial shape is similar: documents drive implementation, and implementation informs documents.
+
+**Where SRDD goes beyond:**
+The relationship to the spec is fundamentally different. In SDD, the specification remains authoritative — code must reconcile back to it, and sync exists to detect drift, not to question the architecture. In SRDD, specifications are snapshots, not contracts. They capture understanding at a moment in time, but code becomes the source of truth as reality evolves. Regeneration doesn't sync — it *synthesises*. The AI extracts fresh specs from living code, informed by everything learned: PRs, issues, tests, production discoveries. The output isn't a reconciled document; it's a new foundation.
+
+More critically, SRDD preserves human judgment as a first-class input. SDD has no formal mechanism for taste, intuition, or the sense that something is "correct but wrong." The spec is a narrowing funnel; the AI fills it faithfully with statistically safe patterns. SRDD explicitly counters this: the developer dreams, the AI disciplines. Architectural discomfort has a voice. Discovery is allowed to lead, not merely to be tolerated within pre-declared boundaries.
+
+**Where SDD wins:**
+When formal traceability is mandated — not preferred, but legally or contractually required — SDD's rigour is the point. Regulated domains (finance, healthcare, safety-critical systems) often demand that every behaviour trace to an explicit, pre-approved declaration of intent. SRDD's "specs are snapshots" philosophy doesn't satisfy auditors who need to demonstrate that implementation derived from reviewed specifications. If the cost of ambiguity exceeds the cost of rigidity, and external compliance requires it, SDD remains the appropriate choice. SRDD is not designed for environments where flexibility is a liability.
 
 ## SRDD: The Missing Loop
 

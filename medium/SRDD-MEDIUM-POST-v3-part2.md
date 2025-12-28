@@ -312,95 +312,6 @@ What could have been a five-second experiment becomes a multi-minute ritual: cur
 **One-directional knowledge flow**
 Most critically, Context Engineering only controls what flows *into* the model. There is no native mechanism to extract updated understanding back out. When the system evolves, humans must manually reconcile reality with the curated context — or accept drift.
 
----
-
-### The takeaway
-
-Context Engineering is powerful, disciplined, and increasingly necessary for large or constrained systems. But it solves the context window problem through **curation and ceremony**, not through feedback.
-
-It improves inputs.
-It does not regenerate understanding.
-
-And that unclosed loop is precisely why SRDD exists.
-
-## 3. Context Engineering
-
-### What it is
-
-Context Engineering focuses on controlling *what* the AI sees, *when*, and *in what form*. The goal is not more context, but better abstraction.
-
-It treats the context window as a scarce resource.
-
-### The process
-
-Context Engineering is less about “adding information” and more about **actively sculpting what the model is allowed to know at any moment**.
-
-**Context curation (skeletons, exemplars, rules)**
-Instead of feeding the AI full source trees, developers aggressively abstract:
-
-* *Skeletons* replace implementations with method signatures, interfaces, and type definitions — enough to communicate shape without drowning the model in detail.
-* *Exemplars* provide a small number of “gold standard” patterns that demonstrate how the team wants problems solved.
-* *Rules* encode architectural constraints, banned libraries, naming conventions, and stylistic expectations.
-
-The intent is to reduce variance by narrowing the solution space. Ironically, *less* code often produces *better* results.
-
-**Context management (summaries, scratchpads)**
-Because real tasks exceed a single context window, teams introduce mechanisms to preserve continuity:
-
-* AI-maintained summaries that periodically compress prior conversations and decisions
-* Scratchpad files (`memory.md`, `notes.md`) where the model records intermediate reasoning or assumptions
-* Explicit handoff points where context is refreshed or reset
-
-This turns long interactions into staged engagements rather than unbounded chats.
-
-**Dynamic retrieval (MCP, tools, on-demand access)**
-Rather than front-loading everything, agents pull information *only when needed*:
-
-* Model Context Protocol (MCP) calls to inspect files, logs, schemas, or APIs
-* On-demand documentation lookup for version-accurate library behaviour
-* Tool-mediated access to repositories, databases, and build systems
-
-The model becomes less of a “reader” and more of an *investigator*, requesting context just in time.
-
----
-
-### The pros
-
-Used well, Context Engineering delivers genuine improvements over ad-hoc prompting.
-
-**Fewer hallucinations**
-By grounding the model in curated constraints, the AI is far less likely to invent APIs, libraries, or patterns that don’t exist. This is especially valuable in legacy systems or regulated environments where correctness matters more than creativity.
-
-**Lower cost and better performance**
-Skeletons and selective retrieval dramatically reduce token usage. Smaller, higher-signal contexts not only cost less, they often produce *more accurate* outputs by avoiding “lost in the middle” failures, where LLMs weight the beginning and the most recent end of the context window more heavily, causing architectural decisions and constraints in between to be silently dropped as conversations grow — without warning or explicit failure signals.
-
-**Architectural enforcement**
-Context files act as soft guardrails. AI-generated code naturally conforms to senior-level conventions, reducing stylistic drift and PR churn. This is one of the few ways to reliably encode architectural intent without constant human intervention.
-
-**Determinism for contract-driven systems**
-In API-first or schema-driven environments, well-engineered context can make AI output surprisingly consistent. Given the same spec and constraints, regeneration becomes predictable — a prerequisite for CI/CD and automated codegen workflows.
-
----
-
-### The cons
-
-The problems with Context Engineering are not subtle — they emerge directly from its strengths.
-
-**High cognitive overhead**
-Designing, maintaining, and evolving the AI’s “mental environment” is work. Developers can spend more time tuning context than building features. For small teams or solo developers, this overhead quickly becomes unsustainable.
-
-**Fragility across model changes**
-Context strategies are tightly coupled to model behaviour. A carefully tuned setup for one model version can degrade when the model changes, forcing teams into continuous recalibration.
-
-**Context bloat**
-Rules, examples, and summaries accumulate. Over time, the very files meant to improve signal begin consuming the attention budget themselves, recreating the same “lost in the middle” problem they were designed to solve.
-
-**Slower feedback loops**
-What could have been a five-second experiment becomes a multi-minute ritual: curate context, verify rules, run the agent, review output. For exploratory work, this feels like procedural friction masquerading as discipline.
-
-**One-directional knowledge flow**
-Most critically, Context Engineering only controls what flows *into* the model. There is no native mechanism to extract updated understanding back out. When the system evolves, humans must manually reconcile reality with the curated context — or accept drift.
-
 ### SRDD Comparison
 
 **Where SRDD meets context engineering:**
@@ -1163,30 +1074,11 @@ It promises the ability to **recover it**, intentionally and repeatedly, before 
 
 #### The Regeneration Cycle
 
-Regeneration is a deliberate return to Phase 1 — informed by everything that has been learned, and undertaken with full awareness of its cost.
+Regeneration returns to Phase 1 — informed by everything learned since the last design.
 
-The analytical phase is fast. The AI synthesises a new set of planning artefacts by analysing:
+The mechanics of regeneration are covered in detail in the following section: *The Regeneration Cycle*. In brief: the AI synthesises a new planning directory from the living system, the developer validates and refines it, and development resumes with restored clarity.
 
-- The current codebase (what exists)
-- The existing test suite (what is guaranteed)
-- Issue history (what was discovered through use)
-- Pull requests (why decisions were made)
-- Previous specs (what was originally intended)
-
-What follows is not.
-
-Regeneration is rarely cosmetic. Because it is typically triggered by architectural misalignment, it often implies **substantial rewriting** of affected parts of the system. This is intentional. Incremental patching is no longer sufficient; structure must be realigned with intent.
-
-The result is not a rollback.  
-It is a reset of *understanding* — and a re-assertion of direction.
-
-A new dated plan is produced, explicitly capturing:
-
-- What the system actually is
-- Which contracts and behaviours remain valid
-- What has accumulated as technical debt
-- Which assumptions must be corrected
-- What should be built next
+What matters here is the *decision* to regenerate — recognising when incremental patching is no longer sufficient and structural realignment is required.
 
 #### Pattern Hygiene During Regeneration
 
@@ -1240,26 +1132,36 @@ This is the roundtrip.
 
 Regeneration is the moment where SRDD closes the loop between intent and reality — not by rewinding time, but by **rebuilding understanding**.
 
+It is a deliberate return to Phase 1, informed by everything that has been learned, and undertaken with full awareness of its cost.
+
 The AI re-synthesises a coherent picture of the system from multiple sources of truth:
 
 * the **current codebase** (what actually exists)
 * **prior planning documents** (what was intended at different points in time)
 * **git history** (how and when the system changed)
 * **issues and tickets** (what was discovered under pressure)
+* **pull requests** (why decisions were made)
 * the **test suite** (what is contractually protected)
 
 None of these sources is treated as authoritative in isolation. Each is partial, biased, and incomplete. Together, they form a layered record of how the system became what it is.
 
+The analytical phase is fast. The AI can synthesise intent, contracts, drift, and decision history quickly.
+
+What follows is not.
+
+Regeneration is rarely cosmetic. Because it is typically triggered by architectural misalignment, it often implies **substantial rewriting** of affected parts of the system. Depending on the size of the system and how far it has drifted, returning to feature parity can take days — sometimes a week. That time is real cost. SRDD does not pretend otherwise.
+
 From this synthesis, the AI produces a **new, dated planning directory** — a refreshed set of artefacts that describe the system as it now stands, not as it was once imagined. This includes:
 
-* an updated model of the system’s boundaries and responsibilities
+* an updated model of the system's boundaries and responsibilities
 * an explicit account of preserved contracts
 * identified areas of architectural drift
 * accumulated technical debt, surfaced rather than rationalised
 * open questions and tensions that were previously implicit
+* what should be built next
 
 This is not a rollback.
-It is a reset of understanding.
+It is a reset of understanding — and a re-assertion of direction.
 
 ### Holistic Diagnosis, Selective Intervention
 
@@ -1282,6 +1184,7 @@ The outcome of regeneration is not just cleaner code.
 It is **compounded understanding**.
 
 Each regeneration captures:
+
 * why certain structures survived
 * why others failed
 * what trade-offs were real versus imagined
@@ -1291,7 +1194,7 @@ That understanding is externalised into artefacts that future humans — and fut
 
 Instead of entropy winning by default, insight accumulates.
 
-Iteration grows the system.  Regeneration realigns it.
+Iteration grows the system. Regeneration realigns it.
 
 That is the roundtrip — and it is why SRDD scales not just across codebases, but across years.
 
@@ -1304,6 +1207,7 @@ For systems that extend beyond a single bounded context, SRDD scales into **Scal
 SSRDD is not a new methodology layered on top of SRDD. It is a coordination wrapper that allows **multiple independent SRDD loops** to coexist without collapsing into chaos or bureaucracy.
 
 Each domain, service, or subsystem:
+
 * owns its own planning artefacts
 * runs its own SRDD cycles
 * evolves at its own pace
@@ -1333,7 +1237,71 @@ Crucially, SSRDD does **not** synchronise development cadence, force shared tool
 
 SSRDD scales **understanding**, not bureaucracy.
 
----
+### Boundary Enforcement via Dependency Permissions
+
+SSRDD does more than coordinate domains. It can **enforce architectural boundaries**.
+
+The core rule is explicit:
+
+> **If a domain does not declare that it consumes another domain, it cannot see it.**
+
+This model is closely analogous to **Project Jigsaw (Java 9+)**.
+
+Like Jigsaw, SSRDD treats boundaries as **design-time and compile-time constraints**, not as informal conventions. Domains must explicitly declare what they depend on and what they expose. Everything else is inaccessible by default.
+
+#### Explicit dependency declarations
+
+Each domain declares its dependencies in `contracts/consumes.yaml`:
+```yaml
+consumes:
+  - identity-management/api-users
+  - inventory/api-stock
+```
+
+#### Controlled evolution of dependencies
+
+In practice, dependency permissions in SSRDD are not universally mutable.
+
+Domain developers typically **do not have direct write access** to the system-level SSRDD artefacts that define cross-domain dependencies — such as the shared constitution or dependency registry. Their focus remains local: implementing behaviour within declared boundaries.
+
+Changes to domain dependencies are instead mediated at the system level, typically by architects or designated system stewards.
+
+This mirrors the intent of Project Jigsaw: module boundaries are not something individual classes casually rewrite. They are **structural decisions**, owned at a higher level of abstraction.
+
+#### Why this separation matters
+
+Without this separation, boundaries decay quietly:
+
+- A developer "just imports" another domain to save time
+- A quick integration bypasses the contract layer
+- A dependency is added for convenience and never removed
+- Architectural coupling becomes invisible until it is irreversible
+
+AI-assisted development amplifies this failure mode. When generation is cheap and fast, the path of least resistance is always cross-boundary access.
+
+SSRDD deliberately resists this by making dependency changes **explicit, reviewable, and intentional**.
+
+Developers still move quickly within their domain.
+They simply cannot *accidentally* change the shape of the system.
+
+#### Architectural control without architectural bottlenecks
+
+This is not about slowing teams down.
+
+By centralising dependency authority:
+
+- Domains remain autonomous within their scope
+- Integration decisions are made with system-level visibility
+- Boundary changes become conscious design moments
+- Regeneration remains feasible because coupling stays controlled
+
+The result is not bureaucracy — it is **preserved optionality**.
+
+Architects are not approving code.
+They are curating the *shape* in which code is allowed to grow.
+
+SSRDD enforces boundaries the same way strong type systems enforce correctness:
+not by trust, but by making the wrong thing impossible.
 
 ## Why SRDD Works
 

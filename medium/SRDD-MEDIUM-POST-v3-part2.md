@@ -800,9 +800,41 @@ If a test fails, SRDD assumes one of only two possibilities:
 
 There is no third option.
 
+#### When Contracts Change
+
+Contract changes are not inherently problematic — they are a normal part of system evolution.
+
+If the change is **minor and localised** — a field renamed, an error code adjusted, a constraint relaxed — it follows the standard SRDD flow:
+
+1. Create a new issue explicitly scoped to the contract change
+2. Update the test to reflect the new guarantee
+3. Implement, review, validate
+4. Capture the rationale in the PR
+
+The change is deliberate, documented, and bounded. Development continues.
+
+If the change is **significant** — it cascades through multiple consumers, invalidates assumptions elsewhere, or reveals that foundational work was missed during Phase 1 — this is a different signal. It suggests the original design didn't anticipate something important. One such change is a lesson. Repeated significant contract changes are a pattern.
+
+That pattern is a spaghettification indicator.
+
+When contracts keep shifting, or each change exposes deeper misalignment, the system is telling you something: boundaries were drawn in the wrong place, responsibilities are unclear, or requirements were not understood well enough.
+
+The AI is responsible for recognising this pattern. When it detects repeated significant contract changes, it does not simply create another issue. It advises regeneration:
+
+> "I'm seeing a pattern of contract changes that suggest architectural misalignment. Rather than continuing to patch, I recommend we capture this in 07-NextCycle.md and return to Phase 1."
+
+This short-circuits the normal flow. The AI documents the observed pattern and its implications in `07-NextCycle.md` — not as a fix, but as evidence that informs regeneration. The developer makes the final call, but the weight of the recommendation is clear: further implementation risks hardening around a flawed foundation.
+
+In short:
+- **Minor contract change** → new issue, normal flow
+- **Significant contract change** → new issue, but pay attention
+- **Repeated significant changes** → AI advises regeneration, captures evidence in 07-NextCycle.md, returns to Phase 1
+
 #### Layered Tests, Distinct Responsibilities
 
-SRDD uses layered tests, not to duplicate coverage, but to assign **jurisdiction**:
+SRDD adopts the well-established practice of layered testing — not to duplicate coverage, but to assign **jurisdiction**.
+
+Authority, in this context, means contractual weight — how strongly a test's failure signals a violated guarantee, and how much scrutiny is required before that test can be changed. High-authority tests encode promises the system makes to the outside world. Changing them is changing the contract. Low-authority tests are internal scaffolding — useful for development velocity, but disposable without consequence.
 
 **Unit tests**
 * Validate local logic and edge cases
@@ -827,16 +859,18 @@ This is a feature, not a limitation.
 
 #### Internal Freedom, External Stability
 
-SRDD draws a sharp boundary:
+This is standard software engineering — and SRDD respects it.
 
 * **Outside the contract:** stability is mandatory  
 * **Inside the boundary:** evolution is encouraged
 
 Refactors, restructures, and architectural shifts are allowed — even expected — as long as contractual tests continue to pass.
 
-This resolves a long-standing tension in software design: private methods remain private, cohesion is preserved, and test suites do not calcify internal structure. Velocity is maintained without eroding guarantees.
+The principle resolves a long-standing tension in software design: private methods remain private, cohesion is preserved, and test suites do not calcify internal structure. Velocity is maintained without eroding guarantees.
 
 The system becomes **stable where it must be**, and **fluid where it can be**.
+
+SRDD does not claim to invent this. It simply refuses to abandon it — even when AI-assisted velocity tempts teams to blur boundaries or lock down internals defensively.
 
 #### The AI as Scope Guardian
 
@@ -871,9 +905,17 @@ SRDD deliberately counters that by enforcing discipline at the issue boundary.
 
 The AI has a second responsibility during implementation: **following established patterns**.
 
-Canonical patterns — for logging, error handling, configuration, naming, and other cross-cutting concerns — are defined in `04-ARCHITECTURE.md`. The AI must replicate these patterns, not invent alternatives.
+Canonical patterns — for logging, error handling, configuration, naming, and other cross-cutting concerns — are defined in `04-ARCHITECTURE.md`. The AI should replicate these patterns, not invent alternatives.
 
-When the AI deviates from an established pattern, **correct it immediately**. Deviations that slip through become examples the AI will repeat. The codebase teaches by demonstration; every inconsistency introduced is an inconsistency that will propagate.
+But the AI cannot reliably enforce its own adherence. Pattern conformance requires layered defence:
+
+* **Good examples in the codebase** — the AI pattern-matches on what exists
+* **Rules files** — explicit instructions that shape generation (CLAUDE.md, .cursorrules, copilot-instructions.md, or whatever your tooling supports)
+* **Linters and static analysis** — automated rejection of non-conforming code
+* **CI checks** — build failures that prevent violations from merging
+* **Human review in Phase 3** — coherence review catches what tooling misses
+
+When the AI deviates from an established pattern, **correct it immediately**. Deviations that slip through become examples the AI will repeat. The codebase teaches by demonstration; every inconsistency introduced is an inconsistency that will propagate. The same applies to hallucinations and contrived solutions — an invented API that gets merged becomes a pattern the AI treats as real; a workaround that should have been questioned becomes the template for future workarounds.
 
 This means:
 
@@ -887,21 +929,10 @@ Pattern deviation is not a moral failing — it is a signal. It may indicate:
 
 * The AI lacks sufficient context (add to rules or provide examples)
 * The established pattern is unclear (clarify in ARCHITECTURE.md)
+* The guardrails are insufficient (add linter rules or CI checks)
 * The pattern itself needs revision (make this explicit, not accidental)
 
 See: *Principles → Designing for AI Comprehension*
-
-#### Why This Matters
-
-Left unchecked, opportunistic change does not fail loudly. It succeeds quietly — one small improvement at a time — until the system no longer has clear edges. Tests begin to reflect internal structure rather than external guarantees. Contracts blur. Refactors become risky not because the code is complex, but because no one is certain what is still promised.
-
-At that point, regeneration becomes guesswork. Understanding has decayed faster than the code itself.
-
-With SRDD's structure in place, the opposite occurs. Behavioural guarantees are made explicit and defended deliberately. Change is forced to declare itself. Regeneration starts from evidence rather than intuition, and each cycle compounds understanding instead of eroding it.
-
-This is what makes SRDD scalable — not just across codebases, but across time.
-
-The developer dreams. The AI disciplines.
 
 ### Phase 3: Review
 
@@ -932,18 +963,20 @@ That preservation is what allows understanding to compound rather than reset bet
 
 #### Review for Coherence, Not Just Correctness
 
-The AI can determine whether code works. That is not the reviewer's primary job.
+The AI can determine whether code works. That is not the reviewer's primary concern.
 
 The reviewer's responsibility is to assess whether the code **fits** — whether it coheres with the system's architecture, follows established patterns, and avoids introducing long-term complexity.
 
-Review for:
+The AI can assist with this review. It can flag potential boundary violations, compare implementations against ARCHITECTURE.md patterns, identify naming inconsistencies, and detect changes to public APIs. Use the AI as a first pass.
 
-* **Architectural coherence** — Does this change respect existing boundaries? Does it introduce new dependencies that weren't discussed?
-* **Pattern conformance** — Does the implementation follow the canonical patterns defined in ARCHITECTURE.md? Or has the AI introduced a variation?
-* **Naming and abstraction** — Are new functions, classes, and modules named in ways that reveal intent? Will the AI (and future developers) understand what "right" looks like from these examples?
-* **Contractual impact** — Does this change affect a public API, event, or guarantee? If so, is that change explicit and versioned?
+But the human reviewer holds final authority. Review for:
 
-Correctness is necessary but insufficient. A PR can pass all tests and still degrade the system's coherence. The reviewer is the last line of defence against pattern drift.
+* **Architectural coherence** — Does this change respect existing boundaries? Does it introduce new dependencies that weren't discussed? The AI can flag these; the human decides if they're acceptable.
+* **Pattern conformance** — Does the implementation follow canonical patterns, or has the AI introduced a variation? The AI can compare; the human judges whether deviation is drift or improvement.
+* **Naming and abstraction** — Are new functions, classes, and modules named in ways that reveal intent? The AI can check consistency; the human assesses whether names actually clarify.
+* **Contractual impact** — Does this change affect a public API, event, or guarantee? The AI can detect changes mechanically; the human decides if the change is intentional and appropriate.
+
+Correctness is necessary but insufficient. A PR can pass all tests — and all AI checks — and still degrade the system's coherence. The human reviewer is the last line of defence against pattern drift, and the only one who can say "this is correct but wrong."
 
 If the AI has deviated from an established pattern, this is the moment to catch it. Every deviation that merges becomes an example the AI will follow next time.
 
@@ -1573,18 +1606,126 @@ These principles are not optional.
 
 SRDD's phases, guardrails, and regeneration cycles exist to enforce them — or surface it clearly when they're being violated.
 
+## Implementation
+
+SRDD is currently a methodology, not a product. This section describes what exists today, what's planned, and what reliable enforcement will require.
+
+### Current Status
+
+| Component | Status | Notes |
+|-----------|--------|-------|
+| Methodology documentation | ✅ Available | SRDD.md, SCALED-SRDD.md |
+| Planning doc templates | ✅ Available | 00-07 document templates |
+| Rules file examples | ✅ Available | CLAUDE.md templates for SRDD workflow |
+| Scope enforcement tooling | 🔲 Planned | Pre-commit hooks, MCP integration |
+| Coherence validation | 🔲 Planned | Pattern comparison against ARCHITECTURE.md |
+| Regeneration advisor | 🔲 Planned | Cross-session signal tracking |
+| SSRDD coordination layer | 🔲 Planned | Multi-subsystem orchestration |
+
+The methodology can be adopted today using documentation and rules alone. Teams will capture significant value — better than vibe coding, better than undisciplined agentic work. But reliable enforcement of scope guarding, coherence review, and regeneration detection will require tooling that does not yet exist.
+
+### SRDD Implementation
+
+**What works with rules alone:**
+
+* TDD workflow — AI follows this well with clear instructions
+* PR description format — templatable, AI complies
+* Communication protocols — "ask before expanding scope" works reasonably
+* Phase awareness — AI can be reminded which phase it's in
+* Pattern following — works if good examples exist in the codebase
+
+**What needs tooling for reliable enforcement:**
+
+* **Scope enforcement** — Pre-commit hooks or CI checks that validate files changed against declared issue scope. AI self-discipline is insufficient; hard blocks are required.
+
+* **Coherence validation** — CLI or MCP server that compares implementation against ARCHITECTURE.md patterns. Generates structured report for human review. Could integrate with PR process.
+
+* **Pattern drift detection** — Static analysis that scores conformance against canonical patterns. Custom linter rules or dedicated tool. Runs in CI, blocks on threshold violations.
+
+* **Regeneration advisor** — Tracks signals across sessions: contract change frequency, scope expansion requests, pattern drift indicators. Surfaces recommendations: "3 significant contract changes in 2 weeks — consider regeneration." Cannot rely on AI memory alone.
+
+**Planned tooling:**
+
+| Command | Purpose |
+|---------|---------|
+| `srdd check` | Validate current state against methodology |
+| `srdd review-coherence` | Compare implementation against ARCHITECTURE.md |
+| `srdd regeneration-status` | Surface signals that suggest regeneration |
+
+MCP server integration for real-time checking within Claude Code, Cursor, and similar tools is a longer-term goal. This would make SRDD workflows smoother — the AI checks scope, patterns, and coherence *before* acting, rather than failing at commit or review. True enforcement still requires hard blocks at git and CI layers; MCP advises, it does not prevent.
+
+**Adoption without tooling:**
+
+Teams can adopt SRDD today by:
+
+1. Using the planning doc templates (00-07)
+2. Adding SRDD rules to their AI configuration (CLAUDE.md, .cursorrules, etc.)
+3. Following the phase workflow manually
+4. Relying on human review for coherence and scope discipline
+
+This delivers 60-70% of the value. The remaining 30-40% — reliable enforcement without human vigilance — awaits tooling.
+
+### SSRDD Implementation
+
+SSRDD wraps multiple SRDD instances with a coordination layer. Each subsystem runs its own SRDD cycle; SSRDD governs the boundaries between them.
+
+**Additional components required:**
+
+* **CONSTITUTION.md enforcement** — Validation that subsystem contracts conform to system-wide standards. Not just documentation; automated checks.
+
+* **Cross-subsystem dependency tracking** — Visibility into which subsystems depend on which contracts. Change impact analysis before regeneration.
+
+* **Coordinated regeneration** — When one subsystem regenerates, affected subsystems are notified. Integration contracts are re-validated. Cascade effects are surfaced, not hidden.
+
+* **System-wide coherence dashboard** — Aggregates health signals across subsystems. Pattern drift in subsystem A, contract churn in subsystem B, integration test failures between C and D — visible in one place.
+
+**Current status:**
+
+SSRDD is documented as methodology. No tooling exists. Adoption today requires:
+
+1. Manual coordination between subsystem teams
+2. Disciplined maintenance of CONSTITUTION.md
+3. Human tracking of cross-subsystem dependencies
+4. Scheduled integration checkpoints
+
+This is workable for small numbers of subsystems (2-4) with disciplined teams. Beyond that, tooling becomes essential.
+
+**Planned approach:**
+
+SSRDD tooling will build on SRDD tooling:
+
+| Command | Purpose |
+|---------|---------|
+| `ssrdd status` | Health across all subsystems |
+| `ssrdd check-constitution` | Validate subsystem compliance |
+| `ssrdd impact-analysis <change>` | What subsystems are affected? |
+| `ssrdd coordinate-regeneration` | Orchestrate multi-subsystem realignment |
+
+Timeline: SRDD tooling first, SSRDD coordination layer second.
+
+### Contributing
+
+SRDD and SSRDD are open methodologies. The documentation, templates, and (eventually) tooling will be available for community use and contribution.
+
+If you're interested in contributing to the tooling effort, or adopting SRDD in your organisation and sharing learnings, [contact information / repository link].
+
 ---
 
 ## Closing
 
-The industry frames AI-assisted development as a choice between chaos and rigidity. That framing is wrong.
+Vibe coding, agentic coding, context engineering, spec-driven development — each optimises for something real. Speed. Autonomy. Discipline. Traceability. None of them are wrong. But none of them close the loop.
 
-Vibe coding fails because memory collapses and boundaries dissolve. Spec-driven development fails because reality refuses to stay still. SRDD accepts both truths and closes the loop between them.
+Vibe coding forgets. Agentic coding echoes. Context engineering curates inputs but not outputs. Spec-driven development treats specifications as authoritative even as reality drifts away from them.
+
+SRDD closes the loop.
 
 ### What SRDD Enforces
 
+**The roundtrip is the methodology.**
+Specifications flow into implementation. Understanding flows back out through regeneration. This is not a rescue operation — it is a planned phase in the system's lifecycle.
+
 **Specs are snapshots, not contracts.**
-Specifications capture understanding at a point in time. Code becomes the source of truth. Periodically, understanding is extracted back out through regeneration.
+Specifications capture understanding at a point in time. Code becomes the source of truth. Periodically, understanding is extracted back out.
 
 **The codebase is a curriculum.**
 The AI learns from your existing code. Every pattern teaches it what to repeat. Contradictions breed confusion; consistency compounds velocity.
@@ -1612,14 +1753,16 @@ SSRDD extends these principles across domains:
 
 ### The Core Commitment
 
-AI accelerates everything, including mistakes. SRDD exists to make learning faster than decay.
+Every senior developer has stared at a system they once understood and thought: "If only I could burn this down and rebuild it properly — keeping everything we learned, but losing the accumulated mess."
+
+SRDD makes that possible.
 
 - Specs deserve a return ticket
 - Boundaries deserve enforcement
 - Judgment deserves to be structural
 - Understanding deserves to survive
 
-SRDD provides all four.
+AI accelerates everything, including mistakes. SRDD exists to make learning faster than decay.
 
 ---
 

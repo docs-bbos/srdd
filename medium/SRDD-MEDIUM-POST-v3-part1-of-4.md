@@ -116,11 +116,14 @@ That roundtrip is what keeps understanding compounding instead of decaying.
 
 Spec-Roundtrip Driven Development is about aligning AI-assisted coding with the realities of professional systems development and the outcomes we actually care about: coherent architecture, maintainable systems, and products that feel intentional rather than accidental — **with the potential to operate effectively at scale**.
 
-SRDD builds on what AI is genuinely good at, recognises its limits, and restores the developer’s role as the system’s steward — hands on the steering wheel — rather than a passive passenger.
+SRDD builds on what AI is genuinely good at, recognises its limits, and restores the developer's role as the system's steward — hands on the steering wheel — rather than a passive passenger.
 
-In **Part 2**, I go deeper into the mechanics: the SRDD workflow, regeneration cycles, how specifications are synthesised back out of living systems, and how the approach scales to multi-project environments using **Scaled SRDD (SSRDD)**. I also map SRDD explicitly against vibe coding, agentic coding, context engineering, and spec-driven development, showing where each approach works — and where it predictably breaks.
+This is a four-part series:
 
-You can read Part 2 here:
-👉 **[https://brooke.medium.com/ssrd-part2](https://brooke.medium.com/ssrd-part2)**
+- **Part 1** (this article): Why SRDD exists
+- **[Part 2: The AI Coding Landscape](https://brooke.medium.com/srdd-part2-of-4)** — Vibe coding, agentic coding, context engineering, and spec-driven development
+- **[Part 3: The SRDD Workflow](https://brooke.medium.com/srdd-part3-of-4)** — Phases, contracts, regeneration
+- **[Part 4: Scaling Up](https://brooke.medium.com/srdd-part4-of-4)** — SSRDD, principles, and implementation
 
-If Part 1 was about *why* SRDD exists, Part 2 is about *how* it works.
+Continue to Part 2:
+👉 **[The AI Coding Landscape](https://brooke.medium.com/srdd-part2-of-4)**

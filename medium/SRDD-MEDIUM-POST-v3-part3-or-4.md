@@ -1,3 +1,15 @@
+# SRDD (Part 3 of 4): The SRDD Workflow
+
+This is Part 3 of a four-part series on Spec-Roundtrip Driven Development.
+* 👉 **[Read Part 1: Why SRDD Exists](https://brooke.medium.com/srdd-part1-of-4)**
+* 👉 **[Read Part 2: The AI Coding Landscape](https://brooke.medium.com/srdd-part2-of-4)**
+
+---
+
+Part 2 mapped the AI coding landscape — vibe coding, agentic coding, context engineering, and spec-driven development — and showed where each approach predictably breaks down.
+
+This article is the technical core: the five phases of SRDD, how contracts govern change, what the AI is responsible for during implementation, and how regeneration closes the loop between intent and reality.
+
 ## SRDD: The Missing Loop
 
 Spec-Roundtrip Driven Development (SRDD) is a development methodology designed for AI-assisted systems that must evolve over time without losing coherence, intent, or professional judgment. It was created in response to a recurring failure mode across modern AI coding approaches: understanding flows in one direction, while systems grow in another.
@@ -758,3 +770,18 @@ Instead of entropy winning by default, insight accumulates.
 Iteration grows the system. Regeneration realigns it.
 
 That is the roundtrip — and it is why SRDD scales not just across codebases, but across years.
+
+---
+
+## What's Next
+
+The workflow is the engine. But SRDD doesn't stop at single projects.
+
+In **Part 4**, I cover how SRDD scales to multi-domain systems through **Scaled SRDD (SSRDD)**, the principles that underpin the methodology, and the current state of implementation — what works today and what tooling is still needed.
+
+Continue to Part 4:
+* 👉 **[Scaling Up: SSRDD, Principles, and Implementation](https://brooke.medium.com/srdd-part4-of-4)**
+
+Or return to earlier parts:
+* 👉 **[Part 1: Why SRDD Exists](https://brooke.medium.com/srdd-part1-of-4)**
+* 👉 **[Part 2: The AI Coding Landscape](https://brooke.medium.com/srdd-part2-of-4)**

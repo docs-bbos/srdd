@@ -127,3 +127,17 @@ This is a four-part series:
 
 Continue to Part 2:
 👉 **[The AI Coding Landscape](https://brooke.medium.com/srdd-part2-of-4)**
+
+---
+
+© 2025 Brooke Smith. All rights reserved.
+
+This document constitutes a public disclosure and defensive publication of the
+Spec-Roundtrip Driven Development (SRDD) and Scaled SRDD (SSRDD) methodologies.
+
+The author expressly places the concepts, processes, and workflows described
+herein into the public domain as prior art, for the purpose of preventing
+subsequent patent claims or exclusive ownership by third parties.
+
+Commercial use, redistribution, or derivative works of this text require
+explicit permission from the author.

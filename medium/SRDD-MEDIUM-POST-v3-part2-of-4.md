@@ -1,12 +1,15 @@
-# SRDD (Part 2): From Vibe Coding to Regeneration Cycles
+# SRDD (Part 2 of 4): The AI Coding Landscape
 
-See part 1 at 👉 **[https://brooke.medium.com/ssrd-part1](https://brooke.medium.com/ssrd-part1)**
+This is Part 2 of a four-part series on Spec-Roundtrip Driven Development.
+👉 **[Read Part 1: Why SRDD Exists](https://brooke.medium.com/srdd-part1-of-4)**
+
+---
 
 By mid-2025, it became clear that "AI coding" was no longer a single thing.
 
 What began as playful experimentation had hardened into recognisable methodologies, each optimising for different trade-offs: speed versus coherence, autonomy versus understanding, structure versus adaptability.
 
-There are now multiple serious approaches to AI-assisted development. In this article, I break down the most widely adopted ones — vibe coding, agentic coding, context engineering, and spec-driven development — then propose an alternative I call **Spec-Roundtrip Driven Development (SRDD)**, along with its multi-domain extension, **Scaled SRDD (SSRDD)**, for larger systems composed of independently developed subsystems that must integrate into a coherent whole.
+There are now multiple serious approaches to AI-assisted development. This article breaks down the four most widely adopted — vibe coding, agentic coding, context engineering, and spec-driven development — examining where each shines, where each breaks, and how **SRDD** (and its multi-domain extension, **SSRDD**) positions itself relative to them.
 
 ### Why SRDD
 
@@ -45,7 +48,7 @@ I argue SRDD produces better outcomes than the alternatives for the majority of 
 
 For everything else — single projects through to multi-domain systems — SRDD and SSRDD provide the better balance.
 
-What follows is a breakdown of each approach — its strengths, its limitations, and where it predictably breaks down — followed by a detailed walkthrough of SRDD and SSRDD themselves.
+What follows is a breakdown of each approach — its strengths, its limitations, and where it predictably breaks down.
 
 ## 1. Vibe Coding
 
@@ -437,3 +440,18 @@ More critically, SRDD preserves human judgment as a first-class input. SDD has n
 **Where SDD wins:**
 When formal traceability is mandated — not preferred, but legally or contractually required — SDD's rigour is the point. Regulated domains (finance, healthcare, safety-critical systems) often demand that every behaviour trace to an explicit, pre-approved declaration of intent. SRDD's "specs are snapshots" philosophy doesn't satisfy auditors who need to demonstrate that implementation derived from reviewed specifications. If the cost of ambiguity exceeds the cost of rigidity, and external compliance requires it, SDD remains the appropriate choice. SRDD is not designed for environments where flexibility is a liability.
 
+---
+
+## What's Next
+
+The landscape is clear. Each approach optimises for something real — speed, autonomy, discipline, traceability — but none of them close the loop between specification and reality.
+
+SRDD does.
+
+In **Part 3**, I walk through the SRDD workflow in detail: the five phases, how contracts are defined and protected, the role of the AI as scope guardian, and what regeneration actually looks like in practice.
+
+Continue to Part 3:
+👉 **[The SRDD Workflow](https://brooke.medium.com/srdd-part3-of-4)**
+
+Or return to Part 1:
+👉 **[Why SRDD Exists](https://brooke.medium.com/srdd-part1-of-4)**

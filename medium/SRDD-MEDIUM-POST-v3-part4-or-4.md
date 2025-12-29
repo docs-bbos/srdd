@@ -1,3 +1,16 @@
+# SRDD (Part 4 of 4): Scaling Up — SSRDD, Principles, and Implementation
+
+This is Part 4 of a four-part series on Spec-Roundtrip Driven Development.
+* 👉 **[Read Part 1: Why SRDD Exists](https://brooke.medium.com/srdd-part1-of-4)**
+* 👉 **[Read Part 2: The AI Coding Landscape](https://brooke.medium.com/srdd-part2-of-4)**
+* 👉 **[Read Part 3: The SRDD Workflow](https://brooke.medium.com/srdd-part3-of-4)**
+
+---
+
+Part 3 walked through the SRDD workflow: five phases, contracts as authority, the AI as scope guardian, and regeneration as a deliberate reset of understanding.
+
+This final article covers three things: how SRDD scales to multi-domain systems through **Scaled SRDD (SSRDD)**, the principles that underpin the methodology, and the current state of implementation — what you can adopt today and what tooling is still planned.
+
 ## Scaled SRDD (SSRDD)
 
 For systems that extend beyond a single bounded context, SRDD scales into **Scaled SRDD (SSRDD)**.
@@ -477,3 +490,12 @@ subsequent patent claims or exclusive ownership by third parties.
 
 Commercial use, redistribution, or derivative works of this text require
 explicit permission from the author.
+
+---
+
+## The Complete Series
+
+- **[Part 1: Why SRDD Exists](https://brooke.medium.com/srdd-part1-of-4)** — The problem, the journey, the insight
+- **[Part 2: The AI Coding Landscape](https://brooke.medium.com/srdd-part2-of-4)** — Vibe coding, agentic coding, context engineering, SDD
+- **[Part 3: The SRDD Workflow](https://brooke.medium.com/srdd-part3-of-4)** — Phases, contracts, regeneration
+- **[Part 4: Scaling Up](https://brooke.medium.com/srdd-part4-of-4)** — SSRDD, principles, implementation (this article)

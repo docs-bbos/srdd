@@ -26,9 +26,11 @@ Developers need to remain across the codebase and architecture. The sweet spot i
 
 That’s why tools like Claude Code and OpenAI’s Codex clicked for me. Command-line assistants keep you closer to what’s actually happening. You run the AI deliberately, review diffs in your editor, and stay oriented. I don’t understand every line of generated code — no one can unless they write it all themselves — but I maintain *architectural understanding*: how the system fits together, where the boundaries are, and where to look when something breaks.
 
-Businesses don’t care which sorting algorithm you chose. They care that the system solves their problem. As developers, our job is to care *just enough* — and to name things well enough that intent stays visible. I’d much rather see `sortRedBlackTree()` than `sort()` and retain that understanding without spelunking through every line.
+Businesses don't care which sorting algorithm you chose. They care that the system solves their problem. As developers, our job is to care *just enough* — and to name things well enough that intent stays visible.
 
-This approach to small well named functions / methods is one of the principals in Uncle Bob's "Clean Code" - see [summary of this](https://gist.github.com/wojteklu/73c6914cc446146b8b533c0988cf8d29#functions-rules), [video of Uncle Bob on stage](https://youtu.be/7EmboKQH8lM) and [book](https://www.goodreads.com/book/show/3735293-clean-code).
+This matters more with AI-generated code, not less. When you didn't write it yourself, you need to grasp intent at a glance. I'd much rather see `sortRedBlackTree()` than `sort()` and retain that understanding without spelunking through every line. The AI can generate the implementation; the human ensures the names reveal what it actually does.
+
+This is Uncle Bob's "Clean Code" — small, well-named functions that communicate intent. See [summary](https://gist.github.com/wojteklu/73c6914cc446146b8b533c0988cf8d29#functions-rules), [video](https://youtu.be/7EmboKQH8lM), and [book](https://www.goodreads.com/book/show/3735293-clean-code). The principles predate AI coding, but AI coding makes them essential. If the AI generates opaque code with generic names, you've lost the architectural understanding that keeps you in control.
 
 ## The Honeymoon Phase
 

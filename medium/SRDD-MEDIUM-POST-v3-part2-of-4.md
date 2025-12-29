@@ -9,7 +9,7 @@ By mid-2025, it became clear that "AI coding" was no longer a single thing.
 
 What began as playful experimentation had hardened into recognisable methodologies, each optimising for different trade-offs: speed versus coherence, autonomy versus understanding, structure versus adaptability.
 
-There are now multiple serious approaches to AI-assisted development. This article breaks down the four most widely adopted — vibe coding, agentic coding, context engineering, and spec-driven development — examining where each shines, where each breaks, and how **SRDD** (and its multi-domain extension, **SSRDD**) positions itself relative to them.
+There are now multiple serious approaches to AI-assisted development. This article breaks down the four most widely adopted — vibe coding, agentic coding, context engineering, and spec-driven development — examining where each shines, where each breaks, and how **Spec-Roundtrip Driven Development (SRDD)** (and its multi-domain extension, **Scaled SRDD (SSRDD)**) positions itself relative to them.
 
 ### Why SRDD
 
@@ -22,7 +22,7 @@ SRDD draws from the strengths of each approach while addressing their predictabl
 
 What distinguishes SRDD from all of these is the **roundtrip**: planned regeneration cycles that synthesise fresh specs from living code. Specifications are treated as snapshots, not contracts. Code evolves. Understanding must be periodically extracted back out — not as a rescue operation, but as a normal phase in the system's lifecycle.
 
-This is what every senior developer has quietly wished for. They watch codebases grow over time — clean architecture slowly compromised, elegant patterns eroded by expedient fixes, boundaries blurred by "just this once" shortcuts. The industry calls it technical debt, but that term sanitises what it actually feels like: the slow death of coherence. Every experienced developer has stared at a system they once understood and thought, "If only I could burn this down and rebuild it properly — keeping everything we learned, but losing the accumulated mess." SRDD makes that possible. Regeneration is not fantasy; it is methodology.
+This is what every senior developer has quietly wished for. They watch codebases grow over time — clean architecture slowly compromised, elegant patterns eroded by expedient fixes, boundaries blurred by "just this once" shortcuts. They hesitate before every change, unsure what's tested and what isn't, wondering what else might break. The industry calls it technical debt, but that term sanitises what it actually feels like: the slow death of coherence. Every experienced developer has stared at a system they once understood and thought, "If only I could burn this down and rebuild it properly — keeping everything we learned, but losing the accumulated mess." SRDD makes that possible. Regeneration is not fantasy; it is methodology.
 
 Our time has come. The tooling finally exists. The AI can analyse, synthesise, and rebuild at speeds that make regeneration practical rather than aspirational. What was once a daydream — "start fresh, but keep the wisdom" — is now a workflow. We call it Spec-Roundtrip Driven Development.
 
@@ -105,8 +105,7 @@ Vibe coding is unbeatable for **0 → 1**.
 
 * **The complexity ceiling**
 Vibe coding eventually hits a coherence ceiling. This is partly driven by context window limits, but the failure is neither visible nor well-signalled. LLMs do not warn when earlier assumptions fall out of scope — they simply stop conditioning on them. Larger context windows delay the collapse, but do not prevent it; they often extend the illusion of coherence, pushing regressions further from their cause and making failures harder to reason about. The result is the familiar whack-a-mole loop — not because the model is “bad,” but because architectural memory was never externalised in the first place.
-Here’s an expanded, essay-grade treatment of each con that deepens the argument without bloating it or repeating earlier sections. You can drop this straight under the Vibe Coding cons.
-
+`
 * **Invisible technical debt**
   In vibe coding, debt does not accumulate because developers are careless — it accumulates because *no one is looking*. Code is generated in fragments, accepted opportunistically, and rarely revisited with architectural intent. Because there is no externalised model of the system, duplication, leaky abstractions, and accidental coupling emerge gradually and silently. The system appears to move quickly right up until it doesn’t — at which point the cost is no longer incremental. Refactors become risky, fixes cascade unpredictably, and the only visible option is wholesale rewrite. Debt was always present; it was simply never surfaced early enough to be managed deliberately.
 

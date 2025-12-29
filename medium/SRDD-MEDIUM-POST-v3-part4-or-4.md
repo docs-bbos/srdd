@@ -479,6 +479,15 @@ AI accelerates everything, including mistakes. SRDD exists to make learning fast
 
 ---
 
+## The Complete Series
+
+- **[Part 1: Why SRDD Exists](https://brooke.medium.com/srdd-part1-of-4)** — The problem, the journey, the insight
+- **[Part 2: The AI Coding Landscape](https://brooke.medium.com/srdd-part2-of-4)** — Vibe coding, agentic coding, context engineering, SDD
+- **[Part 3: The SRDD Workflow](https://brooke.medium.com/srdd-part3-of-4)** — Phases, contracts, regeneration
+- **[Part 4: Scaling Up](https://brooke.medium.com/srdd-part4-of-4)** — SSRDD, principles, implementation (this article)
+
+---
+
 © 2025 Brooke Smith. All rights reserved.
 
 This document constitutes a public disclosure and defensive publication of the
@@ -490,12 +499,3 @@ subsequent patent claims or exclusive ownership by third parties.
 
 Commercial use, redistribution, or derivative works of this text require
 explicit permission from the author.
-
----
-
-## The Complete Series
-
-- **[Part 1: Why SRDD Exists](https://brooke.medium.com/srdd-part1-of-4)** — The problem, the journey, the insight
-- **[Part 2: The AI Coding Landscape](https://brooke.medium.com/srdd-part2-of-4)** — Vibe coding, agentic coding, context engineering, SDD
-- **[Part 3: The SRDD Workflow](https://brooke.medium.com/srdd-part3-of-4)** — Phases, contracts, regeneration
-- **[Part 4: Scaling Up](https://brooke.medium.com/srdd-part4-of-4)** — SSRDD, principles, implementation (this article)

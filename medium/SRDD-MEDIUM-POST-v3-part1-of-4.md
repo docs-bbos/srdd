@@ -14,9 +14,7 @@ Recent releases pushed this even further: background agents running in isolated 
 
 But very quickly, something started to bother me.
 
-The more capable these tools became, the more they *pulled the developer away* from the system itself. And we’re already seeing the consequences play out across the industry. Klarna laid off 700 customer-service staff in favour of AI, only to quietly rehire humans when quality dropped. Forrester predicts that over half of AI-attributed layoffs will be reversed. A rigorous METR study found that developers using AI tools experienced a **19 percent decrease in productivity** — while believing they had become **20 percent more productive**.
-
-That 39-point gap between perception and reality matters.
+The more capable these tools became, the more they *pulled the developer away* from the system itself. And we’re already seeing the consequences play out across the industry. Klarna laid off 700 customer-service staff in favour of AI, only to quietly rehire humans when quality dropped. Forrester predicts that over half of AI-attributed layoffs will be reversed.
 
 The problem isn’t the tools. It’s the loss of understanding.
 
@@ -40,9 +38,9 @@ It also solved another persistent problem: returning to old codebases. Even with
 
 That kind of patience changes how you work.
 
-At the same time, I should be clear about something: I don’t buy the modern obsession with speed for its own sake. Not everything needs to be solved *immediately*, as if a meteorite were on a collision course with Earth, or some alien civilisation had scheduled our planet for demolition so they could build an intergalactic super-highway. Most of the urgency we live under isn’t existential at all — it’s a capitalistic drive built around eternal competition with everyone else. We must ship first. We must make more money. Before them. What a load of codswallop.  This is the act that is killing the planet and the people.
+At the same time, I should be clear about something: I don’t buy the modern obsession with speed for its own sake. Not everything needs to be solved immediately, as if a meteorite were on a collision course with Earth — or some alien civilisation had scheduled our planet for demolition to make way for an intergalactic super-highway. Most of the urgency we live under isn’t existential at all. It’s manufactured — a capitalistic pressure built around perpetual competition. We must ship first. We must grow faster. Before them. What a load of codswallop. This mindset is quietly exhausting people and degrading the planet in the process.
 
-I’ve written — and continue to write — about these topics at length elsewhere, in essays, for anyone interested.
+I’ve written — and continue to write — about these dynamics elsewhere, for anyone interested in digging further.
 
 The reason I *do* embrace AI coding is different. It removes the mundane and the laborious. Writing boilerplate. Churning out test scaffolding. Re-implementing solutions that have already been solved a thousand times, in a dozen languages. Few developers genuinely enjoy that work, and fewer would argue it’s where human creativity is best spent.
 

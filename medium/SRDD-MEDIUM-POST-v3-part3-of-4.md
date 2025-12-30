@@ -100,8 +100,6 @@ When Phase 1 is entered as part of a **regeneration cycle**, the `07-NextCycle.m
 
 This document captures production discoveries, unresolved tensions, candidate contracts, and signals of architectural drift. It does not prescribe solutions — it informs what must be reconsidered.
 
----
-
 ### 00-PLANNING.md
 
 `00-PLANNING.md` captures the initial brain dump.
@@ -109,8 +107,6 @@ This document captures production discoveries, unresolved tensions, candidate co
 Using a structured questionnaire, the developer and AI work through the problem space: what is being solved, who has the problem, why now, and what constraints exist. In regeneration cycles, this document also reflects on what the system has become — including shortcuts taken, assumptions invalidated, and lessons learned.
 
 This document is deliberately rough. Its purpose is **breadth, not precision**. Everything goes on the table before refinement begins.
-
----
 
 ### 01-REQUIREMENTS.md
 
@@ -127,8 +123,6 @@ In regeneration cycles, requirements may be:
 
 This makes change explicit rather than accidental.
 
----
-
 ### 02-USECASES.md
 
 `02-USECASES.md` translates requirements into concrete user stories with acceptance criteria.
@@ -143,8 +137,6 @@ Acceptance criteria define what "done" means in observable terms. These criteria
 
 Importantly, **use cases are not written during production**. They are derived deliberately here — often directly from discoveries captured in `07-NextCycle.md`.
 
----
-
 ### 03-QA-SESSION.md
 
 `03-QA-SESSION.md` preserves the conversation.
@@ -152,8 +144,6 @@ Importantly, **use cases are not written during production**. They are derived d
 As the AI generates and refines the preceding documents, questions naturally arise: edge cases, ambiguities, unstated assumptions, conflicting goals. This transcript captures the back-and-forth — including corrections, disagreements, and rationale.
 
 This document exists to preserve **decision context**, not to enforce outcomes. It becomes invaluable during regeneration, when past intent must be re-understood rather than re-imagined.
-
----
 
 ### 04-ARCHITECTURE.md
 
@@ -169,11 +159,9 @@ It documents:
 
 This is where professional architectural judgment matters most. The goal is not novelty, but coherence — ensuring the AI does not default to generic or statistically common patterns that are misaligned with the system's actual needs.
 
-**Canonical patterns are established here.** Decisions about how the system handles logging, error handling, configuration, and other cross-cutting concerns should be explicit. These patterns become what the AI will replicate throughout implementation. Contradictions introduced later are harder to correct than conventions established early.
+**Canonical patterns are established here**: Decisions about how the system handles logging, error handling, configuration, and other cross-cutting concerns should be explicit. These patterns become what the AI will replicate throughout implementation. Contradictions introduced later are harder to correct than conventions established early.
 
 See: *Principles → Designing for AI Comprehension*
-
----
 
 ### 05-IMPLEMENTATION.md
 
@@ -184,8 +172,6 @@ What is built first? What depends on what? What can safely be deferred?
 This document informs issue creation, but the backlog remains intentionally lean. Only a small number of high-level issues are created initially. Additional issues emerge organically as understanding deepens.
 
 Momentum is preserved by keeping the queue short.
-
----
 
 ### 06-TESTPLAN.md
 
@@ -198,8 +184,6 @@ Momentum is preserved by keeping the queue short.
 It clarifies what each layer is responsible for, what constitutes a contract, and what data is required to exercise the system meaningfully. It also specifies how test data will be generated or sourced.
 
 Tests are not written here — but the **authority and scope of tests** is.
-
----
 
 ### 07-NextCycle.md
 
@@ -356,6 +340,8 @@ Its responsibilities include:
 * Offering to create new issues for out-of-scope ideas
 * Refusing to silently "just add one more thing"
 
+These roles are not aspirational — they can be enforced today through rules files, test discipline, and review structure, with future tooling improving what these already provide.
+
 This matters because AI-assisted development **amplifies opportunism**.
 
 When implementation becomes cheap, fast, and frictionless, the cost of *just adding one more thing* collapses. Ideas that would normally be deferred — "while we're here", "it's only a small change", "we can tidy this up later" — are acted on immediately. The AI does not push back. It does not feel scope creep. It executes.
@@ -380,11 +366,11 @@ Canonical patterns — for logging, error handling, configuration, naming, and o
 
 But the AI cannot reliably enforce its own adherence. Pattern conformance requires layered defence:
 
-* **Good examples in the codebase** — the AI pattern-matches on what exists
-* **Rules files** — explicit instructions that shape generation (CLAUDE.md, .cursorrules, copilot-instructions.md, or whatever your tooling supports)
-* **Linters and static analysis** — automated rejection of non-conforming code
-* **CI checks** — build failures that prevent violations from merging
-* **Human review in Phase 3** — coherence review catches what tooling misses
+* **Good examples in the codebase**: the AI pattern-matches on what exists
+* **Rules files**: explicit instructions that shape generation (CLAUDE.md, .cursorrules, copilot-instructions.md, or whatever your tooling supports)
+* **Linters and static analysis**: automated rejection of non-conforming code
+* **CI checks**: build failures that prevent violations from merging
+* **Human review in Phase 3**: coherence review catches what tooling misses
 
 When the AI deviates from an established pattern, **correct it immediately**. Deviations that slip through become examples the AI will repeat. The codebase teaches by demonstration; every inconsistency introduced is an inconsistency that will propagate. The same applies to hallucinations and contrived solutions — an invented API that gets merged becomes a pattern the AI treats as real; a workaround that should have been questioned becomes the template for future workarounds.
 
@@ -442,10 +428,10 @@ The AI can assist with this review. It can flag potential boundary violations, c
 
 But the human reviewer holds final authority. Review for:
 
-* **Architectural coherence** — Does this change respect existing boundaries? Does it introduce new dependencies that weren't discussed? The AI can flag these; the human decides if they're acceptable.
-* **Pattern conformance** — Does the implementation follow canonical patterns, or has the AI introduced a variation? The AI can compare; the human judges whether deviation is drift or improvement.
-* **Naming and abstraction** — Are new functions, classes, and modules named in ways that reveal intent? The AI can check consistency; the human assesses whether names actually clarify.
-* **Contractual impact** — Does this change affect a public API, event, or guarantee? The AI can detect changes mechanically; the human decides if the change is intentional and appropriate.
+* **Architectural coherence**: Does this change respect existing boundaries? Does it introduce new dependencies that weren't discussed? The AI can flag these; the human decides if they're acceptable.
+* **Pattern conformance**: Does the implementation follow canonical patterns, or has the AI introduced a variation? The AI can compare; the human judges whether deviation is drift or improvement.
+* **Naming and abstraction**: Are new functions, classes, and modules named in ways that reveal intent? The AI can check consistency; the human assesses whether names actually clarify.
+* **Contractual impact**: Does this change affect a public API, event, or guarantee? The AI can detect changes mechanically; the human decides if the change is intentional and appropriate.
 
 Correctness is necessary but insufficient. A PR can pass all tests — and all AI checks — and still degrade the system's coherence. The human reviewer is the last line of defence against pattern drift, and the only one who can say "this is correct but wrong."
 
@@ -519,8 +505,8 @@ If no, the rejection is captured deliberately in `07-NextCycle.md`. The behaviou
 
 If yes, the AI captures it as a **candidate contract** and clarifies its scope:
 
-- **Context-specific or system-wide?** Does this guarantee apply everywhere, or only under certain conditions?
-- **Stable, versioned, or constrained?** Should it never change, change only with explicit versioning, or be bounded by specific limits?
+- **Context-specific or system-wide**: Does this guarantee apply everywhere, or only under certain conditions?
+- **Stable, versioned, or constrained**: Should it never change, change only with explicit versioning, or be bounded by specific limits?
 
 These answers are recorded in `07-NextCycle.md` alongside the candidate contract — not as a bug to fix now, but as a guarantee to formalize in a future cycle.
 
@@ -546,16 +532,16 @@ This is not a formality. It is where SRDD's discipline pays off.
 
 The AI assists in categorizing accumulated findings:
 
-**Bugs and defects**
+**Bugs and defects**:
 The system does not behave as specified. Tests should have caught this but didn't, or the condition wasn't anticipated. These require fixes.
 
-**Minor issues and rough edges**
+**Minor issues and rough edges**:
 The system works but could be better. Performance improvements, UX polish, small enhancements. These are iterative refinements.
 
-**Candidate contracts**
+**Candidate contracts**:
 Implicit behaviours that users depend on, surfaced during UAT. These need to be formalized — either as guaranteed contracts or explicitly rejected.
 
-**Architectural signals**
+**Architectural signals**:
 Signs of deeper misalignment: repeated boundary violations, cascading changes, pattern drift, responsibilities in the wrong place. These suggest regeneration.
 
 #### Watching for Spaghettification
@@ -581,13 +567,13 @@ Pattern inconsistency deserves particular attention. When the AI encounters cont
 
 Based on the categorized findings and spaghettification signals, Phase 5 chooses one of three paths:
 
-**1. Phase 1 (Regenerate)**
+**1. Phase 1 (Regenerate)**:
 Architectural or contractual issues require a return to design. The accumulated signals show misalignment that patching cannot fix. Regeneration synthesizes fresh specs from the living system, and development resumes from a clarified foundation.
 
-**2. Phase 2 (Iterate)**
+**2. Phase 2 (Iterate)**:
 Bugs, minor issues, or candidate contracts need to be addressed before release. Issues are created from the relevant findings in `07-NextCycle.md`, and development continues through the standard implementation cycle.
 
-**6. Phase 6 (Production)**
+**6. Phase 6 (Production)**:
 The system is ready to version and release. Findings are either minor enough to defer, or the accumulated evidence shows the system is fit for production. The decision moves to release.
 ```
                     ┌─────────────────────────┐

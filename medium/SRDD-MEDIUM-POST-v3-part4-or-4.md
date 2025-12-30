@@ -416,6 +416,20 @@ SSRDD tooling will build on SRDD tooling:
 
 Timeline: SRDD tooling first, SSRDD coordination layer second.
 
+### Roadmap
+
+**Alignment with Agile and SAFe**
+SRDD is designed to complement, not replace, existing delivery frameworks. Future documentation will map SRDD phases to Agile ceremonies and SAFe constructs — showing how regeneration fits into PI planning, how Phase 5 triage aligns with backlog refinement, and how SSRDD coordinates across Agile Release Trains.
+
+**Rules file templates**
+Complete CLAUDE.md, .cursorrules, and copilot-instructions.md templates that encode SRDD workflow, scope guarding, and pattern-following behaviour. Ready to drop into any project.
+
+**MCP server integration**
+Real-time SRDD enforcement within Claude Code, Cursor, and similar tools. The AI checks scope, patterns, and coherence *before* acting. True enforcement still requires git and CI layers; MCP advises and surfaces signals continuously.
+
+**Kubernetes and container orchestration**
+SSRDD's domain model maps naturally to microservices architectures. Future work will explore how SSRDD boundaries align with Kubernetes namespaces, how CONSTITUTION.md standards translate to service mesh policies, and how coordinated regeneration integrates with deployment pipelines. The goal is SSRDD as a design-time discipline that produces systems well-suited to container orchestration — not as an afterthought, but by construction.
+
 ### Contributing
 
 SRDD and SSRDD are open methodologies. The documentation, templates, and (eventually) tooling will be available for community use and contribution.

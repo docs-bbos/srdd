@@ -286,33 +286,20 @@ There is no third option.
 
 #### When Contracts Change
 
-Contract changes are not inherently problematic — they are a normal part of system evolution.
-
-If the change is **minor and localised** — a field renamed, an error code adjusted, a constraint relaxed — it follows the standard SRDD flow:
-
-1. Create a new issue explicitly scoped to the contract change
-2. Update the test to reflect the new guarantee
-3. Implement, review, validate
-4. Capture the rationale in the PR
-
-The change is deliberate, documented, and bounded. Development continues.
-
-If the change is **significant** — it cascades through multiple consumers, invalidates assumptions elsewhere, or reveals that foundational work was missed during Phase 1 — this is a different signal. It suggests the original design didn't anticipate something important. One such change is a lesson. Repeated significant contract changes are a pattern.
-
-That pattern is a spaghettification indicator.
-
 When contracts keep shifting, or each change exposes deeper misalignment, the system is telling you something: boundaries were drawn in the wrong place, responsibilities are unclear, or requirements were not understood well enough.
 
-The AI is responsible for recognising this pattern. When it detects repeated significant contract changes, it does not simply create another issue. It advises regeneration:
+The AI is responsible for capturing these signals as they occur. Each significant contract change — and its context — is logged immediately in `07-NextCycle.md`. This is not a fix; it is evidence. The document accumulates observations: what changed, why, what it affected, and what tension it revealed.
 
-> "I'm seeing a pattern of contract changes that suggest architectural misalignment. Rather than continuing to patch, I recommend we capture this in 07-NextCycle.md and return to Phase 1."
+As signals accumulate, the AI periodically reviews the list. When the pattern becomes clear — repeated boundary violations, cascading impacts, foundational assumptions proving wrong — it advises regeneration:
 
-This short-circuits the normal flow. The AI documents the observed pattern and its implications in `07-NextCycle.md` — not as a fix, but as evidence that informs regeneration. The developer makes the final call, but the weight of the recommendation is clear: further implementation risks hardening around a flawed foundation.
+> "07-NextCycle.md now contains five significant contract changes in three weeks, three of which affected the same boundary. This suggests architectural misalignment. I recommend returning to Phase 1."
+
+The developer makes the final call, but the recommendation is backed by documented evidence, not AI intuition. The decision to regenerate becomes traceable.
 
 In short:
 - **Minor contract change** → new issue, normal flow
-- **Significant contract change** → new issue, but pay attention
-- **Repeated significant changes** → AI advises regeneration, captures evidence in 07-NextCycle.md, returns to Phase 1
+- **Significant contract change** → new issue, log signal in 07-NextCycle.md
+- **Accumulated signals show pattern** → AI advises regeneration, evidence already captured, return to Phase 1
 
 #### Layered Tests, Distinct Responsibilities
 
@@ -466,17 +453,17 @@ If the AI has deviated from an established pattern, this is the moment to catch 
 
 See: *Principles → Designing for AI Comprehension*
 
-### Phase 4: Production
+### Phase 4: UAT (Observe and Accumulate)
 
-Production is where SRDD validates intent against reality.
+UAT is where SRDD validates intent against reality.
 
-Deployment is not treated as the end of development, but as the moment when assumptions are finally exposed to real conditions. The system is exercised using **real data, real permissions, real workflows, and real constraints** — not sanitised environments optimised to pass automated checks.
+This phase is not treated as the end of development, but as the moment when assumptions are finally exposed to real conditions. The system is exercised using **real data, real permissions, real workflows, and real constraints** — not sanitised environments optimised to pass automated checks.
 
-Automated tests have already established correctness. Production exists to establish *fitness*.
+Automated tests have already established correctness. UAT exists to establish *fitness*.
 
-#### User Acceptance Testing (UAT)
+#### A Deliberate Confrontation with Reality
 
-In SRDD, UAT is not a ceremonial sign-off. It is a **deliberate confrontation with reality**.
+In SRDD, UAT is not a ceremonial sign-off. It is **evidence gathering**.
 
 UAT asks a different question from tests:
 
@@ -484,26 +471,33 @@ UAT asks a different question from tests:
 
 This is where qualitative judgment enters the loop. Performance may meet metrics but still feel slow. A workflow may be logically correct but cognitively awkward. An edge case may be rare but unacceptable. These are not failures of correctness; they are failures of fit.
 
-SRDD treats this feedback as first-class evidence.
+SRDD treats this feedback as first-class evidence — but **does not act on it during this phase**.
 
-When UAT surfaces an issue:
+#### Accumulate, Don't Fix
 
-- It is never patched opportunistically
-- It is never folded back into a closed issue
-- It always becomes a **new issue**, with its own scope, intent, and lifecycle
+Every finding during UAT is captured in `07-NextCycle.md`:
 
-Old issues are never reopened.
+- Bugs and defects
+- Minor issues and rough edges
+- Implicit contracts discovered through use
+- Architectural tensions revealed under real conditions
+- Performance concerns
+- User feedback and behavioural expectations
 
-This is a deliberate rule. Reopening an issue implies that the original work was incomplete or incorrect. In SRDD, production findings are understood as discoveries that could not have been known earlier. They represent new learning, not execution failure.
+No fixes are made. No issues are created in the backlog. No code changes.
 
-Each new issue:
+This is deliberate. Phase 4 is observation. The decision about *what to do* with these findings belongs to Phase 5.
 
-- Captures production context explicitly
-- Enters the standard SRDD cycle
-- Receives its own tests and review
-- Preserves the historical truth of prior decisions
+Each entry in `07-NextCycle.md` captures:
 
-#### Making Implicit Contracts Explicit
+- What was observed
+- The context (user, workflow, data conditions)
+- Whether it appears to be a bug, a missing contract, or an architectural signal
+- Any relevant evidence (logs, screenshots, user quotes)
+
+The document accumulates throughout UAT. It becomes the input to triage.
+
+#### Making Implicit Contracts Visible
 
 Crucially, UAT often reveals **implicit contracts** — behaviours users depend on that were never formally encoded. These are not traditional bugs. They are expectations that emerged through use rather than design.
 
@@ -517,110 +511,139 @@ A user, product owner, or developer notices a behaviour and says some version of
 
 SRDD treats these moments as signals, not interruptions.
 
-At that point, the AI's role is not to infer intent, but to **force clarification**. It prompts an explicit decision:
+At that point, the AI's role is not to infer intent, but to **force clarification**. It prompts a series of decisions:
 
-- Is this behaviour something we want to guarantee going forward?
-- Is it context-specific, or system-wide?
-- Should it remain stable, or be versioned or constrained?
+**Should this behaviour be guaranteed going forward?**
 
-If the answer is yes, the behaviour is promoted from expectation to contract by:
+If no, the rejection is captured deliberately in `07-NextCycle.md`. The behaviour remains unsupported, and the system is free to change without preserving it. Future developers — and future AI sessions — will know the decision was conscious, not accidental.
 
-1. Creating a new issue that describes the behaviour in user or system terms
-2. Encoding it as a failing functional or integration test
-3. Updating documentation or specs to reflect the newly recognised guarantee
-4. Implementing only what is required to make that guarantee explicit
+If yes, the AI captures it as a **candidate contract** and clarifies its scope:
 
-At that point, the behaviour is no longer tribal knowledge. It is enforced, reviewable, and visible to both humans and AI.
+- **Context-specific or system-wide?** Does this guarantee apply everywhere, or only under certain conditions?
+- **Stable, versioned, or constrained?** Should it never change, change only with explicit versioning, or be bounded by specific limits?
 
-If the answer is no, the rejection is captured just as deliberately. The behaviour remains unsupported, and the system is free to change without preserving it.
+These answers are recorded in `07-NextCycle.md` alongside the candidate contract — not as a bug to fix now, but as a guarantee to formalize in a future cycle.
 
-In both cases, ambiguity is resolved consciously.  
+In both cases, ambiguity is resolved consciously.
 Nothing remains implicit by accident.
 
-#### Production Discoveries as AI Curriculum
+#### UAT as Evidence
 
-When implicit contracts become explicit, they also become **examples the AI will learn from**.
-
-The test you write to encode a guarantee becomes a pattern for future tests. The implementation you create becomes a reference the AI will follow. The naming you choose — for functions, events, error types — shapes what the AI considers "right" in similar contexts.
-
-This means production discoveries do more than stabilise the system. They **teach** the system.
-
-Sloppy formalisation creates sloppy precedents. A hastily-named function or inconsistent error structure will propagate. Careful formalisation creates clarity that compounds: future AI-generated code will pattern-match on well-structured examples.
-
-When making implicit contracts explicit:
-
-- Follow established patterns from ARCHITECTURE.md
-- Use names that reveal intent, not just function
-- Structure tests consistently with existing contract tests
-- Treat this as curation, not just correction
-
-See: *Principles → Designing for AI Comprehension*
-
-#### Production as Evidence
-
-Production is therefore not a destination.  
+UAT is therefore not a destination.
 It is a **source of evidence**.
 
-That evidence feeds the next iteration — or, when accumulated signals indicate deeper drift, the next regeneration cycle.
+That evidence — accumulated in `07-NextCycle.md` — feeds Phase 5, where the decision is made: iterate, regenerate, or release.
 
-### Phase 5: Iterate or Regenerate
+### Phase 5: Triage and Decide
 
-Most development in SRDD is iterative.
+Phase 5 is the decision point.
 
-Features are added, behaviours refined, and capabilities extended by selecting the next issue and returning to Phase 2. This is the normal mode of progress. Systems grow through deliberate, bounded change, with contracts preserved and understanding compounding over time.
+After UAT, `07-NextCycle.md` contains accumulated evidence: bugs, minor issues, implicit contracts, architectural signals, user feedback. Phase 5 analyzes this evidence and chooses the path forward.
 
-Regeneration is not the default.  
-It is the exception.
+This is not a formality. It is where SRDD's discipline pays off.
+
+#### Categorizing Findings
+
+The AI assists in categorizing accumulated findings:
+
+**Bugs and defects**
+The system does not behave as specified. Tests should have caught this but didn't, or the condition wasn't anticipated. These require fixes.
+
+**Minor issues and rough edges**
+The system works but could be better. Performance improvements, UX polish, small enhancements. These are iterative refinements.
+
+**Candidate contracts**
+Implicit behaviours that users depend on, surfaced during UAT. These need to be formalized — either as guaranteed contracts or explicitly rejected.
+
+**Architectural signals**
+Signs of deeper misalignment: repeated boundary violations, cascading changes, pattern drift, responsibilities in the wrong place. These suggest regeneration.
 
 #### Watching for Spaghettification
 
-As development proceeds, the AI actively monitors for signs that the system's structure is beginning to degrade — not because of negligence, but because accumulated change has outpaced architectural clarity.
+As findings are reviewed, the AI actively looks for signs that the system's structure is beginning to degrade — not because of negligence, but because accumulated change has outpaced architectural clarity.
 
 These signals are collectively referred to as **spaghettification**, and they tend to surface gradually:
 
 - **Duplicated logic:** Similar behaviour implemented in multiple places with slight variations
 - **Circular dependencies:** Components that cannot be reasoned about in isolation
 - **Whack-a-mole regressions:** Fixes in one area repeatedly break others
-- **God modules:** Classes or services that accumulate disproportionate responsibility
+- **God modules:** Classes or services that accumulate disproportionate responsibility, violating the [Single Responsibility Principle](https://en.wikipedia.org/wiki/Single-responsibility_principle)
 - **Velocity decay:** Simple changes take longer than expected
 - **Hedging language:** Phrases like "this might break something" or "I'm not entirely sure"
 - **Pattern inconsistency:** The same concern (logging, error handling, configuration) implemented multiple ways across the codebase
 
-None of these indicate failure.  
+None of these indicate failure.
 They indicate **misalignment between intent and structure**.
 
 Pattern inconsistency deserves particular attention. When the AI encounters contradictory examples, it cannot determine which is "right." It pattern-matches on whatever is in context — which may not be the canonical approach. This creates a feedback loop: inconsistency breeds inconsistency, accelerating drift.
 
+#### The Decision
+
+Based on the categorized findings and spaghettification signals, Phase 5 chooses one of three paths:
+
+**1. Phase 1 (Regenerate)**
+Architectural or contractual issues require a return to design. The accumulated signals show misalignment that patching cannot fix. Regeneration synthesizes fresh specs from the living system, and development resumes from a clarified foundation.
+
+**2. Phase 2 (Iterate)**
+Bugs, minor issues, or candidate contracts need to be addressed before release. Issues are created from the relevant findings in `07-NextCycle.md`, and development continues through the standard implementation cycle.
+
+**6. Phase 6 (Production)**
+The system is ready to version and release. Findings are either minor enough to defer, or the accumulated evidence shows the system is fit for production. The decision moves to release.
+```
+                    ┌─────────────────────────┐
+                    │      Phase 4: UAT       │
+                    │   (Observe & Accumulate)│
+                    └───────────┬─────────────┘
+                                │
+                                ▼
+                    ┌─────────────────────────┐
+                    │  Phase 5: Triage and    │
+                    │        Decide           │
+                    └───────────┬─────────────┘
+                                │
+            ┌───────────────────┼───────────────────┐
+            │                   │                   │
+            ▼                   ▼                   ▼
+    ┌───────────────┐   ┌───────────────┐   ┌───────────────┐
+    │   Phase 1:    │   │   Phase 2:    │   │   Phase 6:    │
+    │  Regenerate   │   │   Iterate     │   │  Production   │
+    │(architectural)│   │ (bugs/minor)  │   │               │
+    └───────────────┘   └───────────────┘   └───────────────┘
+```
+
 #### Advising Regeneration
 
-When these signals accumulate, the AI does not attempt to quietly compensate with increasingly fragile fixes. Instead, it surfaces the pattern explicitly and advises regeneration.
+When spaghettification signals accumulate, the AI does not attempt to quietly compensate with increasingly fragile fixes. Instead, it surfaces the pattern explicitly and advises regeneration.
 
 This is not an automated action. It is a recommendation.
 
 The AI explains what it is observing, why incremental change is becoming costly, and which parts of the system appear most affected. The decision to regenerate remains human.
 
+> "07-NextCycle.md contains five significant contract changes in three weeks, three of which affected the same boundary. Combined with the pattern drift in error handling and the circular dependency introduced last sprint, this suggests architectural misalignment. I recommend returning to Phase 1."
+
 Regeneration is chosen when the cost of continued patching exceeds the cost of reorientation.
 
 That choice is never trivial.
 
-The analytical part is fast, as expected. The AI can synthesise intent, contracts, drift, and decision history quickly. What follows is not. Regeneration almost always implies **substantial change**, because the recommendation is rarely cosmetic. It is typically driven by architectural misalignment — boundaries that no longer hold, responsibilities that have collapsed inward, or contracts that have accreted implicit behaviour without structure.
+#### The Cost and Return of Regeneration
 
-Once regeneration begins, affected parts of the system are rewritten deliberately. This is not incremental refactoring. It is controlled reconstruction.
+Regeneration is not cheap.
 
-Depending on the size of the system, how long it has evolved since the last regeneration, and how far it has drifted from its original expectations, returning to feature parity can take days — sometimes a week. That time is real cost. SRDD does not pretend otherwise.
+Depending on the size of the system, how long it has evolved since the last regeneration, and how far it has drifted from its original expectations, returning to feature parity can take days — sometimes weeks. That time is real cost. SRDD does not pretend otherwise.
 
 What it offers in return is clarity.
 
-The regenerated system is clean. Architectural intent is explicit again. Implicit requirements surfaced during iteration and UAT are captured as contracts and tests. Technical debt is no longer woven invisibly through the codebase; it is either resolved or consciously accepted.
+The regenerated system is clean. Architectural intent is explicit again. Implicit requirements surfaced during UAT are captured as contracts and tests. Technical debt is no longer woven invisibly through the codebase; it is either resolved or consciously accepted.
 
 Most importantly, velocity returns — and with it, confidence. Development after regeneration is faster, more predictable, and more satisfying. Changes no longer feel precarious. The system can once again be reasoned about as a whole.
 
-Regeneration is not a shortcut.
-It is an investment.
+For users, this translates into something tangible: **continuous improvement without instability**. Features ship rapidly. Bugs are fixed promptly. The system evolves visibly — yet it remains reliable. Users experience a product that gets better without breaking, that responds to feedback without regressing. This is only possible when the team behind it can move quickly *with* confidence, not despite its absence.
 
-SRDD treats that investment as a normal, planned phase in the life of a system — not a last resort taken when everything has gone wrong.
+SRDD makes that sustainable.
 
-The alternative is familiar.
+The mechanics of regeneration — what the AI synthesizes and what it produces — are covered in detail in the following section: *The Regeneration Cycle*.
+
+#### The Alternative
 
 In large, long-lived systems — especially those built by many developers over time — architectural drift is rarely confronted head-on. Instead, it is managed defensively. Code becomes brittle. Knowledge fragments. Boundaries blur. Entire areas of the system acquire reputations: *"Don't touch that,"* *"No one really knows how this works,"* *"It breaks if you look at it wrong."*
 
@@ -645,48 +668,13 @@ A week of deliberate reorientation can replace months of hesitant change. A syst
 SRDD does not promise perpetual cleanliness.
 It promises the ability to **recover it**, intentionally and repeatedly, before brittleness becomes destiny.
 
-#### The Regeneration Cycle
-
-Regeneration returns to Phase 1 — informed by everything learned since the last design.
-
-The mechanics of regeneration are covered in detail in the following section: *The Regeneration Cycle*. In brief: the AI synthesises a new planning directory from the living system, the developer validates and refines it, and development resumes with restored clarity.
-
-What matters here is the *decision* to regenerate — recognising when incremental patching is no longer sufficient and structural realignment is required.
-
-#### Pattern Hygiene During Regeneration
-
-Regeneration is also the moment to **clean the curriculum**.
-
-Before the next development cycle begins, contradictory patterns must be consolidated. If logging is done three different ways, regeneration decides which is canonical — and eliminates the others. If error handling has drifted, it is realigned. If naming conventions have eroded, they are restored.
-
-This is not cosmetic tidying. It directly affects future velocity.
-
-The AI will pattern-match on whatever exists in the regenerated codebase. Clean, consistent examples produce clean, consistent output. Contradictions left in place will propagate again.
-
-Regeneration therefore includes:
-
-- Identifying cross-cutting concerns with multiple implementations
-- Selecting or defining the canonical pattern for each
-- Refactoring to consolidate (not just documenting the preference)
-- Updating ARCHITECTURE.md to reflect current decisions
-
-The codebase that emerges from regeneration should teach the AI what "right" looks like — unambiguously.
-
-See: *Principles → Designing for AI Comprehension*
-
-#### Resuming Development
-
-From there, development resumes with clearer boundaries, cleaner structure, and restored confidence. Feature parity may take days to recover, but velocity afterwards increases sharply. The system becomes easier to reason about, safer to change, and more satisfying to work on.
-
-Regeneration trades short-term disruption for long-term momentum — and does so deliberately.
-
 #### Why This Works
 
 SRDD does not treat architectural decay as a moral failing or a crisis. It treats it as a natural consequence of sustained progress — especially in systems that grow through real use, changing requirements, and multiple contributors.
 
 By making regeneration an expected and supported move — rather than an admission of defeat — SRDD removes the stigma that causes teams to avoid structural correction. Refactoring stops being a desperate rescue operation performed under pressure and becomes a deliberate design activity undertaken with intent.
 
-Iteration grows the system.  
+Iteration grows the system.
 Regeneration realigns it.
 
 Together, they prevent the slow hardening that turns living systems brittle. Boundaries remain intelligible. Confidence is preserved. Change remains possible even as systems scale in size, age, and ambition.
@@ -707,6 +695,8 @@ Regeneration is the moment where SRDD closes the loop between intent and reality
 
 It is a deliberate return to Phase 1, informed by everything that has been learned, and undertaken with full awareness of its cost.
 
+### What the AI Synthesizes
+
 The AI re-synthesises a coherent picture of the system from multiple sources of truth:
 
 * the **current codebase** (what actually exists)
@@ -715,14 +705,11 @@ The AI re-synthesises a coherent picture of the system from multiple sources of 
 * **issues and tickets** (what was discovered under pressure)
 * **pull requests** (why decisions were made)
 * the **test suite** (what is contractually protected)
+* **07-NextCycle.md** (accumulated signals, candidate contracts, and version history)
 
 None of these sources is treated as authoritative in isolation. Each is partial, biased, and incomplete. Together, they form a layered record of how the system became what it is.
 
-The analytical phase is fast. The AI can synthesise intent, contracts, drift, and decision history quickly.
-
-What follows is not.
-
-Regeneration is rarely cosmetic. Because it is typically triggered by architectural misalignment, it often implies **substantial rewriting** of affected parts of the system. Depending on the size of the system and how far it has drifted, returning to feature parity can take days — sometimes a week. That time is real cost. SRDD does not pretend otherwise.
+### What the AI Produces
 
 From this synthesis, the AI produces a **new, dated planning directory** — a refreshed set of artefacts that describe the system as it now stands, not as it was once imagined. This includes:
 
@@ -777,7 +764,12 @@ That is the roundtrip — and it is why SRDD scales not just across codebases, b
 
 The workflow is the engine. But SRDD doesn't stop at single projects.
 
-In **Part 4**, I cover how SRDD scales to multi-domain systems through **Scaled SRDD (SSRDD)**, the principles that underpin the methodology, and the current state of implementation — what works today and what tooling is still needed.
+In **Part 4**, I cover:
+
+- How SRDD scales to multi-domain systems through **Scaled SRDD (SSRDD)**
+- The principles that underpin the methodology
+- The current state of implementation — what works today
+- The roadmap ahead — alignment with Agile and SAFe, rules file templates, and MCP server integration
 
 Continue to Part 4:
 * 👉 **[Scaling Up: SSRDD, Principles, and Implementation](https://brooke.medium.com/srdd-part4-of-4)**

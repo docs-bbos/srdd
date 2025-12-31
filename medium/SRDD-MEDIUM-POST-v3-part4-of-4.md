@@ -9,6 +9,8 @@ This is Part 4 of a four-part series on Spec-Roundtrip Driven Development.
 
 Part 3 walked through the SRDD workflow: five phases, contracts as authority, the AI as scope guardian, and regeneration as a deliberate reset of understanding.
 
+Where the earlier parts focus on failure modes and workflow, this final part focuses on durability: how SRDD holds up under scale, time, and organisational pressure.
+
 This final article covers three things: how SRDD scales to multi-domain systems through **Scaled SRDD (SSRDD)**, the principles that underpin the methodology, and the current state of implementation — what you can adopt today and what tooling is still planned.
 
 ## Scaled SRDD (SSRDD)
@@ -43,6 +45,8 @@ At the system level, SSRDD coordinates only what *must* be shared:
 
 * **Boundary drift detection**  
   SSRDD watches for signs that domain boundaries are eroding — duplicated responsibilities, circular dependencies, creeping knowledge of internals — and flags these as candidates for regeneration or boundary renegotiation.
+
+This combination is uncommon: most large systems either centralise architectural control to prevent drift, or decentralise teams without making drift visible at the system level. SSRDD does neither — it allows local autonomy while making architectural change observable rather than accidental.
 
 Crucially, SSRDD does **not** synchronise development cadence, force shared tooling, or impose uniform internal practices. It coordinates *interfaces and intent*, not implementation.
 
@@ -118,6 +122,8 @@ SSRDD deliberately resists this by making dependency changes **explicit, reviewa
 
 Developers still move quickly within their domain.
 They simply cannot *accidentally* change the shape of the system.
+
+In short: SSRDD treats dependency changes as architectural events, not implementation conveniences.
 
 #### Architectural control without architectural bottlenecks
 
@@ -358,6 +364,8 @@ The methodology can be adopted today using documentation and rules alone. Teams 
 * **Regeneration advisor** — Tracks signals across sessions: contract change frequency, scope expansion requests, pattern drift indicators. Surfaces recommendations: "3 significant contract changes in 2 weeks — consider regeneration." Cannot rely on AI memory alone.
 
 **Planned tooling:**
+
+The table below outlines planned tooling that reinforces SRDD practices; the methodology already works today using rules files and process discipline, which cover roughly 60% of the model.
 
 | Command | Purpose |
 |---------|---------|

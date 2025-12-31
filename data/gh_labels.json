@@ -1,0 +1,154 @@
+{
+  "labels": [
+    {
+      "category": "Type",
+      "items": [
+        {
+          "name": "methodology",
+          "color": "5319E7",
+          "description": "Changes to SRDD phases, principles, or workflow"
+        },
+        {
+          "name": "documentation",
+          "color": "0075CA",
+          "description": "Clarifications, corrections, or improvements to docs"
+        },
+        {
+          "name": "template",
+          "color": "D4C5F9",
+          "description": "Planning doc or rules file templates"
+        },
+        {
+          "name": "tooling",
+          "color": "FBCA04",
+          "description": "srdd CLI, MCP server, or automation features"
+        },
+        {
+          "name": "integration",
+          "color": "C2E0C6",
+          "description": "Guides for specific tools, frameworks, or processes"
+        }
+      ]
+    },
+    {
+      "category": "Affected Area",
+      "items": [
+        {
+          "name": "phase-1-design",
+          "color": "BFD4F2",
+          "description": "Phase 1: Design"
+        },
+        {
+          "name": "phase-2-implementation",
+          "color": "BFD4F2",
+          "description": "Phase 2: Implementation"
+        },
+        {
+          "name": "phase-3-review",
+          "color": "BFD4F2",
+          "description": "Phase 3: Review"
+        },
+        {
+          "name": "phase-4-uat",
+          "color": "BFD4F2",
+          "description": "Phase 4: UAT"
+        },
+        {
+          "name": "phase-5-triage",
+          "color": "BFD4F2",
+          "description": "Phase 5: Triage"
+        },
+        {
+          "name": "phase-6-production",
+          "color": "BFD4F2",
+          "description": "Phase 6: Production"
+        },
+        {
+          "name": "regeneration",
+          "color": "1D76DB",
+          "description": "Regeneration cycle"
+        },
+        {
+          "name": "ssrdd",
+          "color": "0E8A16",
+          "description": "Scaled SRDD / multi-domain"
+        },
+        {
+          "name": "principles",
+          "color": "D93F0B",
+          "description": "Core principles"
+        }
+      ]
+    },
+    {
+      "category": "Status",
+      "items": [
+        {
+          "name": "needs-discussion",
+          "color": "D876E3",
+          "description": "Requires community input before proceeding"
+        },
+        {
+          "name": "ready-for-pr",
+          "color": "0E8A16",
+          "description": "Proposal accepted, ready to implement"
+        },
+        {
+          "name": "wontfix",
+          "color": "FFFFFF",
+          "description": "Intentionally out of scope"
+        },
+        {
+          "name": "duplicate",
+          "color": "CFD3D7",
+          "description": "Already covered elsewhere"
+        }
+      ]
+    },
+    {
+      "category": "Effort / Scope",
+      "items": [
+        {
+          "name": "good-first-issue",
+          "color": "7057FF",
+          "description": "Good for newcomers"
+        },
+        {
+          "name": "minor",
+          "color": "C5DEF5",
+          "description": "Small, localized change"
+        },
+        {
+          "name": "major",
+          "color": "B60205",
+          "description": "Significant change, affects multiple areas"
+        }
+      ]
+    },
+    {
+      "category": "Special",
+      "items": [
+        {
+          "name": "roadmap",
+          "color": "FBCA04",
+          "description": "Planned future work"
+        },
+        {
+          "name": "case-study",
+          "color": "F9D0C4",
+          "description": "Real-world experience informing the proposal"
+        },
+        {
+          "name": "agile-safe",
+          "color": "C2E0C6",
+          "description": "Agile/SAFe alignment"
+        },
+        {
+          "name": "kubernetes",
+          "color": "C2E0C6",
+          "description": "Container orchestration alignment"
+        }
+      ]
+    }
+  ]
+}

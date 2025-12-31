@@ -172,17 +172,17 @@ If your codebase contains:
 
 The AI does not judge which pattern is correct. It pattern-matches on what exists.
 
-**This principle is LLM-agnostic.** Every AI coding tool — Claude Code, Cursor, Copilot, Windsurf, and tools not yet built — reads your codebase into context. Keep your codebase clean and consistent because the AI will copy what it sees.
+**This principle is LLM-agnostic**: Every AI coding tool — Claude Code, Cursor, Copilot, Windsurf, and tools not yet built — reads your codebase into context. Keep your codebase clean and consistent because the AI will copy what it sees.
 
-**Applying this across SRDD:**
+#### Applying this across SRDD
 
 | Phase | Purpose | Application |
 |-------|---------|-------------|
-| Phase 1 | Establish intent | Define canonical patterns in ARCHITECTURE.md before implementation begins |
-| Phase 2 | Build it | Correct deviations immediately; uncorrected deviations become new patterns |
-| Phase 3 | Check fit | Review for pattern conformance, not just correctness |
-| Phase 4 | Validate reality | Formalise production discoveries carefully; they become future examples |
-| Phase 5 | Realign or continue | Consolidate contradictory patterns during regeneration |
+| Phase&nbsp;1 | Establish intent | Define canonical patterns in ARCHITECTURE.md before implementation begins |
+| Phase&nbsp;2 | Build it | Correct deviations immediately; uncorrected deviations become new patterns |
+| Phase&nbsp;3 | Check fit | Review for pattern conformance, not just correctness |
+| Phase&nbsp;4 | Validate reality | Formalise production discoveries carefully; they become future examples |
+| Phase&nbsp;5 | Realign or continue | Consolidate contradictory patterns during regeneration |
 
 ### Guardrails Beyond Tests
 
@@ -240,7 +240,7 @@ A function can pass all tests and still:
 
 These are not test failures. They are coherence failures. They make the system harder to understand, harder to maintain, and harder for the AI to pattern-match correctly in future.
 
-**The reviewer's job is coherence.** The AI handles correctness. The human ensures fit.
+**The reviewer's job is coherence**: The AI handles correctness. The human ensures fit.
 
 This requires architectural awareness — understanding not just whether the code works, but whether it belongs. That awareness is precisely what distinguishes a developer from a code generator.
 
@@ -347,21 +347,21 @@ The methodology can be adopted today using documentation and rules alone. Teams 
 
 **What works with rules alone:**
 
-* TDD workflow — AI follows this well with clear instructions
-* PR description format — templatable, AI complies
-* Communication protocols — "ask before expanding scope" works reasonably
-* Phase awareness — AI can be reminded which phase it's in
-* Pattern following — works if good examples exist in the codebase
+* **TDD workflow**: AI follows this well with clear instructions
+* **PR description format**: templatable, AI complies
+* **Communication protocols**: "ask before expanding scope" works reasonably
+* **Phase awareness**: AI can be reminded which phase it's in
+* **Pattern following**: works if good examples exist in the codebase
 
 **What needs tooling for reliable enforcement:**
 
-* **Scope enforcement** — Pre-commit hooks or CI checks that validate files changed against declared issue scope. AI self-discipline is insufficient; hard blocks are required.
+* **Scope enforcement**: Pre-commit hooks or CI checks that validate files changed against declared issue scope. AI self-discipline is insufficient; hard blocks are required.
 
-* **Coherence validation** — CLI or MCP server that compares implementation against ARCHITECTURE.md patterns. Generates structured report for human review. Could integrate with PR process.
+* **Coherence validation**: CLI or MCP server that compares implementation against ARCHITECTURE.md patterns. Generates structured report for human review. Could integrate with PR process.
 
-* **Pattern drift detection** — Static analysis that scores conformance against canonical patterns. Custom linter rules or dedicated tool. Runs in CI, blocks on threshold violations.
+* **Pattern drift detection**: Static analysis that scores conformance against canonical patterns. Custom linter rules or dedicated tool. Runs in CI, blocks on threshold violations.
 
-* **Regeneration advisor** — Tracks signals across sessions: contract change frequency, scope expansion requests, pattern drift indicators. Surfaces recommendations: "3 significant contract changes in 2 weeks — consider regeneration." Cannot rely on AI memory alone.
+* **Regeneration advisor**: Tracks signals across sessions: contract change frequency, scope expansion requests, pattern drift indicators. Surfaces recommendations: "3 significant contract changes in 2 weeks — consider regeneration." Cannot rely on AI memory alone.
 
 **Planned tooling:**
 
@@ -392,13 +392,13 @@ SSRDD wraps multiple SRDD instances with a coordination layer. Each subsystem ru
 
 **Additional components required:**
 
-* **CONSTITUTION.md enforcement** — Validation that subsystem contracts conform to system-wide standards. Not just documentation; automated checks.
+* **CONSTITUTION.md enforcement**: Validation that subsystem contracts conform to system-wide standards. Not just documentation; automated checks.
 
-* **Cross-subsystem dependency tracking** — Visibility into which subsystems depend on which contracts. Change impact analysis before regeneration.
+* **Cross-subsystem dependency tracking**: Visibility into which subsystems depend on which contracts. Change impact analysis before regeneration.
 
-* **Coordinated regeneration** — When one subsystem regenerates, affected subsystems are notified. Integration contracts are re-validated. Cascade effects are surfaced, not hidden.
+* **Coordinated regeneration**: When one subsystem regenerates, affected subsystems are notified. Integration contracts are re-validated. Cascade effects are surfaced, not hidden.
 
-* **System-wide coherence dashboard** — Aggregates health signals across subsystems. Pattern drift in subsystem A, contract churn in subsystem B, integration test failures between C and D — visible in one place.
+* **System-wide coherence dashboard**: Aggregates health signals across subsystems. Pattern drift in subsystem A, contract churn in subsystem B, integration test failures between C and D — visible in one place.
 
 **Current status:**
 
@@ -426,16 +426,16 @@ Timeline: SRDD tooling first, SSRDD coordination layer second.
 
 ### Roadmap
 
-**Alignment with Agile and SAFe**
+**Alignment with Agile and SAFe**:
 SRDD is designed to complement, not replace, existing delivery frameworks. Future documentation will map SRDD phases to Agile ceremonies and SAFe constructs — showing how regeneration fits into PI planning, how Phase 5 triage aligns with backlog refinement, and how SSRDD coordinates across Agile Release Trains.
 
-**Rules file templates**
+**Rules file templates**:
 Complete CLAUDE.md, .cursorrules, and copilot-instructions.md templates that encode SRDD workflow, scope guarding, and pattern-following behaviour. Ready to drop into any project.
 
-**MCP server integration**
+**MCP server integration**:
 Real-time SRDD enforcement within Claude Code, Cursor, and similar tools. The AI checks scope, patterns, and coherence *before* acting. True enforcement still requires git and CI layers; MCP advises and surfaces signals continuously.
 
-**Kubernetes and container orchestration**
+**Kubernetes and container orchestration**:
 SSRDD's domain model maps naturally to microservices architectures. Future work will explore how SSRDD boundaries align with Kubernetes namespaces, how CONSTITUTION.md standards translate to service mesh policies, and how coordinated regeneration integrates with deployment pipelines. The goal is SSRDD as a design-time discipline that produces systems well-suited to container orchestration — not as an afterthought, but by construction.
 
 ### Contributing

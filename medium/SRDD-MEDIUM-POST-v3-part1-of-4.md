@@ -4,6 +4,8 @@
 
 I started AI-assisted coding in January 2025 and joined a community of like-minded professionals at [New Society](https://www.skool.com/new-society), where AI tools, methods, and real-world projects are discussed daily.
 
+Over the months that followed, I spent time working with multiple AI coding methodologies — from low-friction experimentation to heavily structured approaches — and saw the same patterns repeat as systems grew.
+
 Like most developers, I arrived curious, sceptical, and slightly overwhelmed.
 
 ## Finding My Footing
@@ -14,11 +16,11 @@ Recent releases pushed this even further: background agents running in isolated 
 
 But very quickly, something started to bother me.
 
-The more capable these tools became, the more they *pulled the developer away* from the system itself. And we’re already seeing the consequences play out across the industry. Klarna laid off 700 customer-service staff in favour of AI, only to quietly rehire humans when quality dropped. Forrester predicts that over half of AI-attributed layoffs will be reversed.
+The more capable these tools became, the more they *pulled the developer away* from the system itself. And we’re already seeing the consequences play out across the industry. Klarna laid off around 700 customer-service staff in favour of AI-driven automation, only to later acknowledge falling service quality and begin rehiring human agents (*[Company That Sacked 700 Workers With AI Now Regrets It](https://www.economictimes.com/news/international/us/company-that-sacked-700-workers-with-ai-now-regrets-it-scrambles-to-rehire-as-automation-goes-horribly-wrong/articleshow/121732999.cms)*; *[Klarna Reverses on AI, Says Customers Like Talking to People](https://www.forbes.com/sites/quickerbettertech/2025/05/18/business-tech-news-klarna-reverses-on-ai-says-customers-like-talking-to-people/)*). Forrester has similarly predicted that more than half of AI-attributed layoffs will be quietly reversed as organisations confront the limits of premature automation (*[Forrester: AI Layoffs Will Be Quietly Reversed](https://www.theregister.com/2025/10/29/forrester_ai_rehiring/)*).
 
 The problem isn’t the tools. It’s the loss of understanding.
 
-When nobody really knows what the code is doing, you get what one observer called *archaeological programming*: future developers reverse-engineering AI-generated systems like anthropologists studying ancient ruins. Commit histories read “AI improvements” and “ChatGPT optimisation” with no explanation of *why* anything exists. Every change risks breaking something else.
+When nobody really knows what the code is doing, you get what one observer called *archaeological programming*: future developers reverse-engineering AI-generated systems like anthropologists studying ancient ruins. Commit histories read “AI improvements” and “ChatGPT optimisation” with no explanation of *why* anything exists. Every change risks breaking something else — a pattern increasingly described as software archaeology (*[The Junior Developer Extinction: We’re All Building the Next Programming Dark Age](https://generativeai.pub/the-junior-developer-extinction-were-all-building-the-next-programming-dark-age-f66711c09f25)*).
 
 Developers need to remain across the codebase and architecture. The sweet spot is automating the boring, low-value work — boilerplate, tests, routine fixes, explanations — while keeping humans responsible for structure, intent, and judgment.
 
@@ -29,6 +31,8 @@ Businesses don't care which sorting algorithm you chose. They care that the syst
 This matters more with AI-generated code, not less. When you didn't write it yourself, you need to grasp intent at a glance. I'd much rather see `sortRedBlackTree()` than `sort()` and retain that understanding without spelunking through every line. The AI can generate the implementation; the human ensures the names reveal what it actually does.
 
 This is Uncle Bob's "Clean Code" — small, well-named functions that communicate intent. See [summary](https://gist.github.com/wojteklu/73c6914cc446146b8b533c0988cf8d29#functions-rules), [video](https://youtu.be/7EmboKQH8lM), and [book](https://www.goodreads.com/book/show/3735293-clean-code). The principles predate AI coding, but AI coding makes them essential. If the AI generates opaque code with generic names, you've lost the architectural understanding that keeps you in control.
+
+This article is not just an introduction to a new methodology. It is also a survey of the major AI-assisted development approaches that have emerged over the past year — what they optimise for, where they succeed, and where they begin to break down as systems grow.
 
 ## The Honeymoon Phase
 

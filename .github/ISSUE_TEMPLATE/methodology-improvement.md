@@ -2,7 +2,7 @@
 name: Methodology Improvement
 about: Propose a change to SRDD phases, principles, or workflow
 title: "[Methodology]"
-labels: methodology
+labels: methodology, needs-discussion
 assignees: oehm-smith
 
 ---

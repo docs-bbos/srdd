@@ -1,3 +1,4 @@
+<!-- this is a copy of readme.md -->
 # SRDD — Spec-Roundtrip Driven Development
 
 **Keeping developers in control while building better systems with aligned AI**
@@ -144,7 +145,7 @@ SSRDD boundaries aligned with Kubernetes namespaces, CONSTITUTION.md as service 
 
 This methodology is documented in a four-part series:
 
-- **[Part 1: Why SRDD Exists](https://brooke.medium.com/srdd-part1-of-4)** — The problem, the journey, the insight
+- **[Part 1: Why SRDD Exists](./SRDD-MEDIUM-POST-v3-part1-of-4)** — The problem, the journey, the insight
 - **[Part 2: The AI Coding Landscape](https://brooke.medium.com/srdd-part2-of-4)** — Vibe coding, agentic coding, context engineering, SDD
 - **[Part 3: The SRDD Workflow](https://brooke.medium.com/srdd-part3-of-4)** — Phases, contracts, regeneration
 - **[Part 4: Scaling Up](https://brooke.medium.com/srdd-part4-of-4)** — SSRDD, principles, implementation

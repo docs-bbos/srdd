@@ -260,5 +260,6 @@ This delivers 60-70% of value. Tooling for reliable enforcement is on the roadma
 
 ---
 
+* **Documentation:** [docs-bbos.github.io/srdd](https://docs-bbos.github.io/srdd/)
 * **Repository:** [github.com/docs-bbos/srdd](https://github.com/docs-bbos/srdd)
 * **Article series:** [brooke.medium.com/srdd-part1-of-4](https://brooke.medium.com/srdd-part1-of-4)

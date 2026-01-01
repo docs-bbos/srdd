@@ -4,6 +4,10 @@
 
 I’m a senior software engineer with over 25 years of experience working across government, finance, science, defence, and large-scale commercial systems. I started AI-assisted coding in January 2025 and joined a community of like-minded professionals at [New Society](https://www.skool.com/new-society), where AI tools, methods, and real-world projects are discussed daily.
 
+The source documentation for this series — including the evolving methodology, explanations, and supporting material — is maintained openly at **[https://docs-bbos.github.io/srdd/](https://docs-bbos.github.io/srdd/)**. That site serves as the canonical reference for the ideas presented here.
+
+The underlying repository, which includes working assets such as templates, rules files, and examples, is available at **[https://github.com/docs-bbos/srdd/](https://github.com/docs-bbos/srdd/)**.
+
 Much of the work that informed this series was done in my own time, driven by a growing fascination — and concern — that AI-assisted coding is where the software engineering world is headed. Over the months that followed, I spent time working with multiple AI coding methodologies — from low-friction experimentation to heavily structured approaches — and saw the same patterns repeat as systems grew.
 
 It became clear to me that the industry had been set adrift by the sudden acceleration of these tools, with no shared footing yet established. What I’ve learned — and what I’m trying to convey in this series — is an attempt to help find that footing, without discarding the hard-won lessons of software engineering along the way.

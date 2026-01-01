@@ -2,6 +2,8 @@
 
 **Keeping developers in control while building better systems with aligned AI**
 
+> Jump to quick specification overview in  [Pitches](https://docs-bbos.github.io/srdd/pitches).
+
 SRDD is an AI-assisted development methodology where specifications and code exist in a closed loop. Specs guide implementation, but code becomes the source of truth. Periodically, understanding is extracted back out through regeneration — synthesising fresh specs from the living system. The developer dreams; the AI disciplines. Understanding compounds instead of decaying.
 
 For multi-domain systems, **Scaled SRDD (SSRDD)** wraps multiple SRDD instances with a coordination layer, governing boundaries between independently evolving subsystems.

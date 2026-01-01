@@ -158,6 +158,8 @@ SRDD and SSRDD are open methodologies. Contributions welcome:
 - Integration guides for specific frameworks
 - Case studies and adoption experiences
 
+Send email to srdd.methodology@gmail.com
+
 ## License & Prior Art
 
 © 2025 Brooke Smith. All rights reserved.

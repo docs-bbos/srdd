@@ -14,7 +14,7 @@
 
 SRDD future-proofs your system by storing understanding in specs, not code — so when it's time to rebuild, you're not locked into yesterday's language, framework, or architecture.
 
-## Elevator Pitch (60 seconds)
+## Elevator Pitch
 
 AI-assisted coding is transformative for small projects. But as systems grow, every approach hits the same wall: the AI forgets earlier decisions, architectural drift accumulates silently, and teams stop understanding what they're shipping.
 
@@ -23,19 +23,17 @@ SRDD closes the loop.
 
 Specifications guide implementation — but code becomes the source of truth. Periodically, understanding is extracted back out through regeneration: fresh specs synthesized from the living system, informed by everything learned along the way.
 
-The developer dreams; the AI disciplines. Understanding compounds instead of decaying.
+The developer dreams; the AI disciplines. Developers stay hands-on — reviewing, steering, choosing when to regenerate — not deskilled into passengers watching the AI drive off a cliff. Understanding compounds instead of decaying. Systems stay maintainable. Velocity doesn't collapse at scale.
 
-For teams, this means: systems that stay maintainable, velocity that doesn't collapse at scale, and developers who remain in control — not passengers watching the AI drive off a cliff.
-
-And when it's time to rebuild — new language, new architecture, new framework — the specs carry the knowledge, not the code. You're not locked to yesterday's stack.
+And when it's time to rebuild, you're not reverse-engineering legacy code. The regenerated specs already capture what the system became and what it will become — in English, not yesterday's code or framework.
 
 ## One-Minute Read
 
-**The problem:** AI-assisted coding accelerates everything — including architectural decay. As systems grow, context windows become constraints, the AI forgets earlier decisions, and teams stop understanding the systems they're shipping.
+**The problem:** AI-assisted coding accelerates everything — including architectural decay. Vibe coding forgets earlier decisions as context windows overflow. Agentic coding echoes mistakes across autonomous loops. Context engineering curates inputs meticulously but has no mechanism to extract understanding back out. Spec-driven development fossilizes — specs written upfront drift into fiction as reality evolves. Each approach optimises for something real, but none of them close the loop. Teams ship systems they no longer fully understand.
 
-**The insight:** Specs are snapshots, not contracts. They capture understanding at a point in time. Code evolves. Periodically, you must extract new understanding *from* the code.
+**The insight:** Vibe and agentic coding externalize nothing. Context engineering curates inputs but never extracts outputs. SDD writes specs upfront and watches them fossilize. SRDD inverts this: specs are snapshots, not contracts. Code evolves. Periodically, understanding is extracted back out — not as rescue, but as a planned phase.
 
-**The method:** SRDD is a six-phase workflow where specs guide implementation, but code becomes the source of truth. When accumulated drift signals misalignment, regeneration synthesizes fresh specs from the living system — capturing everything learned, surfacing technical debt, and reasserting direction.
+**The method:** SRDD is a six-phase workflow where specs guide implementation, but code becomes the source of truth. When accumulated drift signals misalignment, regeneration synthesizes fresh specs from the living system — capturing everything learned, surfacing technical debt, and reasserting direction. Then the loop begins again: clearer, cleaner, and ready for the next revolution.
 
 **The result:** Understanding compounds instead of decaying. Velocity stays high because confidence stays high. Developers remain in control — shaping direction, reviewing PRs, deciding when to regenerate — while AI handles execution.
 
@@ -49,7 +47,7 @@ And when it's time to rebuild — new language, new architecture, new framework 
 
 Spec-Roundtrip Driven Development (SRDD) is an AI-assisted development methodology designed for systems that must remain maintainable over time.
 
-Unlike approaches that treat specifications as fixed contracts or ignore them entirely, SRDD treats specs as snapshots — periodically regenerated from the living codebase to capture what the system has actually become.
+Unlike approaches that treat specifications as fixed contracts or ignore them entirely, SRDD treats specs as snapshots — initially created to establish intent, then periodically regenerated from the living codebase to capture what the system has become and what it will be.
 
 ### The Problem It Solves
 
@@ -68,9 +66,9 @@ SRDD introduces a closed loop:
 
 1. **Specs guide implementation** — Structured planning documents establish intent before code
 2. **Code becomes source of truth** — Reality evolves; specs are understood to be point-in-time snapshots
-3. **Regeneration extracts understanding** — Periodically, fresh specs are synthesized from the living system, informed by code, PRs, issues, tests, and production discoveries
+3. **Regeneration extracts understanding** — Periodically, fresh specs are synthesized from the living system, informed by code, PRs, issues, tests, and production discoveries — and incorporating new functional and non-functional requirements for what it will become next.
 
-This is not a rescue operation. It is a planned phase in the system's lifecycle.
+   This is not a rescue operation. It is a planned phase in the system's lifecycle.
 
 ### Business Value
 
@@ -107,7 +105,7 @@ SRDD is a methodology, not a product. Adoption requires:
 
 - **Planning document discipline** — Seven structured documents per development cycle
 - **Phase-aware workflow** — Six phases from design through production
-- **Human judgment at key moments** — Developers review PRs, decide when to regenerate, and validate direction
+- **Human judgment at key moments** — Developers review PRs, decide when to regenerate, and validate direction. The AI guides: surfacing signals, flagging drift, advising when regeneration is due. Humans decide; AI illuminates.
 
 The methodology can be adopted today using documentation and rules files. Tooling for enforcement (CLI, MCP integration) is on the roadmap.
 
@@ -219,7 +217,7 @@ For multi-domain systems:
 |---------------|---------------|
 | Sustained velocity at scale | Planning document discipline |
 | Externalized understanding | Human judgment at triage/review |
-| Managed technical debt | Acceptance that regeneration has real cost (days, not hours) |
+| Managed technical debt | Acceptance that regeneration has real cost (days, perhaps weeks, not hours) |
 | Clear audit trail | More ceremony than vibe coding |
 
 ### Technology Portability
@@ -262,5 +260,5 @@ This delivers 60-70% of value. Tooling for reliable enforcement is on the roadma
 
 ---
 
-**Repository:** [github.com/docs-bbos/srdd](https://github.com/docs-bbos/srdd)
-**Article series:** [brooke.medium.com/srdd-part1-of-4](https://brooke.medium.com/srdd-part1-of-4)
+* **Repository:** [github.com/docs-bbos/srdd](https://github.com/docs-bbos/srdd)
+* **Article series:** [brooke.medium.com/srdd-part1-of-4](https://brooke.medium.com/srdd-part1-of-4)

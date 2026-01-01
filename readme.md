@@ -91,6 +91,25 @@ docs/plans/2025-12-15_v1_initial-design/
 | **The developer dreams; the AI disciplines** | Humans choose direction. The AI executes, guards scope, and maintains consistency. |
 | **Velocity follows clarity** | Fast development is not the cause of good systems. It is the consequence of clear ones. |
 
+## Future-Proofing
+
+Traditional systems trap knowledge in code. When that code becomes brittle, you face an unpleasant choice: expensive rewrite or slow decay. And rewrites typically reuse existing code to reduce cost — importing the same architectural constraints into the new system.
+
+SRDD inverts this.
+
+Understanding is continuously extracted into regenerated specs — language-agnostic, architecture-agnostic documentation of what the system does and why. The code is one implementation of that understanding, not the understanding itself.
+
+When technology shifts — and it will — the cost of targeting a new language, framework, or architecture is not significantly higher than rewriting in the same stack. You're not reverse-engineering legacy code. You're re-implementing documented understanding, informed by everything learned, with AI doing the heavy lifting.
+
+| Traditional rewrite | SRDD rebuild |
+|---------------------|--------------|
+| Reverse-engineer understanding from brittle code | Understanding already captured in specs |
+| Reuse old code to save time → import old constraints | Fresh implementation from documented intent |
+| Locked to existing language/architecture | Free to target new stack |
+| Knowledge walks out the door with developers | Knowledge externalized and versioned |
+
+SRDD doesn't just maintain systems. It makes them **portable across time**.
+
 ## Scaled SRDD (SSRDD)
 
 For systems that extend beyond a single bounded context:

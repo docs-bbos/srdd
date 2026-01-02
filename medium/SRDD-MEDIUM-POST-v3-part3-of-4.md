@@ -416,6 +416,7 @@ Without this trail, regeneration risks erasing hard-won knowledge. With it, SRDD
 
 PRs do not just close issues.
 They preserve reasoning.
+
 That preservation is what allows understanding to compound rather than reset between cycles.
 
 #### Review for Coherence, Not Just Correctness
@@ -438,6 +439,43 @@ Correctness is necessary but insufficient. A PR can pass all tests - and all AI 
 If the AI has deviated from an established pattern, this is the moment to catch it. Every deviation that merges becomes an example the AI will follow next time.
 
 See: *Principles → Designing for AI Comprehension*
+
+#### Capturing Signals
+
+During review, observations that don't block the PR but inform future work are captured in `07-NextCycle.md`. These are **implementation signals** — patterns or tensions visible in the code that may not warrant immediate action but should inform future decisions:
+
+- Patterns showing strain or becoming awkward
+- Boundaries that feel wrong or artificially placed
+- Dependencies heavier or more entangled than expected
+- Modules that want to split or merge
+- Abstractions that aren't earning their complexity
+- Emerging candidates for refactoring
+
+These signals are distinct from the **production signals** captured in Phase 4 (UAT). Implementation signals come from reading and reviewing code; production signals come from observing the system under real conditions. Both feed into regeneration decisions, but they represent different kinds of evidence.
+
+Not every PR generates signals. Many are clean implementations that fit well. But when something feels off — even if it doesn't block approval — capture it. The pattern may become clearer over time.
+
+#### Continue or Advance?
+
+After each PR merges, the cycle either continues or advances:
+
+**More issues in the current cycle?**
+Return to Phase 2. Select the next issue from the backlog, implement, and return to Phase 3 for review.
+
+**Cycle complete?**
+Advance to Phase 4 (UAT). The implemented functionality is ready for validation against reality.
+
+What constitutes "cycle complete" depends on team workflow:
+
+- **Time-boxed (Agile sprint):** The sprint ends. Completed work advances to UAT; incomplete issues return to the backlog. Phase 4 aligns with Sprint Review.
+
+- **Scope-boxed (milestone):** A defined set of issues constitutes a coherent deliverable. When all are done, the milestone advances to UAT.
+
+- **Hybrid:** Core functionality must complete before advancing. Nice-to-have scope can carry over to the next cycle.
+
+The key criterion: *Is there enough implemented functionality to validate against reality?*
+
+SRDD does not prescribe which model to use — that is an organisational choice. But the decision point must be explicit. Drifting into UAT without conscious commitment invites incomplete validation and blurred accountability.
 
 ### Phase 4: UAT (Observe and Accumulate)
 

@@ -442,7 +442,19 @@ See: *Principles → Designing for AI Comprehension*
 
 #### Capturing Signals
 
-During review, observations that don't block the PR but inform future work are captured in `07-NextCycle.md`. These are **implementation signals** — patterns or tensions visible in the code that may not warrant immediate action but should inform future decisions:
+Review can surface two kinds of observations:
+
+**Blocking issues** are problems that must be resolved before the PR can merge. These are captured as PR review comments — not in `07-NextCycle.md`. The PR returns to Phase 2 for revision, focused specifically on addressing the review feedback. Once resolved, it returns to Phase 3 for re-review. This is the standard review loop:
+
+```
+Phase 2 (Implement) → Phase 3 (Review) → Blocking issue found
+                           ↓
+                      PR comments
+                           ↓
+            Phase 2 (Revise) → Phase 3 (Re-review) → ...
+```
+
+**Non-blocking signals** are observations that don't prevent the PR from merging but inform future work. These are captured in `07-NextCycle.md`. They are **implementation signals** — patterns or tensions visible in the code that may not warrant immediate action but should influence future decisions:
 
 - Patterns showing strain or becoming awkward
 - Boundaries that feel wrong or artificially placed

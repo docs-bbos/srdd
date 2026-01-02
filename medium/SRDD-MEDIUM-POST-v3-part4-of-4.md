@@ -1,4 +1,4 @@
-# SRDD (Part 4 of 4): Scaling Up — SSRDD, Principles, and Implementation
+# SRDD (Part 4 of 4): Scaling Up - SSRDD, Principles, and Implementation
 
 This is Part 4 of a four-part series on Spec-Roundtrip Driven Development.
 * 👉 **[Read Part 1: Why SRDD Exists](https://brooke.medium.com/srdd-part1-of-4)**
@@ -11,7 +11,7 @@ Part 3 walked through the SRDD workflow: five phases, contracts as authority, th
 
 Where the earlier parts focus on failure modes and workflow, this final part focuses on durability: how SRDD holds up under scale, time, and organisational pressure.
 
-This final article covers three things: how SRDD scales to multi-domain systems through **Scaled SRDD (SSRDD)**, the principles that underpin the methodology, and the current state of implementation — what you can adopt today and what tooling is still planned.
+This final article covers three things: how SRDD scales to multi-domain systems through **Scaled SRDD (SSRDD)**, the principles that underpin the methodology, and the current state of implementation - what you can adopt today and what tooling is still planned.
 
 ## Scaled SRDD (SSRDD)
 
@@ -35,7 +35,7 @@ Instead, SSRDD introduces just enough structure at the **system boundary** to al
 At the system level, SSRDD coordinates only what *must* be shared:
 
 * **Shared constitutions**  
-  Agreed integration standards that define how domains present themselves to one another — API conventions, event schemas, versioning rules, and compatibility expectations. These govern interaction, not internal design.
+  Agreed integration standards that define how domains present themselves to one another - API conventions, event schemas, versioning rules, and compatibility expectations. These govern interaction, not internal design.
 
 * **Explicit contracts**  
   Public-facing APIs, events, and invariants are declared and versioned. Domains are free to change internally as long as these contracts hold or are deliberately evolved.
@@ -44,9 +44,9 @@ At the system level, SSRDD coordinates only what *must* be shared:
   What each domain consumes and produces is visible by design. Hidden couplings are surfaced early, before they calcify into architectural traps.
 
 * **Boundary drift detection**  
-  SSRDD watches for signs that domain boundaries are eroding — duplicated responsibilities, circular dependencies, creeping knowledge of internals — and flags these as candidates for regeneration or boundary renegotiation.
+  SSRDD watches for signs that domain boundaries are eroding - duplicated responsibilities, circular dependencies, creeping knowledge of internals - and flags these as candidates for regeneration or boundary renegotiation.
 
-This combination is uncommon: most large systems either centralise architectural control to prevent drift, or decentralise teams without making drift visible at the system level. SSRDD does neither — it allows local autonomy while making architectural change observable rather than accidental.
+This combination is uncommon: most large systems either centralise architectural control to prevent drift, or decentralise teams without making drift visible at the system level. SSRDD does neither - it allows local autonomy while making architectural change observable rather than accidental.
 
 Crucially, SSRDD does **not** synchronise development cadence, force shared tooling, or impose uniform internal practices. It coordinates *interfaces and intent*, not implementation.
 
@@ -54,7 +54,7 @@ SSRDD scales **understanding**, not bureaucracy.
 
 ## Why SRDD Works
 
-SRDD succeeds because it aligns with how complex systems *actually* evolve — not how we wish they would.
+SRDD succeeds because it aligns with how complex systems *actually* evolve - not how we wish they would.
 
 * **It acknowledges discovery**  
   SRDD assumes that important knowledge arrives late. Instead of treating this as failure, it builds discovery into the process and gives it a disciplined place to land.
@@ -73,7 +73,7 @@ SRDD succeeds because it aligns with how complex systems *actually* evolve — n
 
 SRDD is not the fastest way to write code.
 
-It *is* the fastest way to keep understanding intact — as systems grow, teams change, and years pass.
+It *is* the fastest way to keep understanding intact - as systems grow, teams change, and years pass.
 
 ### Boundary Enforcement via Dependency Permissions (SSRDD)
 
@@ -101,7 +101,7 @@ consumes:
 
 In practice, dependency permissions in SSRDD are not universally mutable.
 
-Domain developers typically **do not have direct write access** to the system-level SSRDD artefacts that define cross-domain dependencies — such as the shared constitution or dependency registry. Their focus remains local: implementing behaviour within declared boundaries.
+Domain developers typically **do not have direct write access** to the system-level SSRDD artefacts that define cross-domain dependencies - such as the shared constitution or dependency registry. Their focus remains local: implementing behaviour within declared boundaries.
 
 Changes to domain dependencies are instead mediated at the system level, typically by architects or designated system stewards.
 
@@ -135,7 +135,7 @@ By centralising dependency authority:
 - Boundary changes become conscious design moments
 - Regeneration remains feasible because coupling stays controlled
 
-The result is not bureaucracy — it is **preserved optionality**.
+The result is not bureaucracy - it is **preserved optionality**.
 
 Architects are not approving code.
 They are curating the *shape* in which code is allowed to grow.
@@ -147,11 +147,11 @@ not by trust, but by making the wrong thing impossible.
 
 ## Principles
 
-*The principles that follow were crystallised in part through reflection on Craig Adam's article "[Agile is Out, Architecture is Back](https://medium.com/@craig_32726/agile-is-out-architecture-is-back-7586910ab810)" — a clear articulation of why architecture matters more, not less, in the age of AI-assisted development. His framing of the codebase as curriculum and the developer's evolving role helped sharpen what SRDD was already reaching toward. Thank you.*
+*The principles that follow were crystallised in part through reflection on Craig Adam's article "[Agile is Out, Architecture is Back](https://medium.com/@craig_32726/agile-is-out-architecture-is-back-7586910ab810)" - a clear articulation of why architecture matters more, not less, in the age of AI-assisted development. His framing of the codebase as curriculum and the developer's evolving role helped sharpen what SRDD was already reaching toward. Thank you.*
 
 The five phases describe *what* happens in SRDD. This section describes *why* certain patterns recur across all of them.
 
-These principles are not rules to be enforced. They are orientations — ways of thinking that make AI-assisted development more effective, more sustainable, and more aligned with human intent.
+These principles are not rules to be enforced. They are orientations - ways of thinking that make AI-assisted development more effective, more sustainable, and more aligned with human intent.
 
 ### Designing for AI Comprehension
 
@@ -161,7 +161,7 @@ The AI learns your project not from training, but from context. It reads your ex
 
 **Rules files instruct. Code demonstrates.**
 
-Your CLAUDE.md, cursor rules, and similar files tell the AI what to do. Your codebase *shows* what "right" looks like. Both matter — but when they conflict, the AI often follows what it sees over what it's told.
+Your CLAUDE.md, cursor rules, and similar files tell the AI what to do. Your codebase *shows* what "right" looks like. Both matter - but when they conflict, the AI often follows what it sees over what it's told.
 
 If your codebase contains:
 
@@ -172,7 +172,7 @@ If your codebase contains:
 
 The AI does not judge which pattern is correct. It pattern-matches on what exists.
 
-**This principle is LLM-agnostic**: Every AI coding tool — Claude Code, Cursor, Copilot, Windsurf, and tools not yet built — reads your codebase into context. Keep your codebase clean and consistent because the AI will copy what it sees.
+**This principle is LLM-agnostic**: Every AI coding tool - Claude Code, Cursor, Copilot, Windsurf, and tools not yet built - reads your codebase into context. Keep your codebase clean and consistent because the AI will copy what it sees.
 
 #### Applying this across SRDD
 
@@ -186,7 +186,7 @@ The AI does not judge which pattern is correct. It pattern-matches on what exist
 
 ### Guardrails Beyond Tests
 
-> Use types, linters, schemas, and structure not just to enforce correctness — but to communicate intent.
+> Use types, linters, schemas, and structure not just to enforce correctness - but to communicate intent.
 
 Tests verify behaviour after the fact. Guardrails prevent bad patterns from entering in the first place. They operate earlier in the feedback loop, and they constrain what the AI can produce.
 
@@ -197,14 +197,14 @@ Strong typing (TypeScript, Zod schemas, Pydantic models) constrains AI output at
 ESLint rules, Prettier configurations, and architectural linters (like eslint-plugin-boundaries) reject code that violates conventions automatically. The AI learns quickly that certain patterns don't survive.
 
 **Schemas as contracts:**
-OpenAPI specs, JSON Schema, and similar declarations make contracts machine-readable. The AI can validate its output against them — and tools can reject non-conforming code before review.
+OpenAPI specs, JSON Schema, and similar declarations make contracts machine-readable. The AI can validate its output against them - and tools can reject non-conforming code before review.
 
 **Folder structure as architecture:**
-Where code lives communicates what it is. A clear directory structure — with boundaries that match domain concepts — helps the AI place new code appropriately. Ambiguous structure produces ambiguous placement.
+Where code lives communicates what it is. A clear directory structure - with boundaries that match domain concepts - helps the AI place new code appropriately. Ambiguous structure produces ambiguous placement.
 
 **These guardrails are not bureaucracy.** They are force multipliers. Every constraint that prevents a bad pattern from entering is a constraint that doesn't need to be caught in review, fixed in testing, or cleaned up during regeneration.
 
-Guardrails encode judgment structurally — not just in documentation.
+Guardrails encode judgment structurally - not just in documentation.
 
 ### Encode Judgment, Don't Just Document It
 
@@ -212,7 +212,7 @@ Guardrails encode judgment structurally — not just in documentation.
 
 Documentation can be ignored. Structure cannot.
 
-When a decision matters — when violating it would cause drift, inconsistency, or architectural decay — encode it in a way that makes violation difficult or impossible:
+When a decision matters - when violating it would cause drift, inconsistency, or architectural decay - encode it in a way that makes violation difficult or impossible:
 
 - **Use folder boundaries** to enforce module separation, not just naming conventions
 - **Use types** to make invalid states unrepresentable, not just documented as "don't do this"
@@ -229,7 +229,7 @@ This does not mean documentation is worthless. It means documentation is for *ex
 
 > Correct code that doesn't fit is worse than imperfect code that coheres.
 
-The AI can produce code that works. That is table stakes. The harder problem is producing code that *fits* — that respects existing boundaries, follows established patterns, and doesn't introduce architectural debt.
+The AI can produce code that works. That is table stakes. The harder problem is producing code that *fits* - that respects existing boundaries, follows established patterns, and doesn't introduce architectural debt.
 
 A function can pass all tests and still:
 
@@ -242,7 +242,7 @@ These are not test failures. They are coherence failures. They make the system h
 
 **The reviewer's job is coherence**: The AI handles correctness. The human ensures fit.
 
-This requires architectural awareness — understanding not just whether the code works, but whether it belongs. That awareness is precisely what distinguishes a developer from a code generator.
+This requires architectural awareness - understanding not just whether the code works, but whether it belongs. That awareness is precisely what distinguishes a developer from a code generator.
 
 ### The Developer Dreams, The AI Disciplines
 
@@ -279,7 +279,7 @@ This is the foundational insight of SRDD.
 
 Traditional spec-driven development treats specifications as authoritative: write the spec, generate the code, update the spec when requirements change. In practice, this breaks down. Code evolves faster than documentation. Implicit behaviours emerge. The spec becomes fiction.
 
-SRDD inverts the relationship. Specs are *inputs* to a cycle, not *outputs* of a process. They capture intent at the start. But as implementation proceeds, the code becomes the real source of truth — informed by production discoveries, implicit contracts, and decisions made under pressure.
+SRDD inverts the relationship. Specs are *inputs* to a cycle, not *outputs* of a process. They capture intent at the start. But as implementation proceeds, the code becomes the real source of truth - informed by production discoveries, implicit contracts, and decisions made under pressure.
 
 The roundtrip is what makes SRDD sustainable:
 
@@ -305,7 +305,7 @@ Teams do not ship slowly because they lack skill. They ship slowly because they 
 
 SRDD addresses velocity by addressing clarity. Regeneration restores architectural coherence. Contracts make guarantees explicit. Pattern hygiene ensures the AI produces consistent output. Guardrails prevent drift from entering.
 
-The result is not just a cleaner codebase. It is a faster one — because developers (and AI) can act with confidence instead of caution.
+The result is not just a cleaner codebase. It is a faster one - because developers (and AI) can act with confidence instead of caution.
 
 Speed is earned, not demanded.
 
@@ -323,7 +323,7 @@ Speed is earned, not demanded.
 
 These principles are not optional.
 
-SRDD's phases, guardrails, and regeneration cycles exist to enforce them — or surface it clearly when they're being violated.
+SRDD's phases, guardrails, and regeneration cycles exist to enforce them - or surface it clearly when they're being violated.
 
 ## Implementation
 
@@ -341,7 +341,7 @@ SRDD is currently a methodology, not a product. This section describes what exis
 | Regeneration advisor | 🔲 Planned | Cross-session signal tracking |
 | SSRDD coordination layer | 🔲 Planned | Multi-subsystem orchestration |
 
-The methodology can be adopted today using documentation and rules alone. Teams will capture significant value — better than vibe coding, better than undisciplined agentic work. But reliable enforcement of scope guarding, coherence review, and regeneration detection will require tooling that does not yet exist.
+The methodology can be adopted today using documentation and rules alone. Teams will capture significant value - better than vibe coding, better than undisciplined agentic work. But reliable enforcement of scope guarding, coherence review, and regeneration detection will require tooling that does not yet exist.
 
 ### SRDD Implementation
 
@@ -361,7 +361,7 @@ The methodology can be adopted today using documentation and rules alone. Teams 
 
 * **Pattern drift detection**: Static analysis that scores conformance against canonical patterns. Custom linter rules or dedicated tool. Runs in CI, blocks on threshold violations.
 
-* **Regeneration advisor**: Tracks signals across sessions: contract change frequency, scope expansion requests, pattern drift indicators. Surfaces recommendations: "3 significant contract changes in 2 weeks — consider regeneration." Cannot rely on AI memory alone.
+* **Regeneration advisor**: Tracks signals across sessions: contract change frequency, scope expansion requests, pattern drift indicators. Surfaces recommendations: "3 significant contract changes in 2 weeks - consider regeneration." Cannot rely on AI memory alone.
 
 **Planned tooling:**
 
@@ -373,7 +373,7 @@ The table below outlines planned tooling that reinforces SRDD practices; the met
 | `srdd review-coherence` | Compare implementation against ARCHITECTURE.md |
 | `srdd regeneration-status` | Surface signals that suggest regeneration |
 
-MCP server integration for real-time checking within Claude Code, Cursor, and similar tools is a longer-term goal. This would make SRDD workflows smoother — the AI checks scope, patterns, and coherence *before* acting, rather than failing at commit or review. True enforcement still requires hard blocks at git and CI layers; MCP advises, it does not prevent.
+MCP server integration for real-time checking within Claude Code, Cursor, and similar tools is a longer-term goal. This would make SRDD workflows smoother - the AI checks scope, patterns, and coherence *before* acting, rather than failing at commit or review. True enforcement still requires hard blocks at git and CI layers; MCP advises, it does not prevent.
 
 **Adoption without tooling:**
 
@@ -384,7 +384,7 @@ Teams can adopt SRDD today by:
 3. Following the phase workflow manually
 4. Relying on human review for coherence and scope discipline
 
-This delivers 60-70% of the value. The remaining 30-40% — reliable enforcement without human vigilance — awaits tooling.
+This delivers 60-70% of the value. The remaining 30-40% - reliable enforcement without human vigilance - awaits tooling.
 
 ### SSRDD Implementation
 
@@ -398,7 +398,7 @@ SSRDD wraps multiple SRDD instances with a coordination layer. Each subsystem ru
 
 * **Coordinated regeneration**: When one subsystem regenerates, affected subsystems are notified. Integration contracts are re-validated. Cascade effects are surfaced, not hidden.
 
-* **System-wide coherence dashboard**: Aggregates health signals across subsystems. Pattern drift in subsystem A, contract churn in subsystem B, integration test failures between C and D — visible in one place.
+* **System-wide coherence dashboard**: Aggregates health signals across subsystems. Pattern drift in subsystem A, contract churn in subsystem B, integration test failures between C and D - visible in one place.
 
 **Current status:**
 
@@ -427,7 +427,7 @@ Timeline: SRDD tooling first, SSRDD coordination layer second.
 ### Roadmap
 
 **Alignment with Agile and SAFe**:
-SRDD is designed to complement, not replace, existing delivery frameworks. Future documentation will map SRDD phases to Agile ceremonies and SAFe constructs — showing how regeneration fits into PI planning, how Phase 5 triage aligns with backlog refinement, and how SSRDD coordinates across Agile Release Trains.
+SRDD is designed to complement, not replace, existing delivery frameworks. Future documentation will map SRDD phases to Agile ceremonies and SAFe constructs - showing how regeneration fits into PI planning, how Phase 5 triage aligns with backlog refinement, and how SSRDD coordinates across Agile Release Trains.
 
 **Rules file templates**:
 Complete CLAUDE.md, .cursorrules, and copilot-instructions.md templates that encode SRDD workflow, scope guarding, and pattern-following behaviour. Ready to drop into any project.
@@ -436,7 +436,7 @@ Complete CLAUDE.md, .cursorrules, and copilot-instructions.md templates that enc
 Real-time SRDD enforcement within Claude Code, Cursor, and similar tools. The AI checks scope, patterns, and coherence *before* acting. True enforcement still requires git and CI layers; MCP advises and surfaces signals continuously.
 
 **Kubernetes and container orchestration**:
-SSRDD's domain model maps naturally to microservices architectures. Future work will explore how SSRDD boundaries align with Kubernetes namespaces, how CONSTITUTION.md standards translate to service mesh policies, and how coordinated regeneration integrates with deployment pipelines. The goal is SSRDD as a design-time discipline that produces systems well-suited to container orchestration — not as an afterthought, but by construction.
+SSRDD's domain model maps naturally to microservices architectures. Future work will explore how SSRDD boundaries align with Kubernetes namespaces, how CONSTITUTION.md standards translate to service mesh policies, and how coordinated regeneration integrates with deployment pipelines. The goal is SSRDD as a design-time discipline that produces systems well-suited to container orchestration - not as an afterthought, but by construction.
 
 ### Contributing
 
@@ -448,7 +448,7 @@ If you're interested in contributing to the tooling effort, or adopting SRDD in 
 
 ## Closing
 
-Vibe coding, agentic coding, context engineering, spec-driven development — each optimises for something real. Speed. Autonomy. Discipline. Traceability. None of them are wrong. But none of them close the loop.
+Vibe coding, agentic coding, context engineering, spec-driven development - each optimises for something real. Speed. Autonomy. Discipline. Traceability. None of them are wrong. But none of them close the loop.
 
 Vibe coding forgets. Agentic coding echoes. Context engineering curates inputs but not outputs. Spec-driven development treats specifications as authoritative even as reality drifts away from them.
 
@@ -457,7 +457,7 @@ SRDD closes the loop.
 ### What SRDD Enforces
 
 **The roundtrip is the methodology.**
-Specifications flow into implementation. Understanding flows back out through regeneration. This is not a rescue operation — it is a planned phase in the system's lifecycle.
+Specifications flow into implementation. Understanding flows back out through regeneration. This is not a rescue operation - it is a planned phase in the system's lifecycle.
 
 **Specs are snapshots, not contracts.**
 Specifications capture understanding at a point in time. Code becomes the source of truth. Periodically, understanding is extracted back out.
@@ -484,11 +484,11 @@ SSRDD extends these principles across domains:
 - Boundaries become explicit
 - Dependencies become intentional
 - Domains evolve independently without silent entanglement
-- Understanding scales — not bureaucracy
+- Understanding scales - not bureaucracy
 
 ### The Core Commitment
 
-Every senior developer has stared at a system they once understood and thought: "If only I could burn this down and rebuild it properly — keeping everything we learned, but losing the accumulated mess."
+Every senior developer has stared at a system they once understood and thought: "If only I could burn this down and rebuild it properly - keeping everything we learned, but losing the accumulated mess."
 
 SRDD makes that possible.
 
@@ -503,10 +503,10 @@ AI accelerates everything, including mistakes. SRDD exists to make learning fast
 
 ## The Complete Series
 
-- **[Part 1: Why SRDD Exists](https://brooke.medium.com/srdd-part1-of-4)** — The problem, the journey, the insight
-- **[Part 2: The AI Coding Landscape](https://brooke.medium.com/srdd-part2-of-4)** — Vibe coding, agentic coding, context engineering, SDD
-- **[Part 3: The SRDD Workflow](https://brooke.medium.com/srdd-part3-of-4)** — Phases, contracts, regeneration
-- **[Part 4: Scaling Up](https://brooke.medium.com/srdd-part4-of-4)** — SSRDD, principles, implementation (this article)
+- **[Part 1: Why SRDD Exists](https://brooke.medium.com/srdd-part1-of-4)** - The problem, the journey, the insight
+- **[Part 2: The AI Coding Landscape](https://brooke.medium.com/srdd-part2-of-4)** - Vibe coding, agentic coding, context engineering, SDD
+- **[Part 3: The SRDD Workflow](https://brooke.medium.com/srdd-part3-of-4)** - Phases, contracts, regeneration
+- **[Part 4: Scaling Up](https://brooke.medium.com/srdd-part4-of-4)** - SSRDD, principles, implementation (this article)
 
 ---
 

@@ -1,0 +1,111 @@
+%% ============================================================================
+%% SRDD Phases Workflow Diagram
+%% ============================================================================
+%% 
+%% Title: SRDD Six-Phase Workflow
+%% Author: Brooke Smith
+%% Methodology: Spec-Roundtrip Driven Development (SRDD)
+%% 
+%% Description:
+%%   This diagram illustrates the six-phase workflow of Spec-Roundtrip Driven
+%%   Development, showing how design, implementation, review, UAT, triage, and
+%%   production phases interact in a closed-loop system.
+%%
+%% Source:
+%%   - Repository: https://github.com/docs-bbos/srdd/
+%%   - Documentation: https://docs-bbos.github.io/srdd/
+%%   - Medium Series: https://brooke.medium.com/srdd-part1-of-4
+%%
+%% Usage:
+%%   Online:
+%%   - Paste directly into https://mermaid.live for interactive editing,
+%%     preview, and export to various formats (PNG, SVG, etc.)
+%%
+%%   Local Generation (Command Line):
+%%   - Install Mermaid CLI:
+%%     * npm: npm install -g @mermaid-js/mermaid-cli
+%%     * pnpm: pnpm add -g @mermaid-js/mermaid-cli
+%%   - Generate PNG: npx mmdc -i phases_workflow.mermaid -o phases_workflow.png
+%%   - Generate SVG: npx mmdc -i phases_workflow.mermaid -o phases_workflow.svg
+%%   - With pnpm: pnpm exec mmdc -i phases_workflow.mermaid -o phases_workflow.png
+%%
+%%   Local Generation (JavaScript/HTML):
+%%   - Install Mermaid library:
+%%     * npm: npm install mermaid
+%%     * pnpm: pnpm add mermaid
+%%   - Create an HTML file with:
+%%     <!DOCTYPE html>
+%%     <html>
+%%     <head>
+%%       <script type="module">
+%%         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+%%         mermaid.initialize({ startOnLoad: true });
+%%       </script>
+%%     </head>
+%%     <body>
+%%       <pre class="mermaid">
+%%         [Paste diagram code here]
+%%       </pre>
+%%     </body>
+%%     </html>
+%%   - Open the HTML file in a browser to view the rendered diagram
+%%
+%% Copyright: © 2025 Brooke Smith. All rights reserved.
+%% ============================================================================
+
+graph TD
+    %% Phase 1: Design
+    P1["<b>Phase 1: Design</b><br/>(Establish Intent)"] 
+    
+    %% Phase 2: Implementation
+    P2["<b>Phase 2: Implementation</b><br/>(Execution)"]
+    
+    %% Phase 3: Review
+    subgraph P3_Sub ["Phase 3: Review (Coherence)"]
+        P3_Entry["Review PR for fit & patterns"]
+        P3_Decision{Blocking Issues?}
+        P3_Fix["PR Comments & Revise"]
+    end
+
+    %% The "Continue or Advance" Logic
+    P3_Complete{Cycle Complete?}
+    
+    %% Phase 4: UAT
+    P4["<b>Phase 4: UAT</b><br/>(Observe & Accumulate)"]
+    
+    %% Phase 5: Triage
+    P5{"<b>Phase 5: Triage & Decide</b>"}
+    
+    %% Phase 6: Production
+    P6(["<b>Phase 6: Production</b>"])
+
+    %% Connections
+    P1 --> P2
+    P2 --> P3_Entry
+    P3_Entry --> P3_Decision
+    
+    %% Internal Phase 3 Loop (Blocking)
+    P3_Decision -- "Yes" --> P3_Fix
+    P3_Fix --> P2
+    
+    %% Post-Merge Decision (Continue or Advance)
+    P3_Decision -- "No (Merge)" --> P3_Signals["Capture Implementation Signals<br/>to 07-NextCycle.md"]
+    P3_Signals --> P3_Complete
+    
+    P3_Complete -- "No (More issues)" --> P2
+    P3_Complete -- "Yes (Sprint/Milestone end)" --> P4
+    
+    P4 --> P5
+    
+    %% Triage Decision Paths
+    P5 -- "Release" --> P6
+    P5 -- "ITERATE (Bugs/Candidate Contracts)" --> P2
+    P5 -- "REGENERATE (Spaghettification/Drift)" --> P1
+
+    %% Styling
+    style P1 fill:#f5f5f5,stroke:#333,stroke-width:2px
+    style P3_Sub fill:#f8f9fa,stroke:#666,stroke-dasharray: 5 5
+    style P3_Complete fill:#e1f5fe,stroke:#01579b
+    style P3_Decision fill:#fff4dd,stroke:#d4a017,stroke-width:2px
+    style P5 fill:#fff4dd,stroke:#d4a017,stroke-width:2px
+    style P6 fill:#d4edda,stroke:#28a745,stroke-width:2px

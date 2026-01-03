@@ -16,7 +16,7 @@ It became clear to me that the industry had been set adrift by the sudden accele
 
 Like most developers, I arrived curious, sceptical, and slightly overwhelmed.
 
-<figure>
+<figure style="text-align: center; margin: 2em 0; border: 1px solid #eee">
   <img src="./images/01.StompDinosaurStomp.jpg" alt="Bright colourful book cover for Stomp Stomp Stomp. Picture of bright green dinosaur. By Margaret Mayo and Alex Ayliffe">
   <figcaption>Book cover for Stomp <a href="https://medium.com/r/?url=https%3A%2F%2Fwww.hachette.com.au%2Fmargaret-mayo-alex-ayliffe%2Fstomp-dinosaur-stomp">Dinosaur Stomp!</a> By Margaret Mayo and Alex Ayliffe</figcaption>
 </figure>

@@ -26,6 +26,7 @@ Like most developers, I arrived curious, sceptical, and slightly overwhelmed.
   <br>
   <em>Book cover for Stomp <a href="https://medium.com/r/?url=https%3A%2F%2Fwww.hachette.com.au%2Fmargaret-mayo-alex-ayliffe%2Fstomp-dinosaur-stomp">Dinosaur Stomp!</a> By Margaret Mayo and Alex Ayliffe</em>
 </div>
+<img src="../assets/images/01.StompDinosaurStomp.jpg">
 
 ## Finding My Footing
 

@@ -16,6 +16,12 @@ It became clear to me that the industry had been set adrift by the sudden accele
 
 Like most developers, I arrived curious, sceptical, and slightly overwhelmed.
 
+![alt text](../xassets/images/01.StompDinosaurStomp.jpg)
+<figure align="center">
+  <img src="../assets/images/01.StompDinosaurStomp.jpg" alt="Bright colourful book cover for Stomp Stomp Stomp. Picture of bright green dinosaur. By Margaret Mayo and Alex Ayliffe" width="600">
+  <figcaption>Book cover for Stomp <a href="https://medium.com/r/?url=https%3A%2F%2Fwww.hachette.com.au%2Fmargaret-mayo-alex-ayliffe%2Fstomp-dinosaur-stomp">Dinosaur Stomp!</a> By Margaret Mayo and Alex Ayliffe</figcaption>
+</figure>
+
 ## Finding My Footing
 
 I immersed myself in Cursor IDE and immediately appreciated the tight integration between editor and assistant. AI-assisted development, instant explanations of unfamiliar code, integrated terminals, and one-click error interpretation all felt like genuine productivity gains.
@@ -42,6 +48,11 @@ This is Uncle Bob's "Clean Code" - small, well-named functions that communicate 
 
 This article is not just an introduction to a new methodology. It is also a survey of the major AI-assisted development approaches that have emerged over the past year - what they optimise for, where they succeed, and where they begin to break down as systems grow.
 
+<figure align="center">
+  <img src="../assets/images/02.HoneymoonPhase.jpg" alt="Man and woman holding hands on a beach. They are in their honeymoon phase" width="600">
+  <figcaption>Honeymoon phase - courtesy <a href="https://www.marriage.com/advice/love/honeymoon-stage-of-relationship/">marriage.com</a></figcaption>
+</figure>
+
 ## The Honeymoon Phase
 
 Like everyone new to AI coding, I started with “vibe coding”. I churned out utilities I’d previously written off as not worth the effort. Fully tested, well-documented tools appeared in hours instead of weekends.
@@ -60,6 +71,11 @@ What *is* fulfilling is building architecturally coherent systems, writing novel
 
 And that shift - from exhaustion to intention - is quietly transformative.
 
+<figure align="center">
+  <img src="../assets/images/03.hitting-brick-wall.jpg" alt="Man and woman holding hands on a beach. They are in their honeymoon phase" width="400">
+  <figcaption>Man hard up against the <a href="https://wendykeller.com/when-your-life-hits-a-brick-wall/">wall</a></figcaption>
+</figure>
+
 ## Hitting the Wall
 
 The cracks appeared when I moved beyond small tools into multi-service systems.
@@ -77,6 +93,11 @@ When that continuity breaks, the AI doesn’t fail loudly - it degrades subtly. 
 * the AI hedging: “I’m not sure if this will break something”
 
 I’d been coding long enough to recognise the pattern. This wasn’t just a tooling problem. It was a deeper failure of software-engineering fundamentals - violated design principles, eroded architectural patterns, and the slow decay of clean, comprehensible code. These are issues that only emerge clearly with professional experience. They don’t announce themselves immediately, and they’re easy to miss if you haven’t had to maintain, extend, and live with systems over time. But once you have, the signs are unmistakable.
+
+<figure align="center">
+  <img src="../assets/images/04.SheepSurveyingTheLandscape.jpg" alt="Sheep looking down to the valley below" width="600">
+  <figcaption><a href="https://www.photocatalyst.uk/Portfolio/i-kB2JFpW">Sheep surveying the landscape</a></figcaption>
+</figure>
 
 ## Surveying the Landscape
 
@@ -104,6 +125,11 @@ A human developer feels when a screen is doing too much, when a flow is awkward,
 
 Pure SDD doesn’t optimise for speed. At scale, it is often painfully slow. What it optimises for instead is **consistency, formal declaration, and auditability**: clearly defined artefacts, traceable decisions, and boxes that can be ticked with confidence. The result is systems that are internally coherent on paper, defensible in process, and deeply constrained in expression.
 
+<figure align="center">
+  <img src="../assets/images/05.maze_image_for_third_way_blog_january_2024.jpg" alt="Sheep looking down to the valley below" width="600">
+  <figcaption><a href="https://www.artsetcbarbados.com/blog/finding-third-way">The maze</a> at German adventure park Erlebnispark Teichland</figcaption>
+</figure>
+
 ## Finding a Third Way
 
 As a solo developer working unpaid in my spare time, I knew I wouldn’t sustain any of these for my bigger projects. So I drew on my 25+ years of experience - from Waterfall and spiral models, through UML-heavy enterprise systems, to Agile teams and SAFe programs - to build something that worked for me.
@@ -123,6 +149,11 @@ Specs guide code. Code informs regenerated specs. It’s a closed loop.
 The developer stays hands-on - shaping requirements, reviewing PRs, and validating behaviour - with their hands firmly on the steering wheel. The AI handles execution, analysis, and discipline, keeping the system within its lane and keeping that baby on the road. The human dreams and chooses the destination; the AI helps get there.
 
 That roundtrip is what keeps understanding compounding instead of decaying.
+
+<figure align="center">
+  <img src="../assets/images/06.WhichWay.png" alt="Simple text image asking 'where to next..'" width="400">
+  <figcaption><a href="https://www.facebook.com/andsowheretonext/">where to next</a></figcaption>
+</figure>
 
 ## Where This Goes Next
 

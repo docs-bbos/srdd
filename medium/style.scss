@@ -1,0 +1,16 @@
+figure.image-center {
+    text-align: right;
+    margin: 2em 0;
+    border: 1px solid hsl(0, 81%, 49%);
+}
+
+figure.image-center img {
+    max-width: 100%;
+    height: auto;
+}
+  
+figure.image-center figcaption {
+    font-style: italic;
+    color: #666;
+    margin-top: 0.5em;
+}

@@ -21,11 +21,11 @@ Like most developers, I arrived curious, sceptical, and slightly overwhelmed.
   <img src="../assets/images/01.StompDinosaurStomp.jpg" alt="Bright colourful book cover for Stomp Stomp Stomp. Picture of bright green dinosaur. By Margaret Mayo and Alex Ayliffe">
   <figcaption>Book cover for Stomp <a href="https://medium.com/r/?url=https%3A%2F%2Fwww.hachette.com.au%2Fmargaret-mayo-alex-ayliffe%2Fstomp-dinosaur-stomp">Dinosaur Stomp!</a> By Margaret Mayo and Alex Ayliffe</figcaption>
 </figure>
-<!-- <div align="center">
-  <img src="../assets/images/01.StompDinosaurStomp.jpg" width="600" alt="Bright colourful book cover for Stomp Stomp Stomp. Picture of bright green dinosaur. By Margaret Mayo and Alex Ayliffe">
+<div>
+  <img src="../assets/images/01.StompDinosaurStomp.jpg" alt="Bright colourful book cover for Stomp Stomp Stomp. Picture of bright green dinosaur. By Margaret Mayo and Alex Ayliffe">
   <br>
   <em>Book cover for Stomp <a href="https://medium.com/r/?url=https%3A%2F%2Fwww.hachette.com.au%2Fmargaret-mayo-alex-ayliffe%2Fstomp-dinosaur-stomp">Dinosaur Stomp!</a> By Margaret Mayo and Alex Ayliffe</em>
-</div> -->
+</div>
 
 ## Finding My Footing
 

@@ -1,9 +1,37 @@
+---
+title: SRDD (Part 2 of 4): The AI Coding Landscape
+---
+
+<style>
+    figure.image-center {
+    text-align: center;
+    margin: 2em 0;
+    border: 1px solid #eee;
+}
+
+figure.image-center img {
+    max-width: 100%;
+    height: auto;
+}
+  
+figure.image-center figcaption {
+    font-style: italic;
+    color: #666;
+    margin-top: 0.5em;
+}
+</style>
+
 # SRDD (Part 2 of 4): The AI Coding Landscape
 
 This is Part 2 of a four-part series on Spec-Roundtrip Driven Development.
 👉 **[Read Part 1: Why SRDD Exists](https://brooke.medium.com/srdd-part1-of-4)**
 
 ---
+
+<figure class="image-center">
+  <img src="./images/2-01.TeachAndLearnWGenAI.jpg" alt="Brain fused on to a circuit board">
+  <figcaption>Teaching and learning with <a href="https://www.ohio.edu/center-teaching-learning/teaching-learning-genai">GenAI</a> (Ohio University)</figcaption>
+</figure>
 
 By mid-2025, it became clear that "AI coding" was no longer a single thing.
 
@@ -28,6 +56,11 @@ Our time has come. The tooling finally exists. The AI can analyse, synthesise, a
 
 For larger systems composed of independently developed subsystems, **SSRDD** wraps multiple SRDD instances with a coordination layer. Each subsystem runs its own SRDD cycle - its own planning docs, its own backlog, its own regeneration rhythm. SSRDD governs the boundaries between them: system-wide integration standards (CONSTITUTION.md), explicit API contracts, and dependency declarations that make cross-system coupling visible and intentional. The subsystems evolve independently; SSRDD ensures they integrate coherently.
 
+<figure class="image-center">
+  <img src="./images/2-02.WhenToUse.png" alt="Person holding chopsticks as demonstration of their use">
+  <figcaption>When to use (<a href="https://livejapan.com/en/article-a0000335/">chopsticks</a>)</figcaption>
+</figure>
+
 ### When to Use SRDD / SSRDD
 
 SRDD is a generalist approach. It suits most projects that:
@@ -49,6 +82,11 @@ I argue SRDD produces better outcomes than the alternatives for the majority of 
 For everything else - single projects through to multi-domain systems - SRDD and SSRDD provide the better balance.
 
 What follows is a breakdown of each approach - its strengths, its limitations, and where it predictably breaks down.
+
+<figure class="image-center">
+  <img src="./images/2-03.cracked-beam-300x171.png" alt="Representation of failed (cracked) beam">
+  <figcaption>Failure modes (<a href="https://feaforall.com/failure-modes/">of structural beams</a>)</figcaption>
+</figure>
 
 ### The Common Failure Pattern
 
@@ -84,6 +122,11 @@ Where such mechanisms are absent, false confidence is not an edge case. It is th
 **Architectural drift**: once progress continues without comprehension, architectural decisions cease to be deliberate. Structure emerges implicitly from local fixes, which accumulate into global incoherence without ever triggering a clear failure.
 
 The failure pattern above becomes visible earliest and most vividly in low-friction workflows. When progress is cheap and success signals are abundant, context loss, false confidence, and architectural drift surface quickly. Vibe coding sits at that boundary, where the strengths of AI assistance are maximised - and so are its risks.
+
+<figure class="image-center">
+  <img src="./images/2-04.goodVibes.png" alt="Tie dye writing of 'good vibes only'">
+  <figcaption><a href="https://www.redbubble.com/i/sticker/Good-vibes-only-tie-dye-by-cedoughert">Good vibes</a></figcaption>
+</figure>
 
 ## 1. Vibe Coding
 
@@ -182,6 +225,11 @@ SRDD externalises what vibe coding keeps implicit. Architectural intent is captu
 **Where vibe coding wins**:
 For throwaway scripts and single-session utilities, SRDD is overhead you don't need. But the bottom line above points to the real relationship: vibe coding excels at exploration; SRDD is what you transition to once the idea is worth keeping. They are sequential, not competing.
 
+<figure class="image-center">
+  <img src="./images/2-05.agentic.png" alt="Cute android with pretty smile. Like one seen in Disney movies.">
+  <figcaption>An <a href="https://www.computerworld.com/article/3843138/agentic-ai-ongoing-coverage-of-its-impact-on-the-enterprise.html">agentic AI</a> mascot</figcaption>
+</figure>
+
 ## 2. Agentic Coding
 
 ### What it is
@@ -278,6 +326,11 @@ Agentic coding optimises for task completion. SRDD optimises for *coherent* task
 
 **Where agentic coding wins**:
 For pure mechanical transformations - bulk renames, dependency upgrades, migration scripts - where architectural coherence is irrelevant and the only goal is "make it compile again," raw agentic execution is faster. SRDD's guardrails add friction that isn't needed when you genuinely don't care about the system's future. But those cases are rarer than they appear. Most systems need to be maintained, and "tests pass" is not the same as "understanding survives."
+
+<figure class="image-center">
+  <img src="./images/2-06_context.png" alt="Cartoon with random 'thread' shown in one person's head, spilling out to someone where it is arranged in a spiral ie. organized">
+  <figcaption>Context analysis in <a href="https://www.matrix.edu.au/10-things-you-must-know-about-context-analysis-in-year-9-english/">education</a></figcaption>
+</figure>
 
 ## 3. Context Engineering
 
@@ -378,6 +431,11 @@ It improves inputs.
 It does not regenerate understanding.
 
 And that unclosed loop is precisely why SRDD exists.
+
+<figure class="image-center">
+  <img src="./images/2-07.Specifications_Blueprint-gc87638b5f_1280.jpg" alt="Architectural room design on a large piece of paper (or on screen)">
+  <figcaption><a href="https://www.designingbuildings.co.uk/wiki/Specification_for_construction">Architectural plan</a> - a specification</figcaption>
+</figure>
 
 ## 4. Spec-Driven Development (SDD)
 
@@ -486,7 +544,10 @@ More critically, SRDD preserves human judgment as a first-class input. SDD has n
 **Where SDD wins**:
 When formal traceability is mandated - not preferred, but legally or contractually required - SDD's rigour is the point. Regulated domains (finance, healthcare, safety-critical systems) often demand that every behaviour trace to an explicit, pre-approved declaration of intent. SRDD's "specs are snapshots" philosophy doesn't satisfy auditors who need to demonstrate that implementation derived from reviewed specifications. If the cost of ambiguity exceeds the cost of rigidity, and external compliance requires it, SDD remains the appropriate choice. SRDD is not designed for environments where flexibility is a liability.
 
----
+<figure class="image-center">
+  <img src="./images/06.WhichWay.png" alt="Simple text image asking 'where to next..'" width="400">
+  <figcaption><a href="https://www.facebook.com/andsowheretonext/">where to next</a></figcaption>
+</figure>
 
 ## What's Next
 

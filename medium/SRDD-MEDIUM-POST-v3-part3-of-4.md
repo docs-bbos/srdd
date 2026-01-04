@@ -1,3 +1,26 @@
+---
+title: SRDD (Part 3 of 4): The SRDD Workflow
+---
+
+<style>
+    figure.image-center {
+    text-align: center;
+    margin: 2em 0;
+    border: 1px solid #eee;
+}
+
+figure.image-center img {
+    max-width: 100%;
+    height: auto;
+}
+  
+figure.image-center figcaption {
+    font-style: italic;
+    color: #666;
+    margin-top: 0.5em;
+}
+</style>
+
 # SRDD (Part 3 of 4): The SRDD Workflow
 
 This is Part 3 of a four-part series on Spec-Roundtrip Driven Development.
@@ -9,6 +32,11 @@ This is Part 3 of a four-part series on Spec-Roundtrip Driven Development.
 Part 2 mapped the AI coding landscape - vibe coding, agentic coding, context engineering, and spec-driven development - and showed where each approach predictably breaks down.
 
 This article is the technical core: the five phases of SRDD, how contracts govern change, what the AI is responsible for during implementation, and how regeneration closes the loop between intent and reality.
+
+<figure class="image-center">
+  <img src="./images/3-01_missingLoop_e00f6-roller-coaster-loop-gap-youtube-geek-week.png" alt="Image of a fictional roller-coaster that has a gap in one of it's loops" width="600">
+  <figcaption><a href="https://coastercritic.com/2013/08/10/roller-coaster-gap-in-loop-youtube-geek-week/">Some might like this missing loop</a></figcaption>
+</figure>
 
 ## SRDD: The Missing Loop
 
@@ -58,6 +86,11 @@ SRDD does not eliminate structure.  It makes structure responsive.
 
 **That roundtrip is the core innovation.**
 
+<figure class="image-center">
+  <img src="./images/3-02-auditability_best-practices-improvement-2.jpg" alt="Cartoon hand holding a 'tick' surrounded by business process icons" width="600">
+  <figcaption>Best practices: how to develop with <a href="https://grupo-giga.com/blog/develop-with-auditability/">auditability</a></figcaption>
+</figure>
+
 ### A note on SRDD and auditability
 
 It is worth pausing here to be explicit about how SRDD relates to the core strength of Spec-Driven Development.
@@ -74,6 +107,12 @@ The system is not certified as *never wrong* in advance.
 It is traceable in **how it became right over time**.
 
 This distinction matters. SRDD trades absolute guarantees for adaptability, but it does not abandon accountability. It replaces compliance-driven certainty with historically grounded transparency - sufficient for most software systems, even if it falls short of SDD’s strongest claims.
+
+<figure class="image-center">
+  <img src="./images/3-00_workflowDiagram-transparent.png" alt="Workflow diagram showing the phases of SRDD" width="600">
+  <figcaption>Workflow diagram showing the phases of <a href="https://docs-bbos.github.io/srdd">SRDD</a></figcaption>
+</figure>
+
 
 ## The SRDD Workflow
 
@@ -284,6 +323,12 @@ In short:
 - **Minor contract change** → new issue, normal flow
 - **Significant contract change** → new issue, log signal in 07-NextCycle.md
 - **Accumulated signals show pattern** → AI advises regeneration, evidence already captured, return to Phase 1
+
+<figure class="image-center">
+  <img src="./images/3-03_defining-roles-and-responsibilities.png" alt="4 different business roles and responsibilities shown" width="600">
+  <figcaption>Define Roles & <a href="https://www.pmcolumn.com/roles-and-responsibilities/">Responsibilities</a></figcaption>
+</figure>
+
 
 #### Layered Tests, Distinct Responsibilities
 
@@ -723,6 +768,11 @@ In a world where AI can generate endlessly, SRDD ensures that humans still decid
 
 ---
 
+<figure class="image-center">
+  <img src="./images/3-04_The-regeneration-cycle-as-a-cascade-of-ecological-processes-and-their-success-and-failure.png" alt="Diagram showing regeneration cycle in plants'" width="600">
+  <figcaption><a href="https://www.researchgate.net/publication/281813304_Developing_restoration_strategies_for_temperate_forests_using_natural_regeneration_processes">Regeration cycle</a> in plants</figcaption>
+</figure>
+
 ## The Regeneration Cycle
 
 This is the roundtrip.
@@ -794,7 +844,10 @@ Iteration grows the system. Regeneration realigns it.
 
 That is the roundtrip - and it is why SRDD scales not just across codebases, but across years.
 
----
+<figure class="image-center">
+  <img src="./images/06.WhichWay.png" alt="Simple text image asking 'where to next..'" width="400">
+  <figcaption><a href="https://www.facebook.com/andsowheretonext/">where to next</a></figcaption>
+</figure>
 
 ## What's Next
 

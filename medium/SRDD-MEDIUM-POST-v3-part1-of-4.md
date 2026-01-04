@@ -21,6 +21,8 @@ figure.image-center figcaption {
 }
 </style>
 
+# SRDD Is the Best AI Coding Methodology
+
 **Spec-Roundtrip Driven Development** - Keeping developers in control while building better systems with aligned AI
 
 I'm a senior software engineer with over 25 years of experience working across government, finance, science, defence, and large-scale commercial systems. I started AI-assisted coding in January 2025 and joined a community of like-minded professionals at [New Society](https://www.skool.com/new-society), where AI tools, methods, and real-world projects are discussed daily.
@@ -68,7 +70,7 @@ This is Uncle Bob's "Clean Code" - small, well-named functions that communicate 
 
 This article is not just an introduction to a new methodology. It is also a survey of the major AI-assisted development approaches that have emerged over the past year - what they optimise for, where they succeed, and where they begin to break down as systems grow.
 
-<figure align="center">
+<figure class="image-center">
   <img src="../assets/images/02.HoneymoonPhase.jpg" alt="Man and woman holding hands on a beach. They are in their honeymoon phase" width="600">
   <figcaption>Honeymoon phase - courtesy <a href="https://www.marriage.com/advice/love/honeymoon-stage-of-relationship/">marriage.com</a></figcaption>
 </figure>
@@ -91,7 +93,7 @@ What *is* fulfilling is building architecturally coherent systems, writing novel
 
 And that shift - from exhaustion to intention - is quietly transformative.
 
-<figure align="center">
+<figure class="image-center">
   <img src="../assets/images/03.hitting-brick-wall.jpg" alt="Man and woman holding hands on a beach. They are in their honeymoon phase" width="400">
   <figcaption>Man hard up against the <a href="https://wendykeller.com/when-your-life-hits-a-brick-wall/">wall</a></figcaption>
 </figure>
@@ -114,7 +116,7 @@ When that continuity breaks, the AI doesn’t fail loudly - it degrades subtly. 
 
 I’d been coding long enough to recognise the pattern. This wasn’t just a tooling problem. It was a deeper failure of software-engineering fundamentals - violated design principles, eroded architectural patterns, and the slow decay of clean, comprehensible code. These are issues that only emerge clearly with professional experience. They don’t announce themselves immediately, and they’re easy to miss if you haven’t had to maintain, extend, and live with systems over time. But once you have, the signs are unmistakable.
 
-<figure align="center">
+<figure class="image-center">
   <img src="../assets/images/04.SheepSurveyingTheLandscape.jpg" alt="Sheep looking down to the valley below" width="600">
   <figcaption><a href="https://www.photocatalyst.uk/Portfolio/i-kB2JFpW">Sheep surveying the landscape</a></figcaption>
 </figure>
@@ -145,7 +147,7 @@ A human developer feels when a screen is doing too much, when a flow is awkward,
 
 Pure SDD doesn’t optimise for speed. At scale, it is often painfully slow. What it optimises for instead is **consistency, formal declaration, and auditability**: clearly defined artefacts, traceable decisions, and boxes that can be ticked with confidence. The result is systems that are internally coherent on paper, defensible in process, and deeply constrained in expression.
 
-<figure align="center">
+<figure class="image-center">
   <img src="../assets/images/05.maze_image_for_third_way_blog_january_2024.jpg" alt="Sheep looking down to the valley below" width="600">
   <figcaption><a href="https://www.artsetcbarbados.com/blog/finding-third-way">The maze</a> at German adventure park Erlebnispark Teichland</figcaption>
 </figure>
@@ -170,7 +172,7 @@ The developer stays hands-on - shaping requirements, reviewing PRs, and validati
 
 That roundtrip is what keeps understanding compounding instead of decaying.
 
-<figure align="center">
+<figure class="image-center">
   <img src="../assets/images/06.WhichWay.png" alt="Simple text image asking 'where to next..'" width="400">
   <figcaption><a href="https://www.facebook.com/andsowheretonext/">where to next</a></figcaption>
 </figure>

@@ -147,10 +147,10 @@ SSRDD boundaries aligned with Kubernetes namespaces, CONSTITUTION.md as service 
 
 This methodology is documented in a four-part series:
 
-- **[Part 1: Why SRDD Exists](./SRDD-MEDIUM-POST-v3-part1-of-4)** — The problem, the journey, the insight
-- **[Part 2: The AI Coding Landscape](./SRDD-MEDIUM-POST-v3-part2-of-4)** — Vibe coding, agentic coding, context engineering, SDD
-- **[Part 3: The SRDD Workflow](./SRDD-MEDIUM-POST-v3-part3-of-4)** — Phases, contracts, regeneration
-- **[Part 4: Scaling Up](./SRDD-MEDIUM-POST-v3-part4-of-4)** — SSRDD, principles, implementation
+- **[Part 1: Why SRDD Exists](./SRDD-part1-of-4)** — The problem, the journey, the insight
+- **[Part 2: The AI Coding Landscape](./SRDD-part2-of-4)** — Vibe coding, agentic coding, context engineering, SDD
+- **[Part 3: The SRDD Workflow](./SRDD-part3-of-4)** — Phases, contracts, regeneration
+- **[Part 4: Scaling Up](./SRDD-part4-of-4)** — SSRDD, principles, implementation
 
 ## Contributing
 

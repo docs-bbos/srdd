@@ -1,0 +1,15 @@
+{
+    "name": "devto-sync",
+    "version": "1.0.0",
+    "description": "Sync Jekyll posts to Dev.to",
+    "main": "sync-to-devto.js",
+    "scripts": {
+      "sync": "node sync-to-devto.js"
+    },
+    "dependencies": {
+      "gray-matter": "^4.0.3"
+    },
+    "engines": {
+      "node": ">=18.0.0"
+    }
+  }

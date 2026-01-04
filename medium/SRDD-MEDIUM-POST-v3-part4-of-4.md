@@ -1,3 +1,26 @@
+---
+title: SRDD (Part 4 of 4): Scaling Up - SSRDD, Principles, and Implementation
+---
+
+<style>
+    figure.image-center {
+    text-align: center;
+    margin: 2em 0;
+    border: 1px solid #eee;
+}
+
+figure.image-center img {
+    max-width: 100%;
+    height: auto;
+}
+  
+figure.image-center figcaption {
+    font-style: italic;
+    color: #666;
+    margin-top: 0.5em;
+}
+</style>
+
 # SRDD (Part 4 of 4): Scaling Up - SSRDD, Principles, and Implementation
 
 This is Part 4 of a four-part series on Spec-Roundtrip Driven Development.
@@ -12,6 +35,11 @@ Part 3 walked through the SRDD workflow: five phases, contracts as authority, th
 Where the earlier parts focus on failure modes and workflow, this final part focuses on durability: how SRDD holds up under scale, time, and organisational pressure.
 
 This final article covers three things: how SRDD scales to multi-domain systems through **Scaled SRDD (SSRDD)**, the principles that underpin the methodology, and the current state of implementation - what you can adopt today and what tooling is still planned.
+
+<figure class="image-center">
+  <img src="./images/4-01.Scaled_fighter-male-dragon-scale.png" alt="Fighter Male Dragon Scale fish'" width="600">
+  <figcaption><a href="https://loveideaet.click/product_tag/55786428_.htmlg">Fighter Male Dragon Scale fish</a></figcaption>
+</figure>
 
 ## Scaled SRDD (SSRDD)
 
@@ -143,7 +171,10 @@ They are curating the *shape* in which code is allowed to grow.
 SSRDD enforces boundaries the same way strong type systems enforce correctness:
 not by trust, but by making the wrong thing impossible.
 
----
+<figure class="image-center">
+  <img src="./images/4-02_Principles_man-speaking-at-a-business-conference-picture-id499517325.jpg" alt="Designated principle speaking to all the other district principles" width="600">
+  <figcaption>Designated principle <a href="https://studentreasures.com/blog/teaching-strategies/education-conferences/">speaking to all the other district principles</a></figcaption>
+</figure>
 
 ## Principles
 
@@ -206,6 +237,11 @@ Where code lives communicates what it is. A clear directory structure - with bou
 
 Guardrails encode judgment structurally - not just in documentation.
 
+<figure class="image-center">
+  <img src="./images/4-03.encode_Judgement_day_IMG_1369.JPG" alt="Image of aJudgement DayJudgement Day w ghouls and devils shredding judged humans" width="600">
+  <figcaption><a href="https://commons.wikimedia.org/wiki/File:Judgement_day_IMG_1369.JPG">Judgement Day</a></figcaption>
+</figure>
+
 ### Encode Judgment, Don't Just Document It
 
 > Structure that enforces decisions is stronger than documentation that describes them.
@@ -243,6 +279,11 @@ These are not test failures. They are coherence failures. They make the system h
 **The reviewer's job is coherence**: The AI handles correctness. The human ensures fit.
 
 This requires architectural awareness - understanding not just whether the code works, but whether it belongs. That awareness is precisely what distinguishes a developer from a code generator.
+
+<figure class="image-center">
+  <img src="./images/4-04_DevsDream_AI-DisciplinesHowAIVibeCodingIsErasingDevelopersSkills.jpg" alt="Image of a fictional roller-coaster that has a gap in one of it's loops" width="600">
+  <figcaption><a href="https://coastercritic.com/2013/08/10/roller-coaster-gap-in-loop-youtube-geek-week/">Some might like this missing loop</a></figcaption>
+</figure>
 
 ### The Developer Dreams, The AI Disciplines
 
@@ -290,6 +331,11 @@ The roundtrip is what makes SRDD sustainable:
 5. The cycle repeats with compounded understanding
 
 Without the roundtrip, specs drift into irrelevance. With it, understanding compounds instead of decaying.
+
+<figure class="image-center">
+  <img src="./images/4-05_VelocityFollowsClarity_moving_bike.png" alt="Image of a bike made with various size circles with 3d shadows" width="600">
+  <figcaption><a href="https://visionbook.mit.edu/motion_estimation_intro.html">Motion-induced visual illusion</a></figcaption>
+</figure>
 
 ### Velocity Follows Clarity
 
@@ -386,6 +432,11 @@ Teams can adopt SRDD today by:
 
 This delivers 60-70% of the value. The remaining 30-40% - reliable enforcement without human vigilance - awaits tooling.
 
+<figure class="image-center">
+  <img src="./images/4-06.implementation-guide.jpg" alt="Cartoon Image of people holding up gears and cogs - as business processes metaphor" width="600">
+  <figcaption>implementing a <a href="https://www.youraspire.com/guides/landscape/management-software-implementation-best-practices">management software solution</a></figcaption>
+</figure>
+
 ### SSRDD Implementation
 
 SSRDD wraps multiple SRDD instances with a coordination layer. Each subsystem runs its own SRDD cycle; SSRDD governs the boundaries between them.
@@ -437,6 +488,11 @@ Real-time SRDD enforcement within Claude Code, Cursor, and similar tools. The AI
 
 **Kubernetes and container orchestration**:
 SSRDD's domain model maps naturally to microservices architectures. Future work will explore how SSRDD boundaries align with Kubernetes namespaces, how CONSTITUTION.md standards translate to service mesh policies, and how coordinated regeneration integrates with deployment pipelines. The goal is SSRDD as a design-time discipline that produces systems well-suited to container orchestration - not as an afterthought, but by construction.
+
+<figure class="image-center">
+  <img src="./images/4-07.contribute.png" alt="Drawn image of two hands haking with 'cooperation' messages covering both" width="600">
+  <figcaption><a href="https://www.drupal.org/project/contribute">Contribute to Drupal</a></figcaption>
+</figure>
 
 ### Contributing
 

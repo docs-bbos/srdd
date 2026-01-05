@@ -74,7 +74,7 @@ jobs:
         env:
           DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
           SITE_URL: ${{ vars.SITE_URL }}  # e.g., https://username.github.io/repo
-          POSTS_DIR: ./medium
+          POSTS_DIR: ../../medium
           PUBLISH_BY_DEFAULT: 'false'  # Set to 'true' to auto-publish
         run: |
           cd scripts/sync-to-devto

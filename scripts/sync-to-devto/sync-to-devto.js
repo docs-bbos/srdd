@@ -29,6 +29,41 @@ if (DEBUG_OUTPUT && !fs.existsSync(TMP_DIR)) {
   fs.mkdirSync(TMP_DIR, { recursive: true });
 }
 
+// Load defaults from Jekyll _config.yml if it exists
+function loadJekyllDefaults() {
+  const configPaths = [
+    path.join(POSTS_DIR, '..', '_config.yml'),
+    path.join(POSTS_DIR, '_config.yml'),
+  ];
+  
+  for (const configPath of configPaths) {
+    if (fs.existsSync(configPath)) {
+      try {
+        const configContent = fs.readFileSync(configPath, 'utf-8');
+        const config = require('js-yaml').load(configContent);
+        
+        if (config?.defaults) {
+          // Find defaults that apply to posts
+          const postDefaults = config.defaults.find(d => 
+            d.scope?.path?.includes('_posts') || 
+            d.scope?.type === 'posts' ||
+            !d.scope?.path // applies to all
+          );
+          if (postDefaults?.values) {
+            console.log(`Loaded defaults from ${configPath}`);
+            return postDefaults.values;
+          }
+        }
+      } catch (e) {
+        console.warn(`Warning: Could not parse ${configPath}: ${e.message}`);
+      }
+    }
+  }
+  return {};
+}
+
+const JEKYLL_DEFAULTS = loadJekyllDefaults();
+
 // Rate limiting: Dev.to allows 30 requests per 30 seconds
 const RATE_LIMIT_DELAY = 1100; // ms between requests
 
@@ -78,24 +113,27 @@ function parseJekyllPost(filePath) {
   const content = fs.readFileSync(filePath, 'utf-8');
   const { data: frontMatter, content: body } = matter(content);
   
+  // Merge Jekyll defaults with front matter (front matter takes precedence)
+  const merged = { ...JEKYLL_DEFAULTS, ...frontMatter };
+  
   // Extract slug from filename (e.g., 2024-01-15-my-post.md -> my-post)
   const filename = path.basename(filePath, path.extname(filePath));
   const slugMatch = filename.match(/^\d{4}-\d{2}-\d{2}-(.+)$/);
   const slug = slugMatch ? slugMatch[1] : filename;
   
   return {
-    title: frontMatter.title,
+    title: merged.title,
     body: body.trim(),
-    tags: frontMatter.tags || frontMatter.categories || [],
-    series: frontMatter.series || null,
-    description: frontMatter.description || frontMatter.excerpt || null,
-    coverImage: frontMatter.image || frontMatter.cover_image || null,
+    tags: merged.tags || merged.categories || [],
+    series: merged.series || null,
+    description: merged.description || merged.excerpt || null,
+    coverImage: merged.image || merged.cover_image || null,
     slug,
-    date: frontMatter.date,
+    date: merged.date,
     // Dev.to specific front matter (optional in Jekyll posts)
-    devto_published: frontMatter.devto_published,
-    devto_series: frontMatter.devto_series,
-    devto_tags: frontMatter.devto_tags,
+    devto_published: merged.devto_published,
+    devto_series: merged.devto_series,
+    devto_tags: merged.devto_tags,
   };
 }
 
@@ -141,13 +179,6 @@ function buildDevtoArticle(post, canonicalUrl, published) {
   // Transform content for Dev.to (absolute URLs, strip styles)
   const bodyForDevto = transformForDevto(post.body);
 
-  // Debug: save transformed output to tmp folder
-  if (DEBUG_OUTPUT) {
-    const debugFile = path.join(TMP_DIR, `${post.slug || 'unknown'}.devto.md`);
-    fs.writeFileSync(debugFile, `---\ntitle: ${post.title}\ncanonical_url: ${canonicalUrl}\ntags: ${tags.join(', ')}\npublished: ${published}\n---\n\n${bodyForDevto}`);
-    console.log(`  Debug output saved to: ${debugFile}`);
-  }
-
   const article = {
     title: post.title,
     body_markdown: bodyForDevto,
@@ -167,6 +198,14 @@ function buildDevtoArticle(post, canonicalUrl, published) {
   // Note: cover_image must be a URL, not a local path
   if (post.coverImage && post.coverImage.startsWith('http')) {
     article.main_image = post.coverImage;
+  }
+
+  // Debug: save transformed output to tmp folder
+  if (DEBUG_OUTPUT) {
+    const debugFile = path.join(TMP_DIR, `${post.slug || 'unknown'}.devto.md`);
+    const seriesLine = article.series ? `series: ${article.series}\n` : '';
+    fs.writeFileSync(debugFile, `---\ntitle: ${post.title}\ncanonical_url: ${canonicalUrl}\ntags: ${tags.join(', ')}\n${seriesLine}published: ${published}\n---\n\n${bodyForDevto}`);
+    console.log(`  Debug output saved to: ${debugFile}`);
   }
 
   return article;

@@ -107,7 +107,7 @@ npm install
 
 export DEVTO_API_KEY="your-key"
 export SITE_URL="https://username.github.io/repo"
-export POSTS_DIR="../medium/_posts"
+export POSTS_DIR="../documentation"
 
 npm run sync
 ```

@@ -25,18 +25,15 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Copy assets into Jekyll source
-        run: cp -r ./assets ./medium/assets
-
       - name: Transform devto placeholders for GHP
         run: |
           # Replace {{devto:slug}} with ./slug.md for local links
-          find ./medium -name "*.md" -exec sed -i -E 's/\{\{devto:([^}]+)\}\}/.\/\1.md/g' {} \;
+          find ./documentation -name "*.md" -exec sed -i -E 's/\{\{devto:([^}]+)\}\}/.\/\1.md/g' {} \;
 
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
-          source: ./medium
+          source: ./documentation
           destination: ./_site
 
       - name: Upload artifact
@@ -74,7 +71,7 @@ jobs:
         env:
           DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
           SITE_URL: ${{ vars.SITE_URL }}  # e.g., https://username.github.io/repo
-          POSTS_DIR: ../../medium
+          POSTS_DIR: ../../documentation
           PUBLISH_BY_DEFAULT: 'false'  # Set to 'true' to auto-publish
         run: |
           cd scripts/sync-to-devto

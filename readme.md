@@ -179,7 +179,7 @@ SRDD and SSRDD are open methodologies. Contributions welcome:
 - Integration guides for specific frameworks
 - Case studies and adoption experiences
 
-See [Contributing](./medium/CONTRIBUTING.md).
+See [Contributing]({{devto:CONTRIBUTING}}).
 
 ## License & Prior Art
 

@@ -1,9 +1,12 @@
+---
+title: SRDD Is the Best AI Coding Methodology - entry
+---
 <!-- this is a copy of readme.md -->
 # SRDD — Spec-Roundtrip Driven Development
 
 **Keeping developers in control while building better systems with aligned AI**
 
-> Jump to quick specification overview in  [Pitches](https://docs-bbos.github.io/srdd/pitches).
+> Jump to quick specification overview in  [Pitches]({{devto:pitches}}).
 
 SRDD is an AI-assisted development methodology where specifications and code exist in a closed loop. Specs guide implementation, but code becomes the source of truth. Periodically, understanding is extracted back out through regeneration — synthesising fresh specs from the living system. The developer dreams; the AI disciplines. Understanding compounds instead of decaying.
 
@@ -147,10 +150,10 @@ SSRDD boundaries aligned with Kubernetes namespaces, CONSTITUTION.md as service 
 
 This methodology is documented in a four-part series:
 
-- **[Part 1: Why SRDD Exists](./SRDD-part1-of-4)** — The problem, the journey, the insight
-- **[Part 2: The AI Coding Landscape](./SRDD-part2-of-4)** — Vibe coding, agentic coding, context engineering, SDD
-- **[Part 3: The SRDD Workflow](./SRDD-part3-of-4)** — Phases, contracts, regeneration
-- **[Part 4: Scaling Up](./SRDD-part4-of-4)** — SSRDD, principles, implementation
+- **[Part 1: Why SRDD Exists]({{devto:SRDD-part1-of-4}})** — The problem, the journey, the insight
+- **[Part 2: The AI Coding Landscape]({{devto:SRDD-part2-of-4}})** — Vibe coding, agentic coding, context engineering, SDD
+- **[Part 3: The SRDD Workflow]({{devto:SRDD-part3-of-4}})** — Phases, contracts, regeneration
+- **[Part 4: Scaling Up]({{devto:SRDD-part4-of-4}})** — SSRDD, principles, implementation
 
 ## Contributing
 
@@ -161,11 +164,11 @@ SRDD and SSRDD are open methodologies. Contributions welcome:
 - Integration guides for specific frameworks
 - Case studies and adoption experiences
 
-Send email to srdd.methodology@gmail.com
+See [Contributions]({{devto:CONTRIBUTING}})
 
 ## License & Prior Art
 
-© 2025 Brooke Smith. All rights reserved.
+© 2026 Brooke Smith. All rights reserved.
 
 This repository constitutes a public disclosure and defensive publication of the Spec-Roundtrip Driven Development (SRDD) and Scaled SRDD (SSRDD) methodologies.
 

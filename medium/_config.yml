@@ -1,0 +1,8 @@
+defaults:
+  - scope:
+      path: "_posts"
+      type: "posts"
+    values:
+      devto_series: "Spec-Roundtrip Driven Development"
+      devto_tags: [ai, programming, softwareengineering, coding]
+      devto_published: false

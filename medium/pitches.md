@@ -1,3 +1,6 @@
+---
+title: SRDD pitches
+---
 # SRDD Is the Best AI Coding Methodology - pitches
 
 ## Summary of pitches
@@ -262,4 +265,14 @@ This delivers 60-70% of value. Tooling for reliable enforcement is on the roadma
 
 * **Documentation:** [docs-bbos.github.io/srdd](https://docs-bbos.github.io/srdd/)
 * **Repository:** [github.com/docs-bbos/srdd](https://github.com/docs-bbos/srdd)
-* **Article series:** [brooke.medium.com/srdd-part1-of-4](https://brooke.medium.com/srdd-part1-of-4)
+* **Article series:** [SRDD Is the Best AI Coding Methodology]({{devto:index}})
+
+## License & Prior Art
+
+© 2026 Brooke Smith. All rights reserved.
+
+This repository constitutes a public disclosure and defensive publication of the Spec-Roundtrip Driven Development (SRDD) and Scaled SRDD (SSRDD) methodologies.
+
+The author expressly places the concepts, processes, and workflows described herein into the public domain as prior art, for the purpose of preventing subsequent patent claims or exclusive ownership by third parties.
+
+Commercial use, redistribution, or derivative works of this text require explicit permission from the author.

@@ -1,5 +1,5 @@
 ---
-title: SRDD Is the Best AI Coding Methodology
+title: SRDD (Part 1 of 4) - The Best AI Coding Methodology
 ---
 
 <style>
@@ -21,8 +21,6 @@ figure.image-center figcaption {
 }
 </style>
 
-# SRDD Is the Best AI Coding Methodology
-
 **Spec-Roundtrip Driven Development** - Keeping developers in control while building better systems with aligned AI
 
 I'm a senior software engineer with over 25 years of experience working across government, finance, science, defence, and large-scale commercial systems. I started AI-assisted coding in January 2025 and joined a community of like-minded professionals at [New Society](https://www.skool.com/new-society), where AI tools, methods, and real-world projects are discussed daily.
@@ -31,7 +29,7 @@ The source documentation for this series - including the evolving methodology, e
 
 The underlying repository, which includes working assets such as templates, rules files, and examples, is available at **[https://github.com/docs-bbos/srdd/](https://github.com/docs-bbos/srdd/)**.
 
-This article series on Medium is a narrative representation of that source material, available at **[brooke.medium.com/srdd-part1-of-4](https://brooke.medium.com/srdd-part1-of-4)**.
+This article series on Medium is a narrative representation of that source material, available at **[SRDD Is the Best AI Coding Methodology]({{devto:index}})**.
 
 Much of the work that informed this series was done in my own time, driven by a growing fascination - and concern - that AI-assisted coding is where the software engineering world is headed. Over the months that followed, I spent time working with multiple AI coding methodologies - from low-friction experimentation to heavily structured approaches - and saw the same patterns repeat as systems grew.
 
@@ -186,16 +184,16 @@ SRDD builds on what AI is genuinely good at, recognises its limits, and restores
 This is a four-part series:
 
 - **Part 1** (this article): Why SRDD exists
-- **[Part 2: The AI Coding Landscape](./SRDD-part2-of-4)** - Vibe coding, agentic coding, context engineering, and spec-driven development
-- **[Part 3: The SRDD Workflow](./SRDD-part3-of-4)** - Phases, contracts, regeneration
-- **[Part 4: Scaling Up](./SRDD-part4-of-4)** - SSRDD, principles, and implementation
+- **[Part 2: The AI Coding Landscape]({{devto:SRDD-part2-of-4}})** - Vibe coding, agentic coding, context engineering, and spec-driven development
+- **[Part 3: The SRDD Workflow]({{devto:SRDD-part3-of-4}})** - Phases, contracts, regeneration
+- **[Part 4: Scaling Up]({{devto:SRDD-part4-of-4}})** - SSRDD, principles, and implementation
 
 Continue to Part 2:
-👉 **[The AI Coding Landscape](./SRDD-part2-of-4)**
+👉 **[The AI Coding Landscape]({{devto:SRDD-part2-of-4}})**
 
 ---
 
-© 2025 Brooke Smith. All rights reserved.
+© 2026 Brooke Smith. All rights reserved.
 
 This document constitutes a public disclosure and defensive publication of the
 Spec-Roundtrip Driven Development (SRDD) and Scaled SRDD (SSRDD) methodologies.

@@ -50,7 +50,9 @@ function loadJekyllDefaults() {
             !d.scope?.path // applies to all
           );
           if (postDefaults?.values) {
-            console.log(`Loaded defaults from ${configPath}`);
+            console.log(`Loaded defaults from ${configPath}:`);
+            console.log(`  devto_series: ${postDefaults.values.devto_series || '(not set)'}`);
+            console.log(`  devto_tags: ${JSON.stringify(postDefaults.values.devto_tags) || '(not set)'}`);
             return postDefaults.values;
           }
         }
@@ -134,6 +136,7 @@ function parseJekyllPost(filePath) {
     devto_published: merged.devto_published,
     devto_series: merged.devto_series,
     devto_tags: merged.devto_tags,
+    devto_skip: merged.devto_skip,
   };
 }
 
@@ -342,8 +345,8 @@ async function main() {
   
   for (const post of posts) {
     // Skip posts explicitly marked to not sync
-    if (post.devto_published === false && !findArticleByCanonicalUrl(existingArticles, buildCanonicalUrl(post.slug))) {
-      console.log(`Skipping: "${post.title}" (devto_published: false)`);
+    if (post.devto_skip === true) {
+      console.log(`Skipping: "${post.title}" (devto_skip: true)`);
       continue;
     }
 
@@ -386,7 +389,11 @@ async function main() {
         const debugFile = path.join(TMP_DIR, `${post.slug || 'unknown'}.devto.pass2.md`);
         const canonicalUrl = buildCanonicalUrl(post.slug);
         const bodyForDevto = transformForDevto(post.body);
-        fs.writeFileSync(debugFile, `---\ntitle: ${post.title}\ncanonical_url: ${canonicalUrl}\n---\n\n${bodyForDevto}`);
+        let tags = post.devto_tags || post.tags || [];
+        if (typeof tags === 'string') tags = tags.split(',').map(t => t.trim());
+        const seriesName = post.devto_series || post.series || '';
+        const seriesLine = seriesName ? `series: ${seriesName}\n` : '';
+        fs.writeFileSync(debugFile, `---\ntitle: ${post.title}\ncanonical_url: ${canonicalUrl}\ntags: ${tags.join(', ')}\n${seriesLine}---\n\n${bodyForDevto}`);
         console.log(`  Debug output saved to: ${debugFile}`);
       }
       

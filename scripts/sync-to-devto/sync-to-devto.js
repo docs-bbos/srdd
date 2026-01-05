@@ -21,6 +21,13 @@ const DEVTO_API_KEY = process.env.DEVTO_API_KEY;
 const SITE_URL = process.env.SITE_URL || '';
 const POSTS_DIR = process.env.POSTS_DIR || './_posts';
 const PUBLISH_BY_DEFAULT = process.env.PUBLISH_BY_DEFAULT === 'true';
+const DEBUG_OUTPUT = process.env.DEBUG_OUTPUT !== 'false'; // default true
+
+// Ensure tmp directory exists
+const TMP_DIR = path.join(process.cwd(), '..', 'tmp');
+if (DEBUG_OUTPUT && !fs.existsSync(TMP_DIR)) {
+  fs.mkdirSync(TMP_DIR, { recursive: true });
+}
 
 // Rate limiting: Dev.to allows 30 requests per 30 seconds
 const RATE_LIMIT_DELAY = 1100; // ms between requests
@@ -101,6 +108,26 @@ function buildCanonicalUrl(slug) {
   return `${SITE_URL}/${slug}/`;
 }
 
+function transformForDevto(markdown) {
+  // Transform content for Dev.to compatibility
+  
+  return markdown
+    // Strip <style>...</style> blocks (Dev.to has its own styling)
+    .replace(/<style[\s\S]*?<\/style>/gi, '')
+    // ![alt](./path/to/image.jpg) -> ![alt](SITE_URL/path/to/image.jpg)
+    .replace(/!\[([^\]]*)\]\(\.\/([^)]+)\)/g, `![$1](${SITE_URL}/$2)`)
+    // ![alt](path/to/image.jpg) where path doesn't start with http/https/data
+    .replace(/!\[([^\]]*)\]\((?!https?:\/\/|data:)([^\/][^)]+)\)/g, `![$1](${SITE_URL}/$2)`)
+    // ![alt](/path/to/image.jpg) -> ![alt](SITE_URL/path/to/image.jpg)
+    .replace(/!\[([^\]]*)\]\(\/([^)]+)\)/g, `![$1](${SITE_URL}/$2)`)
+    // <img src="./path"> or <img src="/path"> or <img src="path">
+    .replace(/<img\s+([^>]*)src=["']\.\/([^"']+)["']/gi, `<img $1src="${SITE_URL}/$2"`)
+    .replace(/<img\s+([^>]*)src=["']\/([^"']+)["']/gi, `<img $1src="${SITE_URL}/$2"`)
+    .replace(/<img\s+([^>]*)src=["'](?!https?:\/\/|data:)([^"'\/][^"']+)["']/gi, `<img $1src="${SITE_URL}/$2"`)
+    // Clean up any extra blank lines left behind
+    .replace(/\n{3,}/g, '\n\n');
+}
+
 function buildDevtoArticle(post, canonicalUrl, published) {
   // Normalize tags: Dev.to allows max 4 tags, lowercase, no spaces
   let tags = post.devto_tags || post.tags;
@@ -111,9 +138,19 @@ function buildDevtoArticle(post, canonicalUrl, published) {
     .slice(0, 4)
     .map(t => t.toLowerCase().replace(/\s+/g, '').replace(/[^a-z0-9]/g, ''));
 
+  // Transform content for Dev.to (absolute URLs, strip styles)
+  const bodyForDevto = transformForDevto(post.body);
+
+  // Debug: save transformed output to tmp folder
+  if (DEBUG_OUTPUT) {
+    const debugFile = path.join(TMP_DIR, `${post.slug || 'unknown'}.devto.md`);
+    fs.writeFileSync(debugFile, `---\ntitle: ${post.title}\ncanonical_url: ${canonicalUrl}\ntags: ${tags.join(', ')}\npublished: ${published}\n---\n\n${bodyForDevto}`);
+    console.log(`  Debug output saved to: ${debugFile}`);
+  }
+
   const article = {
     title: post.title,
-    body_markdown: post.body,
+    body_markdown: bodyForDevto,
     published: published,
     canonical_url: canonicalUrl,
     tags: tags,

@@ -1,5 +1,5 @@
 ---
-title: SRDD (Part 4 of 4): Scaling Up - SSRDD, Principles, and Implementation
+title: SRDD (Part 4 of 4) - Scaling Up - SSRDD, Principles, and Implementation
 ---
 
 <style>

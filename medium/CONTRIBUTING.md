@@ -1,3 +1,6 @@
+---
+title: Contributing to SRDD
+---
 # Contributing to SRDD
 
 1. Fork this repository

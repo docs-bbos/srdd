@@ -1,3 +1,6 @@
+---
+title: SRDD Is the Best AI Coding Methodology - entry
+---
 <!-- this is a copy of readme.md -->
 # SRDD — Spec-Roundtrip Driven Development
 

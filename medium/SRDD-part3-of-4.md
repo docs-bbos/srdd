@@ -1,5 +1,5 @@
 ---
-title: SRDD (Part 3 of 4): The SRDD Workflow
+title: SRDD (Part 3 of 4) - The SRDD Workflow
 ---
 
 <style>

@@ -1,3 +1,6 @@
+---
+title: SRDD pitches
+---
 # SRDD Is the Best AI Coding Methodology - pitches
 
 ## Summary of pitches

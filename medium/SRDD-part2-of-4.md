@@ -1,5 +1,5 @@
 ---
-title: SRDD (Part 2 of 4): The AI Coding Landscape
+title: SRDD (Part 2 of 4) - The AI Coding Landscape
 ---
 
 <style>

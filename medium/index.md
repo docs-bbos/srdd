@@ -6,7 +6,7 @@ title: SRDD Is the Best AI Coding Methodology - entry
 
 **Keeping developers in control while building better systems with aligned AI**
 
-> Jump to quick specification overview in  [Pitches](https://docs-bbos.github.io/srdd/pitches).
+> Jump to quick specification overview in  [Pitches]({{devto:pitches}}).
 
 SRDD is an AI-assisted development methodology where specifications and code exist in a closed loop. Specs guide implementation, but code becomes the source of truth. Periodically, understanding is extracted back out through regeneration — synthesising fresh specs from the living system. The developer dreams; the AI disciplines. Understanding compounds instead of decaying.
 
@@ -164,7 +164,7 @@ SRDD and SSRDD are open methodologies. Contributions welcome:
 - Integration guides for specific frameworks
 - Case studies and adoption experiences
 
-See [Contributions]({{devto:CONTRIBUTIONS}})
+See [Contributions]({{devto:CONTRIBUTING}})
 
 ## License & Prior Art
 

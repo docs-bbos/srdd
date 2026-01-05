@@ -1,5 +1,5 @@
 ---
-title: SRDD Is the Best AI Coding Methodology
+title: SRDD (Part 1 of 4) - The Best AI Coding Methodology
 ---
 
 <style>
@@ -20,8 +20,6 @@ figure.image-center figcaption {
     margin-top: 0.5em;
 }
 </style>
-
-# SRDD Is the Best AI Coding Methodology
 
 **Spec-Roundtrip Driven Development** - Keeping developers in control while building better systems with aligned AI
 

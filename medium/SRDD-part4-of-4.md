@@ -24,9 +24,9 @@ figure.image-center figcaption {
 # SRDD (Part 4 of 4): Scaling Up - SSRDD, Principles, and Implementation
 
 This is Part 4 of a four-part series on Spec-Roundtrip Driven Development.
-* 👉 **[Read Part 1: Why SRDD Exists](./SRDD-part1-of-4)**
-* 👉 **[Read Part 2: The AI Coding Landscape](./SRDD-part2-of-4)**
-* 👉 **[Read Part 3: The SRDD Workflow](./SRDD-part3-of-4)**
+* 👉 **[Read Part 1: Why SRDD Exists]({{devto:SRDD-part1-of-4}})**
+* 👉 **[Read Part 2: The AI Coding Landscape]({{devto:SRDD-part2-of-4}})**
+* 👉 **[Read Part 3: The SRDD Workflow]({{devto:SRDD-part3-of-4}})**
 
 ---
 
@@ -559,14 +559,14 @@ AI accelerates everything, including mistakes. SRDD exists to make learning fast
 
 ## The Complete Series
 
-- **[Part 1: Why SRDD Exists](./SRDD-part1-of-4)** - The problem, the journey, the insight
-- **[Part 2: The AI Coding Landscape](./SRDD-part2-of-4)** - Vibe coding, agentic coding, context engineering, SDD
-- **[Part 3: The SRDD Workflow](./SRDD-part3-of-4)** - Phases, contracts, regeneration
-- **[Part 4: Scaling Up](./SRDD-part4-of-4)** - SSRDD, principles, implementation (this article)
+- **[Part 1: Why SRDD Exists]({{devto:SRDD-part1-of-4}})** - The problem, the journey, the insight
+- **[Part 2: The AI Coding Landscape]({{devto:SRDD-part2-of-4}})** - Vibe coding, agentic coding, context engineering, SDD
+- **[Part 3: The SRDD Workflow]({{devto:SRDD-part3-of-4}})** - Phases, contracts, regeneration
+- **[Part 4: Scaling Up]({{devto:SRDD-part4-of-4}})** - SSRDD, principles, implementation (this article)
 
 ---
 
-© 2025 Brooke Smith. All rights reserved.
+© 2026 Brooke Smith. All rights reserved.
 
 This document constitutes a public disclosure and defensive publication of the
 Spec-Roundtrip Driven Development (SRDD) and Scaled SRDD (SSRDD) methodologies.

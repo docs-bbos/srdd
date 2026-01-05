@@ -24,8 +24,8 @@ figure.image-center figcaption {
 # SRDD (Part 3 of 4): The SRDD Workflow
 
 This is Part 3 of a four-part series on Spec-Roundtrip Driven Development.
-* 👉 **[Read Part 1: Why SRDD Exists](./SRDD-part1-of-4)**
-* 👉 **[Read Part 2: The AI Coding Landscape](./SRDD-part2-of-4)**
+* 👉 **[Read Part 1: Why SRDD Exists]({{devto:SRDD-part1-of-4}})**
+* 👉 **[Read Part 2: The AI Coding Landscape]({{devto:SRDD-part2-of-4}})**
 
 ---
 
@@ -861,15 +861,16 @@ In **Part 4**, I cover:
 - The roadmap ahead - alignment with Agile and SAFe, rules file templates, and MCP server integration
 
 Continue to Part 4:
-* 👉 **[Scaling Up: SSRDD, Principles, and Implementation](./SRDD-part4-of-4)**
+* 👉 **[Scaling Up: SSRDD, Principles, and Implementation]({{devto:SRDD-part4-of-4}})**
 
 Or return to earlier parts:
-* 👉 **[Part 1: Why SRDD Exists](./SRDD-part1-of-4)**
-* 👉 **[Part 2: The AI Coding Landscape](./SRDD-part2-of-4)**
+* 👉 **[Part 1: Why SRDD Exists]({{devto:SRDD-part1-of-4}})**
+* 👉 **[Part 2: The AI Coding Landscape]({{devto:SRDD-part2-of-4}})**
+* 👉 **[Part 3: The SRDD Workflow]({{devto:SRDD-part3-of-4}})**
 
 ---
 
-© 2025 Brooke Smith. All rights reserved.
+© 2026 Brooke Smith. All rights reserved.
 
 This document constitutes a public disclosure and defensive publication of the
 Spec-Roundtrip Driven Development (SRDD) and Scaled SRDD (SSRDD) methodologies.

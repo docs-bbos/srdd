@@ -67,15 +67,15 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd devto-sync
+          cd scripts/devto-sync
           npm install
 
       - name: Sync posts to Dev.to
         env:
           DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
           SITE_URL: ${{ vars.SITE_URL }}  # e.g., https://username.github.io/repo
-          POSTS_DIR: ./medium/_posts
+          POSTS_DIR: ./medium
           PUBLISH_BY_DEFAULT: 'false'  # Set to 'true' to auto-publish
         run: |
-          cd devto-sync
+          cd scripts/devto-sync
           node sync-to-devto.js

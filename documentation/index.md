@@ -12,6 +12,17 @@ SRDD is an AI-assisted development methodology where specifications and code exi
 
 For multi-domain systems, **Scaled SRDD (SSRDD)** wraps multiple SRDD instances with a coordination layer, governing boundaries between independently evolving subsystems.
 
+## Table of Contents
+
+- [SRDD Overview]({{devto:index}}) *(this page)*
+- [Pitches]({{devto:pitches}}) — One-liner to executive brief
+- [Part 1: Why SRDD Exists]({{devto:SRDD-part1-of-4}}) — The problem, the journey, the insight
+- [Part 2: The AI Coding Landscape]({{devto:SRDD-part2-of-4}}) — Vibe coding, agentic coding, context engineering, SDD
+- [Part 3: The SRDD Workflow]({{devto:SRDD-part3-of-4}}) — Phases, contracts, regeneration
+- [Part 4: Scaling Up]({{devto:SRDD-part4-of-4}}) — SSRDD, principles, implementation
+- [Contributing]({{devto:CONTRIBUTING}})
+- [About]({{devto:about}}) — Documentation infrastructure
+
 ## The Problem
 
 AI-assisted coding is transformative for small projects. But as systems grow, the same failure modes appear everywhere:

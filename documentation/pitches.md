@@ -3,6 +3,8 @@ title: SRDD pitches
 ---
 # SRDD Is the Best AI Coding Methodology - pitches
 
+> ← Back to [SRDD entry page]({{devto:index}})
+
 ## Summary of pitches
 
 | Document | Length | Audience |

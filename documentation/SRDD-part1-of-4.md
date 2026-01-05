@@ -23,6 +23,8 @@ figure.image-center figcaption {
 
 **Spec-Roundtrip Driven Development** - Keeping developers in control while building better systems with aligned AI
 
+> ← Back to [SRDD entry page]({{devto:index}})
+
 I'm a senior software engineer with over 25 years of experience working across government, finance, science, defence, and large-scale commercial systems. I started AI-assisted coding in January 2025 and joined a community of like-minded professionals at [New Society](https://www.skool.com/new-society), where AI tools, methods, and real-world projects are discussed daily.
 
 The source documentation for this series - including the evolving methodology, explanations, and supporting material - is maintained openly at **[https://docs-bbos.github.io/srdd/](https://docs-bbos.github.io/srdd/)**. That site serves as the canonical reference for the ideas presented here.

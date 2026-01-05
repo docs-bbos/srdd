@@ -23,6 +23,8 @@ figure.image-center figcaption {
 
 # SRDD (Part 2 of 4): The AI Coding Landscape
 
+> ← Back to [SRDD entry page]({{devto:index}})
+
 This is Part 2 of a four-part series on Spec-Roundtrip Driven Development.
 👉 **[Read Part 1: Why SRDD Exists]({{devto:SRDD-part1-of-4}})**
 

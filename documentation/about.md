@@ -4,6 +4,8 @@ title: About This Documentation Infrastructure
 
 # About This Documentation Infrastructure
 
+> ← Back to [SRDD entry page]({{devto:index}})
+
 This page describes how the SRDD documentation is structured, built, and published.
 
 ## Documentation Source

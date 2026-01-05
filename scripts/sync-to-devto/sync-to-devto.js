@@ -183,7 +183,7 @@ function getJekyllPosts(postsDir) {
     .map(f => path.join(postsDir, f));
 }
 
-async function syncPost(post, existingArticles) {
+async function syncPost(post, existingArticles, dryRun = false) {
   const canonicalUrl = buildCanonicalUrl(post.slug);
   const existingArticle = findArticleByCanonicalUrl(existingArticles, canonicalUrl);
   
@@ -194,16 +194,26 @@ async function syncPost(post, existingArticles) {
 
   const articleData = buildDevtoArticle(post, canonicalUrl, shouldPublish);
 
+  if (dryRun) {
+    return { 
+      action: 'dryrun', 
+      title: post.title, 
+      slug: post.slug,
+      id: existingArticle?.id,
+      url: existingArticle?.url
+    };
+  }
+
   try {
     if (existingArticle) {
       // Update existing article
       console.log(`Updating: "${post.title}" (ID: ${existingArticle.id})`);
-      await devtoRequest(`/articles/${existingArticle.id}`, {
+      const updated = await devtoRequest(`/articles/${existingArticle.id}`, {
         method: 'PUT',
         body: JSON.stringify({ article: articleData }),
       });
       console.log(`  ✓ Updated successfully`);
-      return { action: 'updated', title: post.title };
+      return { action: 'updated', title: post.title, slug: post.slug, id: existingArticle.id, url: updated.url };
     } else {
       // Create new article
       console.log(`Creating: "${post.title}"`);
@@ -212,12 +222,29 @@ async function syncPost(post, existingArticles) {
         body: JSON.stringify({ article: articleData }),
       });
       console.log(`  ✓ Created successfully (ID: ${created.id})`);
-      return { action: 'created', title: post.title, id: created.id };
+      return { action: 'created', title: post.title, slug: post.slug, id: created.id, url: created.url };
     }
   } catch (error) {
     console.error(`  ✗ Failed: ${error.message}`);
-    return { action: 'failed', title: post.title, error: error.message };
+    return { action: 'failed', title: post.title, slug: post.slug, error: error.message };
   }
+}
+
+// Check if any posts have devto link placeholders
+function hasDevtoPlaceholders(posts) {
+  return posts.some(post => /\{\{devto:[^}]+\}\}/.test(post.body));
+}
+
+// Replace {{devto:slug}} placeholders with actual URLs
+function resolveDevtoLinks(markdown, urlMap) {
+  return markdown.replace(/\{\{devto:([^}]+)\}\}/g, (match, slug) => {
+    const url = urlMap[slug.trim()];
+    if (url) {
+      return url;
+    }
+    console.warn(`  Warning: No URL found for placeholder {{devto:${slug}}}`);
+    return match; // Leave placeholder if no URL found
+  });
 }
 
 async function main() {
@@ -251,12 +278,30 @@ async function main() {
   console.log(`Found ${postFiles.length} Jekyll posts to sync`);
   console.log('');
 
-  // Sync each post
+  // Parse all posts
+  const posts = postFiles.map(f => parseJekyllPost(f));
+  
+  // Check if we need two-pass (posts have {{devto:slug}} placeholders)
+  const needsTwoPass = hasDevtoPlaceholders(posts);
+  if (needsTwoPass) {
+    console.log('Detected {{devto:...}} placeholders - will do two-pass sync');
+    console.log('');
+  }
+
+  // First pass: sync all posts
   const results = { created: 0, updated: 0, failed: 0 };
   
-  for (const postFile of postFiles) {
-    const post = parseJekyllPost(postFile);
-    
+  // Pre-populate URL map from existing articles
+  const urlMap = {}; // slug -> devto URL
+  for (const post of posts) {
+    const canonicalUrl = buildCanonicalUrl(post.slug);
+    const existing = findArticleByCanonicalUrl(existingArticles, canonicalUrl);
+    if (existing?.url) {
+      urlMap[post.slug] = existing.url;
+    }
+  }
+  
+  for (const post of posts) {
     // Skip posts explicitly marked to not sync
     if (post.devto_published === false && !findArticleByCanonicalUrl(existingArticles, buildCanonicalUrl(post.slug))) {
       console.log(`Skipping: "${post.title}" (devto_published: false)`);
@@ -264,9 +309,52 @@ async function main() {
     }
 
     const result = await syncPost(post, existingArticles);
-    results[result.action === 'created' ? 'created' : result.action === 'updated' ? 'updated' : 'failed']++;
+    
+    // Store URL for link resolution
+    if (result.url) {
+      urlMap[post.slug] = result.url;
+    }
+    
+    if (result.action === 'created') results.created++;
+    else if (result.action === 'updated') results.updated++;
+    else if (result.action === 'failed') results.failed++;
     
     await sleep(RATE_LIMIT_DELAY);
+  }
+
+  // Second pass: if we have placeholders, resolve them and update
+  if (needsTwoPass && Object.keys(urlMap).length > 0) {
+    console.log('');
+    console.log('=== Second Pass: Resolving {{devto:...}} links ===');
+    console.log(`URL map: ${JSON.stringify(urlMap, null, 2)}`);
+    console.log('');
+    
+    // Refresh existing articles to get any newly created ones
+    const refreshedArticles = await getMyArticles();
+    
+    for (const post of posts) {
+      if (!/\{\{devto:[^}]+\}\}/.test(post.body)) {
+        continue; // Skip posts without placeholders
+      }
+      
+      console.log(`Resolving links in: "${post.title}"`);
+      
+      // Replace placeholders in the original body
+      post.body = resolveDevtoLinks(post.body, urlMap);
+      
+      // Debug: save second-pass output
+      if (DEBUG_OUTPUT) {
+        const debugFile = path.join(TMP_DIR, `${post.slug || 'unknown'}.devto.pass2.md`);
+        const canonicalUrl = buildCanonicalUrl(post.slug);
+        const bodyForDevto = transformForDevto(post.body);
+        fs.writeFileSync(debugFile, `---\ntitle: ${post.title}\ncanonical_url: ${canonicalUrl}\n---\n\n${bodyForDevto}`);
+        console.log(`  Debug output saved to: ${debugFile}`);
+      }
+      
+      // Sync again with resolved links
+      await syncPost(post, refreshedArticles);
+      await sleep(RATE_LIMIT_DELAY);
+    }
   }
 
   // Summary

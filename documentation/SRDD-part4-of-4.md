@@ -23,6 +23,8 @@ figure.image-center figcaption {
 
 # SRDD (Part 4 of 4): Scaling Up - SSRDD, Principles, and Implementation
 
+> ← Back to [SRDD entry page]({{devto:index}})
+
 This is Part 4 of a four-part series on Spec-Roundtrip Driven Development.
 * 👉 **[Read Part 1: Why SRDD Exists]({{devto:SRDD-part1-of-4}})**
 * 👉 **[Read Part 2: The AI Coding Landscape]({{devto:SRDD-part2-of-4}})**

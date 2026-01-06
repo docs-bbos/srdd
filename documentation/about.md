@@ -119,7 +119,7 @@ The sync script only uploads posts that have changed, reducing API calls and spe
 
 **How it works:**
 
-1. Each post's content is hashed (SHA-256, truncated to 16 chars)
+1. Each post's content is hashed (SHA-256, truncated to 32 chars / 128 bits)
 2. Hashes are stored in `documentation/.sync-state.json`
 3. On each run, current hashes are compared with stored hashes
 4. Only posts with different hashes are synced
@@ -128,8 +128,8 @@ The sync script only uploads posts that have changed, reducing API calls and spe
 ```json
 // .sync-state.json
 {
-  "index": { "hash": "a1b2c3d4e5f67890", "syncedAt": "2026-01-07T10:00:00Z" },
-  "pitches": { "hash": "f0e1d2c3b4a59687", "syncedAt": "2026-01-07T10:00:00Z" }
+  "index": { "hash": "a1b2c3d4e5f67890a1b2c3d4e5f67890", "syncedAt": "2026-01-07T10:00:00Z" },
+  "pitches": { "hash": "f0e1d2c3b4a59687f0e1d2c3b4a59687", "syncedAt": "2026-01-07T10:00:00Z" }
 }
 ```
 

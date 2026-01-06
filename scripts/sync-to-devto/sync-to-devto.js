@@ -95,7 +95,7 @@ function saveSyncState(state) {
 }
 
 function computeContentHash(content) {
-  return crypto.createHash('sha256').update(content).digest('hex').substring(0, 16);
+  return crypto.createHash('sha256').update(content).digest('hex').substring(0, 32);
 }
 
 function hasContentChanged(slug, currentHash, syncState) {

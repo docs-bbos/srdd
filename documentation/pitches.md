@@ -15,6 +15,28 @@ title: SRDD pitches
 | Executive brief | ~600 words | Managers, CTOs, VPs |
 | Technical brief | ~800 words | Tech leads, architects |
 
+---
+
+## Why AI Coding Matters
+
+Coding is hard. Architecture, interfaces, testing, debugging — enormous cognitive load.
+
+AI handles this effortlessly: identifies broken interfaces, generates implementations from specs, writes tests covering every code path, surfaces edge cases, works in any framework, never gets bored. It's already ingested StackOverflow.
+
+**AI coding is a genuine advancement.**
+
+## But AI Has Limits
+
+AI can't understand architecture beyond its context window. It doesn't dream. It can't generate novel ideas.
+
+AI knows the *how*, not the *why* — why we're building this, who it's for, what problems they're solving.
+
+Businesses that fired their developers are now rehiring them.
+
+**AI is a force multiplier, not a replacement.**
+
+---
+
 ## One-Liner
 
 SRDD future-proofs your system by storing understanding in specs, not code — so when it's time to rebuild, you're not locked into yesterday's language, framework, or architecture.

@@ -9,6 +9,36 @@ description: "A methodology that keeps developers in control while building bett
 
 ---
 
+## Why AI Coding Matters
+
+Software development is hard. Building medium to large systems demands enormous cognitive load — wrapping your head around the architecture, managing interfaces between services and systems, and keeping it all coherent as requirements evolve.
+
+Writing tests is hard too. Most developers hate it. It's tedious, repetitive work that rarely gets the attention it deserves. And when deadlines loom, tests are the first casualty.
+
+Then there's the daily ritual: hours spent poring over StackOverflow posts, hunting for the code snippet that solves your specific problem.
+
+**AI coding changes all of this.**
+
+AI can immediately identify interfaces and pinpoint where they're broken. It can generate implementations from design documents. It can analyse a method, find every linearly independent path through the code (cyclomatic complexity), and write tests to cover them all. It can write tests against requirements documentation and surface edge cases you hadn't considered. It works in any testing framework. And it doesn't get bored.
+
+It has already ingested every coding solution on StackOverflow — and more.
+
+AI coding is a genuine advancement in software development.
+
+## But AI Has Limits
+
+AI cannot understand an architecture — especially when it exceeds its context window. It only knows what it's been given. It doesn't dream. It cannot generate truly novel ideas.
+
+AI can write *correct* code. It knows the *how*. But it doesn't understand the *why* — why we're building this software, who it's for, what problems they're trying to solve.
+
+Too many businesses assumed AI coding meant they could eliminate most of their developers. Many did. Those businesses are now turning around and rehiring.
+
+**AI is a force multiplier, not a replacement.**
+
+---
+
+## The Problem That Remains
+
 AI-assisted coding is transformative for small projects. But as systems grow, every approach hits the same wall: the AI forgets earlier decisions, architectural drift accumulates silently, and teams stop understanding what they're shipping.
 
 Vibe coding forgets. Agentic coding echoes. Context engineering curates inputs but not outputs. Spec-driven development fossilizes.

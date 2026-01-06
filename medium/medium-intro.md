@@ -11,7 +11,7 @@ description: "A methodology that keeps developers in control while building bett
 
 ## Why AI Coding Matters
 
-Software development is hard. Building medium to large systems demands enormous cognitive load — wrapping your head around the architecture, managing interfaces between services and systems, and keeping it all coherent as requirements evolve.
+Coding at scale and intensity is hard. Building medium to large systems demands enormous cognitive load — wrapping your head around the architecture, managing interfaces between services and systems, and keeping it all coherent as requirements evolve.
 
 Writing tests is hard too. Most developers hate it. It's tedious, repetitive work that rarely gets the attention it deserves. And when deadlines loom, tests are the first casualty.
 

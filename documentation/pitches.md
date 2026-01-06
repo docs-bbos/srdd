@@ -17,36 +17,19 @@ title: SRDD pitches
 
 ---
 
-## Why AI Coding Matters
-
-Coding is hard. Architecture, interfaces, testing, debugging — enormous cognitive load.
-
-AI handles this effortlessly: identifies broken interfaces, generates implementations from specs, writes tests covering every code path, surfaces edge cases, works in any framework, never gets bored. It's already ingested StackOverflow.
-
-**AI coding is a genuine advancement.**
-
-## But AI Has Limits
-
-AI can't understand architecture beyond its context window. It doesn't dream. It can't generate novel ideas.
-
-AI knows the *how*, not the *why* — why we're building this, who it's for, what problems they're solving.
-
-Businesses that fired their developers are now rehiring them.
-
-**AI is a force multiplier, not a replacement.**
-
----
-
 ## One-Liner
 
-SRDD future-proofs your system by storing understanding in specs, not code — so when it's time to rebuild, you're not locked into yesterday's language, framework, or architecture.
+AI coding is a force multiplier, not a replacement — SRDD keeps developers in control while AI handles execution, so understanding compounds instead of decaying.
 
 ## Elevator Pitch
 
-AI-assisted coding is transformative for small projects. But as systems grow, every approach hits the same wall: the AI forgets earlier decisions, architectural drift accumulates silently, and teams stop understanding what they're shipping.
+Coding at scale and intensity is hard — architecture, interfaces, testing, debugging. AI handles this effortlessly. It's a genuine advancement. But AI can't understand architecture beyond its context window. It knows the *how*, not the *why*. Businesses that fired their developers are rehiring them. AI is a force multiplier, not a replacement.
 
-Vibe coding forgets. Agentic coding echoes. Context engineering curates inputs but not outputs. Spec-driven development fossilizes.
-SRDD closes the loop.
+So how do we harness AI's power while keeping developers in control?
+
+Every approach hits the same wall as systems grow: the AI forgets earlier decisions, architectural drift accumulates, teams stop understanding what they're shipping. Vibe coding forgets. Agentic coding echoes. Spec-driven development fossilizes.
+
+**SRDD closes the loop.**
 
 Specifications guide implementation — but code becomes the source of truth. Periodically, understanding is extracted back out through regeneration: fresh specs synthesized from the living system, informed by everything learned along the way.
 
@@ -55,6 +38,10 @@ The developer dreams; the AI disciplines. Developers stay hands-on — reviewing
 And when it's time to rebuild, you're not reverse-engineering legacy code. The regenerated specs already capture what the system became and what it will become — in English, not yesterday's code or framework.
 
 ## One-Minute Read
+
+**Why AI coding matters:** Coding at scale and intensity is hard — architecture, interfaces, testing, debugging demand enormous cognitive load. AI handles this effortlessly: identifies broken interfaces, writes tests covering every code path, surfaces edge cases, never gets bored. AI coding is a genuine advancement.
+
+**But AI has limits:** AI can't understand architecture beyond its context window. It knows the *how*, not the *why*. Businesses that fired their developers are rehiring them. AI is a force multiplier, not a replacement.
 
 **The problem:** AI-assisted coding accelerates everything — including architectural decay. Vibe coding forgets earlier decisions as context windows overflow. Agentic coding echoes mistakes across autonomous loops. Context engineering curates inputs meticulously but has no mechanism to extract understanding back out. Spec-driven development fossilizes — specs written upfront drift into fiction as reality evolves. Each approach optimises for something real, but none of them close the loop. Teams ship systems they no longer fully understand.
 
@@ -69,6 +56,20 @@ And when it's time to rebuild, you're not reverse-engineering legacy code. The r
 **Bottom line:** SRDD makes "burn it down and rebuild properly — keeping everything we learned" a repeatable workflow, not a fantasy.
 
 ## SRDD: Executive Brief
+
+### Why AI Coding Matters
+
+Coding at scale and intensity is hard. Architecture, interfaces, testing, debugging — all demand enormous cognitive load. AI changes this: it identifies broken interfaces, generates implementations from design documents, writes tests covering every code path, and surfaces edge cases. It works in any framework and never gets bored.
+
+AI coding is a genuine advancement in software development.
+
+### But AI Has Limits
+
+AI cannot understand an architecture that exceeds its context window. It doesn't dream. It cannot generate truly novel ideas. AI knows the *how*, not the *why* — why we're building this software, who it's for, what problems they're solving.
+
+Too many businesses assumed AI coding meant they could eliminate most developers. Many did. Those businesses are now rehiring.
+
+**AI is a force multiplier, not a replacement.**
 
 ### What is SRDD?
 
@@ -156,6 +157,18 @@ Pilot adoption on a single project with a willing team. Evaluate after one full 
 ---
 
 ## SRDD: Technical Brief
+
+### Why AI Coding Matters
+
+Coding at scale and intensity is hard. Architecture, interfaces, testing, debugging — enormous cognitive load. AI handles this effortlessly: identifies broken interfaces, generates implementations from specs, finds every linearly independent path through code (cyclomatic complexity) and writes tests to cover them all, surfaces edge cases, works in any framework, never gets bored. It's already ingested StackOverflow.
+
+AI coding is a genuine advancement.
+
+### But AI Has Limits
+
+AI can't understand architecture beyond its context window. It doesn't dream. It can't generate novel ideas. AI knows the *how*, not the *why* — why we're building this, who it's for, what problems they're solving.
+
+Businesses that fired their developers are rehiring them. AI is a force multiplier, not a replacement.
 
 ### Overview
 

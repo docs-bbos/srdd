@@ -21,8 +21,8 @@ documentation/
 ├── SRDD-part3-of-4.md
 ├── SRDD-part4-of-4.md
 ├── CONTRIBUTING.md       # Contribution guide
-├── medium-intro.md       # Medium landing page
-└── about.md              # This file
+├── about.md              # This file
+└── .sync-state.json      # Dev.to sync state (auto-generated)
 ```
 
 Each Markdown file uses YAML front matter for metadata (title, description, etc.) and standard GitHub-flavored Markdown for content.
@@ -112,6 +112,41 @@ Dev.to generates URLs with unpredictable suffixes (e.g., `my-post-4k2n`). After 
 ```
 
 This two-pass approach ensures all cross-references resolve correctly despite Dev.to's dynamic URL generation.
+
+### Incremental Sync
+
+The sync script only uploads posts that have changed, reducing API calls and speeding up the pipeline.
+
+**How it works:**
+
+1. Each post's content is hashed (SHA-256, truncated to 16 chars)
+2. Hashes are stored in `documentation/.sync-state.json`
+3. On each run, current hashes are compared with stored hashes
+4. Only posts with different hashes are synced
+5. The updated state file is committed back to the repository
+
+```json
+// .sync-state.json
+{
+  "index": { "hash": "a1b2c3d4e5f67890", "syncedAt": "2026-01-07T10:00:00Z" },
+  "pitches": { "hash": "f0e1d2c3b4a59687", "syncedAt": "2026-01-07T10:00:00Z" }
+}
+```
+
+**Force full sync:**
+
+To sync all posts regardless of changes, set the `FORCE_SYNC` environment variable:
+
+```yaml
+env:
+  FORCE_SYNC: 'true'
+```
+
+Or run locally with the `--force` flag:
+
+```bash
+node sync-to-devto.js --force
+```
 
 ## Canonical URLs
 

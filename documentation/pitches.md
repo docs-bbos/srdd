@@ -23,7 +23,7 @@ AI coding is a force multiplier, not a replacement — SRDD keeps developers in 
 
 ## Elevator Pitch
 
-Coding at scale and intensity is hard — architecture, interfaces, testing, debugging. AI handles this effortlessly. It's a genuine advancement. But AI can't understand architecture beyond its context window. It knows the *how*, not the *why*. Businesses that fired their developers are rehiring them. AI is a force multiplier, not a replacement.
+Coding at scale and intensity is hard — architecture, interfaces, testing, debugging. Without constant vigilance, architecture spaghettifies, test coverage erodes, and parts of the codebase become "here be dragons" zones that developers avoid touching. AI handles the mechanical complexity effortlessly. It's a genuine advancement. But AI can't understand architecture beyond its context window. It knows the *how*, not the *why*. Businesses that fired their developers are rehiring them. AI is a force multiplier, not a replacement.
 
 So how do we harness AI's power while keeping developers in control?
 
@@ -39,7 +39,7 @@ And when it's time to rebuild, you're not reverse-engineering legacy code. The r
 
 ## One-Minute Read
 
-**Why AI coding matters:** Coding at scale and intensity is hard — architecture, interfaces, testing, debugging demand enormous cognitive load. AI handles this effortlessly: identifies broken interfaces, writes tests covering every code path, surfaces edge cases, never gets bored. AI coding is a genuine advancement.
+**Why AI coding matters:** Coding at scale and intensity is hard — architecture, interfaces, testing, debugging demand enormous cognitive load. Without constant attention, architecture spaghettifies, test coverage develops gaps, and parts of the codebase become untouchable "here be dragons" zones. AI handles the mechanical complexity effortlessly: identifies broken interfaces, writes tests covering every code path, surfaces edge cases, never gets bored. AI coding is a genuine advancement.
 
 **But AI has limits:** AI can't understand architecture beyond its context window. It knows the *how*, not the *why*. Businesses that fired their developers are rehiring them. AI is a force multiplier, not a replacement.
 
@@ -59,7 +59,9 @@ And when it's time to rebuild, you're not reverse-engineering legacy code. The r
 
 ### Why AI Coding Matters
 
-Coding at scale and intensity is hard. Architecture, interfaces, testing, debugging — all demand enormous cognitive load. AI changes this: it identifies broken interfaces, generates implementations from design documents, writes tests covering every code path, and surfaces edge cases. It works in any framework and never gets bored.
+Coding at scale and intensity is hard. Architecture, interfaces, testing, debugging — all demand enormous cognitive load. Without constant vigilance, predictable decay sets in: architecture spaghettifies as expedient shortcuts accumulate, test coverage develops gaps that widen over time, and parts of the codebase become "here be dragons" zones that developers avoid touching. Simple changes become risky. Velocity erodes.
+
+AI changes this: it identifies broken interfaces, generates implementations from design documents, writes tests covering every code path, and surfaces edge cases. It works in any framework and never gets bored.
 
 AI coding is a genuine advancement in software development.
 
@@ -160,7 +162,9 @@ Pilot adoption on a single project with a willing team. Evaluate after one full 
 
 ### Why AI Coding Matters
 
-Coding at scale and intensity is hard. Architecture, interfaces, testing, debugging — enormous cognitive load. AI handles this effortlessly: identifies broken interfaces, generates implementations from specs, finds every linearly independent path through code (cyclomatic complexity) and writes tests to cover them all, surfaces edge cases, works in any framework, never gets bored. It's already ingested StackOverflow.
+Coding at scale and intensity is hard. Architecture, interfaces, testing, debugging — enormous cognitive load. Without constant vigilance, the familiar decay sets in: architecture spaghettifies as expedient shortcuts compound, test coverage develops gaps that widen with each "we'll fix it later," and parts of the codebase become untouchable "here be dragons" zones. Developers route around risky areas. Simple changes require archaeological expeditions. Velocity collapses.
+
+AI handles the mechanical complexity effortlessly: identifies broken interfaces, generates implementations from specs, finds every linearly independent path through code (cyclomatic complexity) and writes tests to cover them all, surfaces edge cases, works in any framework, never gets bored. It's already ingested StackOverflow.
 
 AI coding is a genuine advancement.
 

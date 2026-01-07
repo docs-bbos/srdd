@@ -25,7 +25,9 @@ For multi-domain systems, **Scaled SRDD (SSRDD)** wraps multiple SRDD instances 
 
 ## Why AI Coding Matters
 
-Coding at scale and intensity is hard. Architecture, interfaces, testing, debugging — all demand enormous cognitive load. AI handles this effortlessly: identifies broken interfaces, generates implementations from specs, writes tests covering every code path, surfaces edge cases, works in any framework, never gets bored. It's already ingested StackOverflow.
+Coding at scale and intensity is hard. Architecture, interfaces, testing, debugging — all demand enormous cognitive load. Without constant vigilance, predictable decay sets in: architecture spaghettifies as expedient shortcuts accumulate, test coverage develops gaps that widen over time, and parts of the codebase become "here be dragons" zones that developers avoid touching. Simple changes become risky. Velocity erodes.
+
+AI handles the mechanical complexity effortlessly: identifies broken interfaces, generates implementations from specs, writes tests covering every code path, surfaces edge cases, works in any framework, never gets bored. It's already ingested StackOverflow.
 
 AI coding is a genuine advancement in software development.
 

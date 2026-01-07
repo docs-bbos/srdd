@@ -128,10 +128,12 @@ The sync script only uploads posts that have changed, reducing API calls and spe
 ```json
 // .sync-state.json
 {
-  "index": { "hash": "a1b2c3d4e5f67890a1b2c3d4e5f67890", "syncedAt": "2026-01-07T10:00:00Z" },
-  "pitches": { "hash": "f0e1d2c3b4a59687f0e1d2c3b4a59687", "syncedAt": "2026-01-07T10:00:00Z" }
+  "index": { "hash": "a1b2c3d4e5f67890...", "syncedAt": "2026-01-07T10:00:00Z", "url": "https://dev.to/bbos/srdd-...-4k2n" },
+  "pitches": { "hash": "f0e1d2c3b4a59687...", "syncedAt": "2026-01-07T10:00:00Z", "url": "https://dev.to/bbos/pitches-...-2j8m" }
 }
 ```
+
+The `url` field caches each article's Dev.to URL, enabling placeholder resolution even when API rate limits prevent fetching URLs.
 
 **Force full sync:**
 
@@ -146,6 +148,21 @@ Or run locally with the `--force` flag:
 
 ```bash
 node sync-to-devto.js --force
+```
+
+**Refresh URL cache:**
+
+Dev.to URLs are cached in sync state. To refresh the cache (useful if articles were renamed or URLs changed):
+
+```yaml
+env:
+  REFRESH_URLS: 'true'
+```
+
+Or run locally:
+
+```bash
+node sync-to-devto.js --refresh-urls
 ```
 
 ## Canonical URLs

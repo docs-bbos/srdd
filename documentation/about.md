@@ -148,6 +148,9 @@ Or run locally with the `--force` flag:
 
 ```bash
 node sync-to-devto.js --force
+
+# Or with .env file (loads DEVTO_API_KEY, SITE_URL, etc.)
+export $(grep -v '^#' .env | xargs) && node sync-to-devto.js --force
 ```
 
 **Refresh URL cache:**
@@ -163,6 +166,9 @@ Or run locally:
 
 ```bash
 node sync-to-devto.js --refresh-urls
+
+# Or with .env file
+export $(grep -v '^#' .env | xargs) && node sync-to-devto.js --refresh-urls
 ```
 
 ## Canonical URLs

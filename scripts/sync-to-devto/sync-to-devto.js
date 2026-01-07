@@ -2,19 +2,24 @@
 
 /**
  * Sync Jekyll posts to Dev.to
- * 
+ *
  * This script:
  * 1. Reads Jekyll markdown posts from your repo
  * 2. Checks if they exist on Dev.to (by canonical URL)
  * 3. Creates new posts or updates existing ones
- * 
+ * 4. Only syncs posts that have changed (via content hash comparison)
+ *
  * Required environment variables:
  * - DEVTO_API_KEY: Your Dev.to API key (from https://dev.to/settings/extensions)
  * - SITE_URL: Your GitHub Pages URL (e.g., https://username.github.io/repo)
+ *
+ * Optional environment variables:
+ * - FORCE_SYNC: Set to 'true' to sync all posts regardless of changes
  */
 
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 const matter = require('gray-matter');
 
 const DEVTO_API_KEY = process.env.DEVTO_API_KEY;
@@ -22,6 +27,11 @@ const SITE_URL = process.env.SITE_URL || '';
 const POSTS_DIR = process.env.POSTS_DIR || './_posts';
 const PUBLISH_BY_DEFAULT = process.env.PUBLISH_BY_DEFAULT === 'true';
 const DEBUG_OUTPUT = process.env.DEBUG_OUTPUT !== 'false'; // default true
+const FORCE_SYNC = process.env.FORCE_SYNC === 'true' || process.argv.includes('--force');
+const REFRESH_URLS = process.env.REFRESH_URLS === 'true' || process.argv.includes('--refresh-urls');
+
+// Sync state file path (relative to POSTS_DIR)
+const SYNC_STATE_FILE = path.join(POSTS_DIR, '.sync-state.json');
 
 // Ensure tmp directory exists
 const TMP_DIR = path.join(process.cwd(), '..', 'tmp');
@@ -65,6 +75,34 @@ function loadJekyllDefaults() {
 }
 
 const JEKYLL_DEFAULTS = loadJekyllDefaults();
+
+// --- Sync State Management ---
+// Tracks content hashes to detect changes and avoid unnecessary syncs
+
+function loadSyncState() {
+  if (fs.existsSync(SYNC_STATE_FILE)) {
+    try {
+      const content = fs.readFileSync(SYNC_STATE_FILE, 'utf-8');
+      return JSON.parse(content);
+    } catch (e) {
+      console.warn(`Warning: Could not parse ${SYNC_STATE_FILE}: ${e.message}`);
+    }
+  }
+  return {};
+}
+
+function saveSyncState(state) {
+  fs.writeFileSync(SYNC_STATE_FILE, JSON.stringify(state, null, 2));
+}
+
+function computeContentHash(content) {
+  return crypto.createHash('sha256').update(content).digest('hex').substring(0, 32);
+}
+
+function hasContentChanged(slug, currentHash, syncState) {
+  const previousHash = syncState[slug]?.hash;
+  return previousHash !== currentHash;
+}
 
 // Rate limiting: Dev.to allows 30 requests per 30 seconds
 const RATE_LIMIT_DELAY = 1100; // ms between requests
@@ -307,6 +345,17 @@ async function main() {
   console.log(`Site URL: ${SITE_URL}`);
   console.log(`Posts directory: ${POSTS_DIR}`);
   console.log(`Publish by default: ${PUBLISH_BY_DEFAULT}`);
+  console.log(`Force sync: ${FORCE_SYNC}`);
+  console.log('');
+
+  // Load sync state for incremental sync
+  const syncState = loadSyncState();
+  const syncStateEntries = Object.keys(syncState).length;
+  if (syncStateEntries > 0) {
+    console.log(`Loaded sync state with ${syncStateEntries} entries`);
+  } else {
+    console.log('No previous sync state found - will sync all posts');
+  }
   console.log('');
 
   // Get existing Dev.to articles
@@ -330,19 +379,31 @@ async function main() {
     console.log('');
   }
 
-  // First pass: sync all posts
-  const results = { created: 0, updated: 0, failed: 0 };
-  
-  // Pre-populate URL map from existing articles
+  // First pass: sync posts that have changed
+  const results = { created: 0, updated: 0, skipped: 0, failed: 0 };
+  const newSyncState = { ...syncState }; // Copy existing state
+  const skippedSlugs = new Set(); // Track skipped posts for pass 2
+
+  // Pre-populate URL map from cached sync state (URLs don't change)
   const urlMap = {}; // slug -> devto URL
-  for (const post of posts) {
-    const canonicalUrl = buildCanonicalUrl(post.slug);
-    const existing = findArticleByCanonicalUrl(existingArticles, canonicalUrl);
-    if (existing?.url) {
-      urlMap[post.slug] = existing.url;
+  for (const [slug, state] of Object.entries(syncState)) {
+    if (state.url) {
+      urlMap[slug] = state.url;
     }
   }
-  
+
+  // Optionally refresh URLs from Dev.to API (for cache refresh or first run)
+  if (REFRESH_URLS || Object.keys(urlMap).length === 0) {
+    console.log(REFRESH_URLS ? 'Refreshing URLs from Dev.to...' : 'Building initial URL cache...');
+    for (const post of posts) {
+      const canonicalUrl = buildCanonicalUrl(post.slug);
+      const existing = findArticleByCanonicalUrl(existingArticles, canonicalUrl);
+      if (existing?.url) {
+        urlMap[post.slug] = existing.url;
+      }
+    }
+  }
+
   for (const post of posts) {
     // Skip posts explicitly marked to not sync
     if (post.devto_skip === true) {
@@ -350,17 +411,35 @@ async function main() {
       continue;
     }
 
+    // Compute content hash for change detection
+    const contentHash = computeContentHash(post.title + post.body);
+
+    // Check if content has changed (unless force sync)
+    if (!FORCE_SYNC && !hasContentChanged(post.slug, contentHash, syncState)) {
+      console.log(`Unchanged: "${post.title}" (skipping)`);
+      results.skipped++;
+      skippedSlugs.add(post.slug);
+      continue;
+    }
+
     const result = await syncPost(post, existingArticles);
-    
+
     // Store URL for link resolution
     if (result.url) {
       urlMap[post.slug] = result.url;
     }
-    
-    if (result.action === 'created') results.created++;
-    else if (result.action === 'updated') results.updated++;
-    else if (result.action === 'failed') results.failed++;
-    
+
+    if (result.action === 'created') {
+      results.created++;
+      newSyncState[post.slug] = { hash: contentHash, syncedAt: new Date().toISOString(), url: result.url };
+    } else if (result.action === 'updated') {
+      results.updated++;
+      newSyncState[post.slug] = { hash: contentHash, syncedAt: new Date().toISOString(), url: result.url };
+    } else if (result.action === 'failed') {
+      results.failed++;
+      // Don't update sync state for failed posts
+    }
+
     await sleep(RATE_LIMIT_DELAY);
   }
 
@@ -370,20 +449,29 @@ async function main() {
     console.log('=== Second Pass: Resolving {{devto:...}} links ===');
     console.log(`URL map: ${JSON.stringify(urlMap, null, 2)}`);
     console.log('');
-    
+
     // Refresh existing articles to get any newly created ones
     const refreshedArticles = await getMyArticles();
-    
+
     for (const post of posts) {
       if (!/\{\{devto:[^}]+\}\}/.test(post.body)) {
         continue; // Skip posts without placeholders
       }
-      
+
+      // Skip posts that were skipped in pass 1 (unchanged content)
+      if (skippedSlugs.has(post.slug)) {
+        console.log(`Skipping (unchanged): "${post.title}"`);
+        continue;
+      }
+
       console.log(`Resolving links in: "${post.title}"`);
-      
-      // Replace placeholders in the original body
+
+      // Store original hash BEFORE modifying body (hash must match what pass 1 checks)
+      const originalHash = computeContentHash(post.title + post.body);
+
+      // Replace placeholders in the body for upload
       post.body = resolveDevtoLinks(post.body, urlMap);
-      
+
       // Debug: save second-pass output
       if (DEBUG_OUTPUT) {
         const debugFile = path.join(TMP_DIR, `${post.slug || 'unknown'}.devto.pass2.md`);
@@ -396,18 +484,31 @@ async function main() {
         fs.writeFileSync(debugFile, `---\ntitle: ${post.title}\ncanonical_url: ${canonicalUrl}\ntags: ${tags.join(', ')}\n${seriesLine}---\n\n${bodyForDevto}`);
         console.log(`  Debug output saved to: ${debugFile}`);
       }
-      
+
       // Sync again with resolved links
-      await syncPost(post, refreshedArticles);
+      const result = await syncPost(post, refreshedArticles);
+
+      // Update sync state with ORIGINAL content hash (not resolved)
+      // This ensures next run compares against the same hash
+      if (result.action === 'updated') {
+        newSyncState[post.slug] = { hash: originalHash, syncedAt: new Date().toISOString(), url: result.url };
+      }
+
       await sleep(RATE_LIMIT_DELAY);
     }
   }
+
+  // Save sync state
+  saveSyncState(newSyncState);
+  console.log('');
+  console.log(`Sync state saved to ${SYNC_STATE_FILE}`);
 
   // Summary
   console.log('');
   console.log('=== Summary ===');
   console.log(`Created: ${results.created}`);
   console.log(`Updated: ${results.updated}`);
+  console.log(`Skipped (unchanged): ${results.skipped}`);
   console.log(`Failed: ${results.failed}`);
 
   if (results.failed > 0) {

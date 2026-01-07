@@ -13,6 +13,8 @@ description: "A methodology that keeps developers in control while building bett
 
 Coding at scale and intensity is hard. Building medium to large systems demands enormous cognitive load — wrapping your head around the architecture, managing interfaces between services and systems, and keeping it all coherent as requirements evolve.
 
+Without constant vigilance, predictable decay sets in. Architecture spaghettifies as expedient shortcuts accumulate — "just this once" becomes the permanent structure. Test coverage develops gaps that widen over time; entire subsystems become undertested because "it's too hard to mock" or "we'll add tests later." Parts of the codebase become "here be dragons" zones that developers avoid touching. Simple changes become risky. New team members learn which files not to modify. Velocity erodes as confidence erodes.
+
 Writing tests is hard too. Most developers hate it. It's tedious, repetitive work that rarely gets the attention it deserves. And when deadlines loom, tests are the first casualty.
 
 Then there's the daily ritual: hours spent poring over StackOverflow posts, hunting for the code snippet that solves your specific problem.
